@@ -92,6 +92,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .header__trading time { font-variant-numeric: tabular-nums; min-width: 60px; }
 .header__trading-divider { opacity: .65; }
 .header__actions { display: flex; gap: 10px; }
+.header__request-short { display: none; }
 .header__bottom { margin-top: 16px; gap: 16px; }
 .header__nav { display: flex; align-items: center; justify-content: space-between; gap: 22px; flex: 1; margin-left: 18px; font-size: 15px; white-space: nowrap; }
 .header__nav > a, .header__nav > button { background: transparent; padding: 12px 0; font-size: inherit; transition: opacity var(--motion); }
@@ -209,7 +210,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .lot-card__details dd { font-weight: 450; text-align: right; white-space: nowrap; }
 .lot-card__amount { margin-top: auto; padding-top: 26px; }
 .lot-card__amount > span { display: block; font-size: 13px; line-height: 1.3; color: var(--muted); }
-.lot-card__amount small { display: block; min-height: 18px; margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+.lot-card__amount small { display: block; min-height: 18px; margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.4; }
 .lot-card__amount strong { display: block; color: #28717b; font-size: clamp(32px, 2.5vw, 40px); font-weight: 450; line-height: 1.1; letter-spacing: -.035em; margin-top: 6px; white-space: nowrap; }
 .lot-card--individuals .lot-card__amount strong { color: #2b7d95; }
 .search-result { display: flex; align-items: center; gap: 20px; justify-content: space-between; margin: -8px 0 28px; font-size: 16px; color: var(--muted); }
@@ -496,7 +497,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .hero .hero__globe { right: -440px; }
   .hero__stats { gap: 12px; }
   .stat { width: calc((100% - 12px) / 2); min-height: 156px; padding: 17px; }
-  .stat__value { font-size: 31px; }
+  .stat__value { font-size: clamp(26px, 8.3vw, 31px); }
   .stat__bottom { font-size: 19px; }
   .section-title { font-size: 37px; }
   .lot-card { padding: 22px; }
@@ -508,6 +509,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .capability, .capability.is-active { flex-basis: 94%; }
   .capability__content { left: 24px; right: 24px; }
   .capability h3 { font-size: 29px; }
+}
+
+@media (max-width: 359px) {
+  .header__request-full { display: none; }
+  .header__request-short { display: inline; }
+  .header__actions .button { font-size: 14px; }
+  .stat { padding: 15px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

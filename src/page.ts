@@ -80,7 +80,7 @@ export function renderPage(): string {
         </div>
         <a class="header__trading" href="#lots" aria-label="Перейти к лотам. На часах московское время">${icon('clock')}<span>Торги</span><span class="header__trading-divider">·</span><time data-moscow-clock aria-label="Московское время">--:--:--</time></a>
         <div class="header__actions">
-          <button class="button button--primary button--small" type="button" data-contact="Заявка на участие"><span>Оставить заявку</span>${icon('arrow-right')}</button>
+          <button class="button button--primary button--small" type="button" data-contact="Заявка на участие" aria-label="Оставить заявку"><span class="header__request-full">Оставить заявку</span><span class="header__request-short" aria-hidden="true">Заявка</span>${icon('arrow-right')}</button>
           <a class="button button--dark button--small header__login" href="${accountUrl}">Войти</a>
           <a class="button button--white button--small header__register" href="${registerUrl}"><span>Регистрация</span>${icon('login')}</a>
         </div>

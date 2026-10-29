@@ -90,7 +90,7 @@ function renderLots(announce = true): void {
 }
 
 function resetFilters(): void {
-  const restoreFocus = grid.contains(document.activeElement);
+  const restoreFocus = grid.contains(document.activeElement) || searchResult.contains(document.activeElement);
   state.category = 'all';
   state.query = '';
   app.querySelectorAll<HTMLInputElement>('input[name="q"]').forEach((input) => { input.value = ''; input.setCustomValidity(''); });
@@ -340,7 +340,12 @@ dialog.addEventListener('close', () => {
   window.clearTimeout(closeTimeout);
   dialog.classList.remove('is-closing');
   document.body.classList.remove('has-dialog');
-  if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
+  if (previousFocus?.isConnected) {
+    let target = previousFocus;
+    if (target.closest('[inert]')) target = target.closest('.capability')?.querySelector<HTMLElement>('.capability__title') ?? mobileMenuButton;
+    if (!target.getClientRects().length) target = select<HTMLElement>('.brand');
+    target.focus({ preventScroll: true });
+  }
   previousFocus = null;
 }, { signal });
 window.addEventListener('hashchange', checkHash, { signal });
