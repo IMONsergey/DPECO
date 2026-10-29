@@ -1,0 +1,77 @@
+.dot-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --dot-color: #10aaa2;
+  --dot-start-opacity: 0.2;
+  --dot-end-opacity: 0.015;
+  --dot-spacing: 22.5px;
+  --dot-radius: 0.9px;
+  --dot-direction: to bottom;
+}
+
+.dot-field__canvas,
+.dot-field__fallback {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.dot-field__canvas { opacity: 0; }
+
+.dot-field__fallback {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--dot-color) 0 var(--dot-radius),
+    transparent calc(var(--dot-radius) + 0.25px)
+  );
+  background-size: var(--dot-spacing) var(--dot-spacing);
+  -webkit-mask-image: linear-gradient(
+    var(--dot-direction),
+    rgb(0 0 0 / var(--dot-start-opacity)),
+    rgb(0 0 0 / var(--dot-end-opacity))
+  );
+  mask-image: linear-gradient(
+    var(--dot-direction),
+    rgb(0 0 0 / var(--dot-start-opacity)),
+    rgb(0 0 0 / var(--dot-end-opacity))
+  );
+}
+
+.dot-field[data-dots-ready='true'] > .dot-field__fallback { visibility: hidden; }
+
+.globe-effect {
+  position: relative;
+  aspect-ratio: 2048 / 1739;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.globe-effect__canvas {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 2048 / 1739;
+  background: transparent;
+}
+
+.globe-effect::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 88.4%;
+  width: auto;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 64% 36%, rgb(24 199 181 / 5%) 20%, rgb(2 127 126 / 3%) 52%, rgb(3 208 183 / 18%) 76%, rgb(121 255 230 / 22%) 98%, transparent 100%);
+  box-shadow: inset 15px 5px 42px rgb(112 255 234 / 16%), -8px 0 24px rgb(13 220 190 / 11%);
+  filter: blur(2px);
+  pointer-events: none;
+}
