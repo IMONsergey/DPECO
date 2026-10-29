@@ -1,7 +1,7 @@
 /* Crisp text masks: lines share their timing, words keep their natural wrapping. */
 .motion-word, .motion-word__inner { font: inherit; letter-spacing: inherit; color: inherit; text-decoration: inherit; }
-.motion-word { display: inline-block; vertical-align: bottom; overflow: clip; padding-block: .14em; margin-block: -.14em; }
-.motion-word__inner { display: inline-block; }
+.motion-word { display: inline-block; max-width: 100%; vertical-align: bottom; overflow: clip; padding-block: .14em; margin-block: -.14em; }
+.motion-word__inner { display: inline-block; max-width: 100%; overflow-wrap: inherit; }
 .motion-pending:not(.motion-heading) { opacity: 0; translate: 0 20px; }
 .motion-heading.motion-pending .motion-word__inner { opacity: 0; transform: translateY(112%); }
 
@@ -51,6 +51,7 @@
 @media (prefers-reduced-motion: reduce) {
   .motion-pending:not(.motion-heading), .motion-heading.motion-pending .motion-word__inner { opacity: 1; translate: none; transform: none; }
   .scene-image { translate: none; }
+  .formats .format-pane .format-chart__path, .formats .format-pane .format-chart__point, .formats .format-pane .format-offers > div { animation: none !important; }
   .button::before, .button .icon, .icon-button .icon, .tab-indicator-ready .tab-indicator, .scene-image, .process__steps > li::before { transition: none; }
   .process__steps > .motion-pending::before { transform: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
