@@ -30,7 +30,7 @@ const paths: Record<IconName, string> = {
 };
 
 export function icon(name: IconName, className = ''): string {
-  return `<svg class="icon ${className}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]}</svg>`;
+  return `<svg class="icon icon--${name} ${className}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]}</svg>`;
 }
 
 export function escapeHtml(text: string): string {

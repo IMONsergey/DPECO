@@ -93,32 +93,36 @@ function measuringLines(values: readonly string[]): string {
 function card(item: Capability, index: number): string {
   const titleId = `capability-new-title-${item.id}`;
   const descriptionId = `capability-new-description-${item.id}`;
+  const bodyId = `capability-new-body-${item.id}`;
+  const expanded = index === 1;
   return `
-    <article class="capability-new__card">
-      <a class="capability-new__card-link" href="${item.sellerHref}" data-capability-new-link="${item.id}" aria-labelledby="${titleId}" aria-describedby="${descriptionId}">
+    <article class="capability-new__card${expanded ? ' is-active' : ''}" data-capability-new-card="${item.id}">
         <div class="capability-new__media">
           <img class="capability-new__image" src="${asset(`images/${item.image}`)}" alt="" width="${item.imageWidth}" height="${item.imageHeight}" loading="lazy" decoding="async">
           <span class="capability-new__number" aria-hidden="true">0${index + 1}</span>
-          <span class="capability-new__symbol">${icon(item.icon)}</span>
         </div>
         <div class="capability-new__content">
-          <h3 class="capability-new__title" id="${titleId}">${item.title.map((line) => `<span>${escapeHtml(line)}</span>`).join(' ')}</h3>
-          <div class="capability-new__description-frame">
-            ${measuringLines([item.description.seller, item.description.buyer])}
-            <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
+          <span class="capability-new__symbol" aria-hidden="true">${icon(item.icon)}</span>
+          <h3 class="capability-new__title" id="${titleId}"><button type="button" class="capability-new__expand" data-capability-new-expand="${item.id}" aria-expanded="${expanded}" aria-controls="${bodyId}">${item.title.map((line) => `<span>${escapeHtml(line)}</span>`).join(' ')}</button></h3>
+          <div class="capability-new__body" id="${bodyId}">
+            <div class="capability-new__body-inner">
+              <div class="capability-new__description-frame">
+                ${measuringLines([item.description.seller, item.description.buyer])}
+                <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
+              </div>
+              <a class="button button--primary capability-new__cta" href="${item.sellerHref}" data-capability-new-link="${item.id}" aria-describedby="${descriptionId}"><span>Смотреть подробнее</span>${icon('arrow-right')}</a>
+            </div>
           </div>
-          <span class="capability-new__cta" aria-hidden="true">Подробнее ${icon('arrow-right')}</span>
         </div>
-      </a>
     </article>`;
 }
 
 export function renderCapabilities(): string {
   return `
     <section class="capabilities section capability-new" id="capabilities" aria-labelledby="capabilities-title" data-capability-new-role="seller">
-      <div class="capability-new__dots" data-dots data-dots-color="#0eaaa4" data-dots-opacity="0.015" data-dots-end-opacity="0.17" data-dots-spacing="20"></div>
+      <div class="capability-new__dots" data-dots data-dots-color="#0ba69e" data-dots-opacity="0.015" data-dots-end-opacity="0.17" data-dots-spacing="20"></div>
       <div class="container capability-new__inner">
-        <h2 class="section-title capability-new__heading" id="capabilities-title"><span>Возможности</span> платформы</h2>
+        <h2 class="section-title capability-new__heading" id="capabilities-title" data-text-reveal><span>Возможности</span> платформы</h2>
         <div class="capability-new__toolbar">
           <p>Какие долговые активы можно<br class="capability-new__desktop-break"> продать и купить на бирже</p>
           <div class="capability-new__tabs" role="tablist" aria-label="Для кого подобрать возможности">
@@ -127,7 +131,7 @@ export function renderCapabilities(): string {
           </div>
         </div>
         <div id="capability-new-panel" class="capability-new__panel" role="tabpanel" aria-labelledby="capability-new-seller">
-          <div class="capability-new__grid">${items.map(card).join('')}</div>
+          <div class="capability-new__grid" data-capability-new-active="factoring">${items.map(card).join('')}</div>
           <a class="capability-new__extra" href="${additional.seller.href}" data-capability-new-extra>
             <span class="capability-new__extra-symbol">${icon('folders')}</span>
             <span class="capability-new__extra-copy">
@@ -157,12 +161,102 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   const abort = new AbortController();
   const { signal } = abort;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const compactLayout = matchMedia('(max-width: 1199px)');
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const animations = new Map<HTMLElement, Animation>();
   const tabs = [...section.querySelectorAll<HTMLButtonElement>('[data-capability-new-audience]')];
+  const cards = [...section.querySelectorAll<HTMLElement>('[data-capability-new-card]')];
+  const grid = section.querySelector<HTMLElement>('.capability-new__grid');
   const panel = section.querySelector<HTMLElement>('#capability-new-panel');
   const extra = section.querySelector<HTMLAnchorElement>('[data-capability-new-extra]');
   const announcement = section.querySelector<HTMLElement>('[data-capability-new-announcement]');
   let audience: Audience = section.dataset.capabilityNewRole === 'buyer' ? 'buyer' : 'seller';
+  let activeCard = grid?.dataset.capabilityNewActive ?? 'factoring';
+  let pendingCard = '';
+  let intentTimer = 0;
+  let lastPointerX = -1;
+  let lastPointerY = -1;
+
+  function cancelIntent(): void {
+    window.clearTimeout(intentTimer);
+    intentTimer = 0;
+    pendingCard = '';
+  }
+
+  function syncCardAccess(): void {
+    cards.forEach((card) => {
+      const expanded = compactLayout.matches || card.dataset.capabilityNewCard === activeCard;
+      const trigger = card.querySelector<HTMLButtonElement>('[data-capability-new-expand]');
+      const body = card.querySelector<HTMLElement>('.capability-new__body');
+      if (body) {
+        body.inert = !expanded;
+        body.setAttribute('aria-hidden', String(!expanded));
+      }
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', String(expanded));
+        trigger.tabIndex = compactLayout.matches ? -1 : 0;
+        // Small screens show the complete card; its only action is the destination link.
+        if (compactLayout.matches) trigger.setAttribute('aria-disabled', 'true');
+        else trigger.removeAttribute('aria-disabled');
+      }
+    });
+  }
+
+  function activateCard(id: string): void {
+    cancelIntent();
+    if (compactLayout.matches || id === activeCard || !items.some((item) => item.id === id)) return;
+    activeCard = id;
+    if (grid) grid.dataset.capabilityNewActive = id;
+    cards.forEach((card) => card.classList.toggle('is-active', card.dataset.capabilityNewCard === id));
+    syncCardAccess();
+  }
+
+  // The decision follows actual pointer movement. Moving card boundaries cannot
+  // repeatedly activate a neighbour under a stationary cursor.
+  grid?.addEventListener('pointermove', (event) => {
+    if (compactLayout.matches || !finePointer.matches || event.pointerType !== 'mouse') return;
+    if (event.clientX === lastPointerX && event.clientY === lastPointerY) return;
+    lastPointerX = event.clientX;
+    lastPointerY = event.clientY;
+    const card = event.target instanceof Element
+      ? event.target.closest<HTMLElement>('[data-capability-new-card]')
+      : null;
+    const id = card?.dataset.capabilityNewCard;
+    // Keep a keyboard-focused CTA available. Pointer-origin focus (including a
+    // restored link after Back) must not leave hover locked on its previous card.
+    const focused = document.activeElement;
+    if (focused?.closest('.capability-new__body') && focused.matches(':focus-visible')) return;
+    if (!id || id === activeCard) { cancelIntent(); return; }
+    if (id === pendingCard) return;
+    cancelIntent();
+    pendingCard = id;
+    intentTimer = window.setTimeout(() => activateCard(id), 80);
+  }, { passive: true, signal });
+
+  grid?.addEventListener('pointerleave', () => {
+    cancelIntent();
+    lastPointerX = -1;
+    lastPointerY = -1;
+  }, { signal });
+
+  grid?.addEventListener('focusin', (event) => {
+    const card = event.target instanceof Element
+      ? event.target.closest<HTMLElement>('[data-capability-new-card]')
+      : null;
+    if (card?.dataset.capabilityNewCard) activateCard(card.dataset.capabilityNewCard);
+  }, { signal });
+
+  grid?.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element) || event.target.closest('a')) return;
+    const card = event.target.closest<HTMLElement>('[data-capability-new-card]');
+    if (card?.dataset.capabilityNewCard) activateCard(card.dataset.capabilityNewCard);
+  }, { signal });
+
+  compactLayout.addEventListener('change', () => {
+    cancelIntent();
+    syncCardAccess();
+  }, { signal });
+  syncCardAccess();
 
   function replaceText(element: HTMLElement | null, text: string): void {
     if (!element) return;
@@ -242,6 +336,7 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     if (disposed) return;
     disposed = true;
     abort.abort();
+    cancelIntent();
     animations.forEach((animation) => animation.cancel());
     animations.clear();
     mounts.delete(section);

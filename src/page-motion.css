@@ -1,0 +1,61 @@
+/* Crisp text masks: lines share their timing, words keep their natural wrapping. */
+.motion-word, .motion-word__inner { font: inherit; letter-spacing: inherit; color: inherit; text-decoration: inherit; }
+.motion-word { display: inline-block; vertical-align: bottom; overflow: clip; padding-block: .14em; margin-block: -.14em; }
+.motion-word__inner { display: inline-block; }
+.motion-pending:not(.motion-heading) { opacity: 0; translate: 0 20px; }
+.motion-heading.motion-pending .motion-word__inner { opacity: 0; transform: translateY(112%); }
+
+/* The ink response stays inside the existing button shape. */
+.button { overflow: hidden; isolation: isolate; }
+.button::before { content: ''; position: absolute; z-index: -1; inset: -20% -15%; background: #ffffff14; transform: translateX(-110%) skewX(-14deg); transition: transform 620ms var(--ease); pointer-events: none; }
+.button--white::before { background: #17252607; }
+.button .icon { transition: transform 440ms var(--ease); }
+.button:focus-visible::before { transform: translateX(0) skewX(-14deg); }
+.button:focus-visible .icon { transform: translateX(4px); }
+.button:active { transform: translateY(1px); }
+.icon--arrow-up-right { --arrow-x: 3px; --arrow-y: -3px; }
+.text-link { text-decoration: none; }
+.text-link:not(.breadcrumb) { background: linear-gradient(currentColor, currentColor) left calc(100% - 6px) / 0 1px no-repeat; transition: background-size 450ms var(--ease), color 300ms ease; }
+
+.has-tab-indicator { position: relative; isolation: isolate; }
+.tab-indicator { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; border-radius: calc(var(--radius-control) - 2px); background: var(--ink); }
+.tab-indicator-ready .tab-indicator { transition: transform 480ms var(--ease), width 480ms var(--ease), height 480ms var(--ease); }
+.has-tab-indicator [role='tab'] { position: relative; z-index: 1; background: transparent !important; transition: color 280ms ease; }
+.has-tab-indicator [role='tab'][aria-selected='true'] { color: white; }
+.has-tab-indicator [role='tab']:not([aria-selected='true']) { color: var(--ink); }
+.scene-image { translate: 0 var(--image-travel, 0px); transition: translate 900ms var(--ease); }
+.process__steps > .motion-pending::before { transform: scaleX(0); }
+.process__steps > li::before { transform-origin: left; transition: transform 800ms var(--ease); }
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover::before { transform: translateX(0) skewX(-14deg); }
+  .button:hover .icon { transform: translateX(4px); }
+  .button:hover .icon--arrow-up-right { transform: translate(3px, -3px); }
+  .text-link:hover { background-size: calc(100% - 34px) 1px; }
+  .icon-button:hover .icon--share { transform: rotate(-8deg); }
+  .icon-button .icon { transition: transform 440ms var(--ease); }
+}
+
+/* Header remains steady while the content changes. No two text pages overlap. */
+.site-header { view-transition-name: site-navigation; }
+::view-transition { pointer-events: none; }
+::view-transition-group(root) { animation-duration: 520ms; }
+::view-transition-old(root) { animation: route-leave 130ms ease-out both; }
+::view-transition-new(root) { animation: route-enter 390ms var(--ease) 130ms both; }
+::view-transition-group(site-navigation) { animation: none; z-index: 1; }
+::view-transition-old(site-navigation) { display: none; }
+::view-transition-new(site-navigation) { animation: none; }
+@keyframes route-leave { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes route-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-pending:not(.motion-heading), .motion-heading.motion-pending .motion-word__inner { opacity: 1; translate: none; transform: none; }
+  .scene-image { translate: none; }
+  .button::before, .button .icon, .icon-button .icon, .tab-indicator-ready .tab-indicator, .scene-image, .process__steps > li::before { transition: none; }
+  .process__steps > .motion-pending::before { transform: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+@media print {
+  .motion-pending, .motion-word__inner, .scene-image { opacity: 1 !important; transform: none !important; translate: none !important; animation: none !important; }
+}

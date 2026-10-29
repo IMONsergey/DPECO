@@ -32,7 +32,7 @@ function dropdown(id: string, label: string, content: string, extraClass = '', p
 }
 
 function ecosystemPanel(): string {
-  return `<p class="nav-panel__eyebrow">Рынок, знания и технологии</p><div class="nav-panel__ecosystem-grid">${ecosystem.map((item) => `<a class="nav-panel__link" href="${item.href}"${externalAttributes(item.href)}><span class="nav-panel__icon">${icon(item.icon)}</span><span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.label)}</small></span>${icon('arrow-up-right', 'nav-panel__arrow')}<span class="sr-only"> — в новой вкладке</span></a>`).join('')}</div>`;
+  return `<div class="nav-panel__ecosystem-grid">${ecosystem.map((item) => `<a class="nav-panel__link" href="${item.href}"${externalAttributes(item.href)}><span class="nav-panel__icon">${icon(item.icon)}</span><span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.label)}</small></span>${icon('arrow-up-right', 'nav-panel__arrow')}<span class="sr-only"> — в новой вкладке</span></a>`).join('')}</div>`;
 }
 
 function siteSearch(id: string, mobile = false): string {
@@ -96,12 +96,12 @@ export function renderHeader(light: boolean): string {
 export function renderFooter(): string {
   const year = new Date().getFullYear();
   return `<footer class="site-footer"><div class="container">
-    <div class="footer__top"><a class="footer__brand" href="#/" aria-label="DEBTPRICE — на главную"><img src="${asset('brand/debtprice.svg')}" alt="DEBTPRICE" width="196" height="46"><span>Платформа и экосистема<br>долговых активов</span></a><a class="button button--white footer__request" href="#/request">Обсудить вашу задачу ${icon('arrow-right')}</a></div>
+    <div class="footer__top"><a class="footer__brand" href="#/" aria-label="DEBTPRICE — на главную"><img src="${asset('brand/debtprice.svg')}" alt="DEBTPRICE" width="196" height="46"><span>Платформа и экосистема<br>долговых активов</span></a><a class="button button--white footer__request" href="#/request">Оставить заявку ${icon('arrow-right')}</a></div>
     <div class="footer__columns">
       <nav class="footer__column" aria-labelledby="footer-platform-title"><h2 id="footer-platform-title">Площадка</h2><a href="#/sellers/portfeli">Портфели физических лиц</a><a href="#/sellers/debitorka">Дебиторская задолженность</a><a href="#/buyers">Покупателям</a><a href="${accountUrl}">Личный кабинет ${icon('arrow-up-right')}</a><a href="${registerUrl}">Регистрация ${icon('arrow-up-right')}</a></nav>
       <nav class="footer__column" aria-labelledby="footer-information-title"><h2 id="footer-information-title">Информация</h2><a href="#/about">О проекте</a><a href="#/journal">Частые вопросы</a><a href="#/docs">Документы и реквизиты</a><a href="#/contacts">Контакты</a><a href="#/request">Оставить заявку</a></nav>
       <nav class="footer__column footer__column--ecosystem" aria-labelledby="footer-ecosystem-title"><h2 id="footer-ecosystem-title">Экосистема</h2><div class="footer__ecosystem-links">${ecosystem.map((item) => `<a href="${item.href}"${externalAttributes(item.href)}>${escapeHtml(item.name)}${icon('arrow-up-right')}<span class="sr-only"> — в новой вкладке</span></a>`).join('')}</div></nav>
-      <div class="footer__column footer__column--contacts"><h2>Будем на связи</h2><a class="footer__phone" href="tel:+79159724101">${phone}</a><a class="footer__email" href="mailto:${email}">${email}</a><a class="footer__telegram" href="${telegramUrl}" target="_blank" rel="noopener noreferrer">${icon('telegram')}Лоты в Telegram ${icon('arrow-up-right')}<span class="sr-only"> — в новой вкладке</span></a><p class="footer__contacts-note">Обсудим ваш актив и условия работы с площадкой.</p></div>
+      <div class="footer__column footer__column--contacts"><h2>Контакты</h2><a class="footer__phone" href="tel:+79159724101">${phone}</a><a class="footer__email" href="mailto:${email}">${email}</a><a class="footer__telegram" href="${telegramUrl}" target="_blank" rel="noopener noreferrer">${icon('telegram')}Лоты в Telegram ${icon('arrow-up-right')}<span class="sr-only"> — в новой вкладке</span></a><p class="footer__contacts-note">Обсудим ваш актив и условия работы с площадкой.</p></div>
     </div>
     <div class="footer__legal"><div class="footer__company"><span>© ${year} ООО «ДЕБТПРАЙС»</span><div class="footer__company-details"><span>ИНН 7608021127</span><span>ОГРН 1147608001221</span></div></div><a class="footer__privacy" href="#/docs">Политика обработки персональных данных ${icon('arrow-up-right')}</a></div>
   </div></footer>`;

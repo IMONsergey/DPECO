@@ -9,6 +9,7 @@ import { lotCards } from './lot-cards';
 import { createContentTransition } from './motion';
 import { mountNavigation } from './navigation';
 import { pageTitle, renderPage } from './page';
+import { cancelRouteTransition, mountPageMotion, transitionRoute } from './page-motion';
 import { parseRoute, type Route } from './routes';
 import { accountUrl, escapeHtml, icon, registerUrl, rubles } from './ui';
 
@@ -103,9 +104,8 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
   function openLot(id: string): void {
     const lot = lots.find((item) => item.id === id);
     if (!lot) return;
-    showDialog(`<span class="dialog__eyebrow">${lot.category === 'receivables' ? 'Дебиторская задолженность' : 'Портфель физических лиц'}${lot.kind === 'sold' ? ' · Продано' : ''}</span>
-      <h2 id="dialog-title">${escapeHtml(lot.name)}</h2>
-      <dl class="dialog__details"><div><dt>Количество кейсов</dt><dd>${lot.cases.toLocaleString('ru-RU')}</dd></div><div><dt>${lot.statusLabel}</dt><dd>${lot.status}</dd></div><div><dt>${lot.dateLabel}</dt><dd>${lot.date}${lot.startsAt ? ' МСК' : ''}</dd></div>${lot.startingPrice ? `<div><dt>Начальная цена</dt><dd>${rubles(lot.startingPrice)}</dd></div>` : ''}</dl>
+    showDialog(`<h2 id="dialog-title">${escapeHtml(lot.name)}</h2>
+      <dl class="dialog__details"><div><dt>Вид актива</dt><dd>${lot.category === 'receivables' ? 'Дебиторская задолженность' : 'Портфель физических лиц'}</dd></div><div><dt>Количество кейсов</dt><dd>${lot.cases.toLocaleString('ru-RU')}</dd></div><div><dt>${lot.statusLabel}</dt><dd>${lot.status}</dd></div><div><dt>${lot.dateLabel}</dt><dd>${lot.date}${lot.startsAt ? ' МСК' : ''}</dd></div>${lot.startingPrice ? `<div><dt>Начальная цена</dt><dd>${rubles(lot.startingPrice)}</dd></div>` : ''}</dl>
       <p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p>
       <p class="dialog__text">Данные площадки на 29 октября 2026. Текущий статус, документы и условия участия доступны в личном кабинете DEBTPRICE.</p>
       <div class="dialog__actions"><a class="button button--primary" href="${accountUrl}">Перейти к торгам ${icon('login')}</a><a class="button button--dark" href="${registerUrl}">Регистрация ${icon('arrow-right')}</a></div>`);
@@ -118,7 +118,7 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
     const text = `${lot.name}\nОбщая сумма: ${rubles(lot.debt)}${lot.startingPrice ? `\nНачальная цена: ${rubles(lot.startingPrice)}` : ''}\n${lot.dateLabel}: ${lot.date}`;
     const telegram = `https://t.me/share/url?url=${encodeURIComponent(url.href)}&text=${encodeURIComponent(text)}`;
     const email = `mailto:?subject=${encodeURIComponent(lot.name)}&body=${encodeURIComponent(`${text}\n\n${url.href}`)}`;
-    showDialog(`<span class="dialog__eyebrow">Поделиться предложением</span><h2 id="dialog-title">${escapeHtml(lot.name)}</h2><p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p><p class="dialog__text">${lot.dateLabel}: ${lot.date}. Данные на 29 октября 2026.</p><label class="sr-only" for="share-link">Ссылка на лот</label><input id="share-link" class="share-input" readonly value="${escapeHtml(url.href)}"><div class="dialog__actions"><button class="button button--primary" type="button" data-copy-lot-link>Скопировать ссылку ${icon('document')}</button><a class="button button--dark" href="${escapeHtml(telegram)}" target="_blank" rel="noopener noreferrer">Telegram ${icon('telegram')}</a><a class="text-link" href="${escapeHtml(email)}">Отправить по почте ${icon('mail')}</a></div>`);
+    showDialog(`<h2 id="dialog-title">Поделиться лотом</h2><p class="dialog__text">${escapeHtml(lot.name)}</p><p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p><p class="dialog__text">${lot.dateLabel}: ${lot.date}. Данные на 29 октября 2026.</p><label class="sr-only" for="share-link">Ссылка на лот</label><input id="share-link" class="share-input" readonly value="${escapeHtml(url.href)}"><div class="dialog__actions"><button class="button button--primary" type="button" data-copy-lot-link>Скопировать ссылку ${icon('document')}</button><a class="button button--dark" href="${escapeHtml(telegram)}" target="_blank" rel="noopener noreferrer">Telegram ${icon('telegram')}</a><a class="text-link" href="${escapeHtml(email)}">Отправить по почте ${icon('mail')}</a></div>`);
   }
 
   const formatLayout = matchMedia('(max-width: 900px)');
@@ -198,7 +198,7 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
     if (anchor && hash.startsWith('#/') && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) {
       event.preventDefault();
       nav.close();
-      if (hash === location.hash) window.scrollTo({ top: 0, behavior: motion.matches ? 'instant' : 'smooth' });
+      if (hash === location.hash) { cancelRouteTransition(); window.scrollTo({ top: 0, behavior: motion.matches ? 'instant' : 'smooth' }); }
       else navigate(hash);
     }
   }, { signal });
@@ -261,6 +261,8 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
   const globe = app.querySelector<HTMLElement>('#hero-globe');
   if (globe) { try { cleanups.push(initGlobe(globe)); } catch { /* Atmospheric CSS remains visible. */ } }
 
+  cleanups.push(mountPageMotion(app, Boolean(saved)));
+
   const lotId = route.query.get('lot');
   if (lotId) openLot(lotId);
   const section = route.query.get('section');
@@ -313,16 +315,19 @@ function saveCurrentView(): void {
 
 function navigate(hash: string): void {
   const route = parseRoute(hash);
-  if (route.path === currentRoute.path && route.query.toString() === currentRoute.query.toString()) return;
-  saveCurrentView();
-  currentEntry = ++nextEntry;
-  history.pushState({ dpecoEntry: currentEntry }, '', hash);
-  render(route);
+  if (route.path === currentRoute.path && route.query.toString() === currentRoute.query.toString()) { cancelRouteTransition(); return; }
+  transitionRoute(() => {
+    saveCurrentView();
+    currentEntry = ++nextEntry;
+    history.pushState({ dpecoEntry: currentEntry }, '', hash);
+    render(route);
+  });
 }
 
 function onHistoryChange(): void {
   const next = parseRoute(location.hash);
   if (next.path === currentRoute.path && next.query.toString() === currentRoute.query.toString() && history.state?.dpecoEntry === currentEntry) return;
+  cancelRouteTransition();
   saveCurrentView();
   const entry = history.state?.dpecoEntry;
   if (typeof entry === 'number' && entry !== currentEntry) currentEntry = entry;
@@ -335,4 +340,4 @@ function onHistoryChange(): void {
 window.addEventListener('hashchange', onHistoryChange);
 window.addEventListener('popstate', onHistoryChange);
 render(currentRoute, true);
-if (import.meta.hot) import.meta.hot.dispose(() => { destroyRoute?.(); cancelAnimationFrame(navigationFrame); window.removeEventListener('hashchange', onHistoryChange); window.removeEventListener('popstate', onHistoryChange); history.scrollRestoration = previousScrollRestoration; });
+if (import.meta.hot) import.meta.hot.dispose(() => { cancelRouteTransition(); destroyRoute?.(); cancelAnimationFrame(navigationFrame); window.removeEventListener('hashchange', onHistoryChange); window.removeEventListener('popstate', onHistoryChange); history.scrollRestoration = previousScrollRestoration; });
