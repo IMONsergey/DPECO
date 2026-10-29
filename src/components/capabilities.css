@@ -1,7 +1,7 @@
 .capability-new {
   --capability-surface: var(--surface, #f5f6f6);
-  --capability-gap: clamp(16px, 1.45vw, 26px);
-  --capability-stage: clamp(570px, 38vw, 650px);
+  --capability-gap: 20px;
+  --capability-stage: 560px;
   --capability-layout: 660ms;
   --capability-ease: cubic-bezier(.22, 1, .36, 1);
   position: relative;
@@ -15,7 +15,7 @@
   mask-image: linear-gradient(transparent, #000 26%, #000 72%, transparent);
 }
 
-.capability-new__inner { position: relative; z-index: 1; }
+.capability-new__inner { position: relative; z-index: 1; container-type: inline-size; }
 .capability-new__heading { margin: 0; }
 
 .capability-new__toolbar {
@@ -100,7 +100,7 @@
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   min-width: 0;
-  height: calc(var(--capability-stage) - 140px);
+  height: calc(var(--capability-stage) - 136px);
   border: 1px solid var(--line);
   border-radius: var(--radius-card, 10px);
   background: var(--capability-surface);
@@ -147,7 +147,7 @@
 .capability-new__number {
   position: absolute;
   top: 24px;
-  left: 26px;
+  left: 24px;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
@@ -157,7 +157,7 @@
 
 .capability-new__content {
   min-width: 0;
-  padding: 10px 26px 26px;
+  padding: 10px 24px 24px;
 }
 
 .capability-new__symbol {
@@ -165,7 +165,7 @@
   place-items: center;
   width: 42px;
   height: 42px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   border: 1px solid var(--line);
   border-radius: var(--radius-control, 6px);
   background: #fff;
@@ -177,7 +177,7 @@
 .capability-new__title {
   min-height: 2.26em;
   margin: 0;
-  font-size: clamp(23px, 1.75vw, 32px);
+  font-size: clamp(24px, 1.8vw, 28px);
   font-weight: 470;
   line-height: 1.13;
   letter-spacing: -.035em;
@@ -211,6 +211,7 @@
 .capability-new__description-frame {
   display: grid;
   min-width: 0;
+  min-height: 4.26em;
   margin-top: 16px;
   color: var(--muted);
   font-size: 18px;
@@ -335,12 +336,11 @@
 @media (min-width: 1200px) and (max-width: 1399px) {
   .capability-new__content { padding-inline: 20px; }
   .capability-new__number { left: 20px; }
-  .capability-new__description-frame { font-size: 17px; }
-  .capability-new__cta { padding-inline: 16px; font-size: 15px; }
+  .capability-new__cta { padding-inline: 16px; }
 }
 
 @media (max-width: 1199px) {
-  .capability-new { --capability-media-height: clamp(250px, 31vw, 320px); --capability-gap: 24px; }
+  .capability-new { --capability-media-height: 240px; --capability-gap: 24px; }
   .capability-new__grid,
   .capability-new__grid[data-capability-new-active] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -356,14 +356,14 @@
     box-shadow: none;
     cursor: auto;
   }
-  .capability-new__content { display: flex; flex-direction: column; padding: 12px 28px 28px; }
+  .capability-new__content { display: flex; flex-direction: column; padding: 10px 24px 24px; }
   .capability-new__symbol { margin-bottom: 20px; }
-  .capability-new__title { font-size: 32px; }
+  .capability-new__title { font-size: 29px; }
   .capability-new__expand { cursor: auto; }
   .capability-new__body,
   .capability-new__card.is-active .capability-new__body { flex: 1; grid-template-rows: 1fr; transition: none; }
   .capability-new__body-inner { display: flex; flex-direction: column; overflow: visible; }
-  .capability-new__description-frame { flex: 1; font-size: 19px; }
+  .capability-new__description-frame { flex: 1; font-size: 18px; }
   .capability-new__description-frame,
   .capability-new__cta,
   .capability-new__card.is-active .capability-new__description-frame,
@@ -373,7 +373,7 @@
 }
 
 @media (max-width: 699px) {
-  .capability-new { --capability-media-height: clamp(240px, 67vw, 310px); }
+  .capability-new { --capability-media-height: clamp(208px, 59vw, 248px); }
   .capability-new__toolbar { align-items: flex-start; flex-direction: column; gap: 24px; margin-top: 24px; }
   .capability-new__toolbar > p { max-width: 32ch; font-size: 21px; }
   .capability-new__desktop-break { display: none; }
@@ -396,8 +396,8 @@
     scrollbar-color: #c4caca transparent;
   }
   .capability-new__card { scroll-snap-align: start; }
-  .capability-new__content { padding: 10px 24px 26px; }
-  .capability-new__title { font-size: 30px; }
+  .capability-new__content { padding: 10px 24px 24px; }
+  .capability-new__title { font-size: clamp(27px, 7.4vw, 30px); }
   .capability-new__description-frame { font-size: 18px; }
   .capability-new__number { left: 24px; }
   .capability-new__cta { padding-inline: 16px; font-size: 16px; }
@@ -416,6 +416,22 @@
   .capability-new__title { font-size: 27px; }
   .capability-new__extra { gap: 12px; }
   .capability-new__extra-title-frame { font-size: 21px; }
+}
+
+/* Once the global container reaches its max-width, this component stops growing
+   too. Hover still redistributes the same four tracks and adds 128px of height. */
+@supports (width: 1cqi) {
+  @media (min-width: 1200px) {
+    .capability-new__grid {
+      --capability-gap: clamp(16px, 1.55cqi, 24px);
+      --capability-stage: clamp(548px, 40.5cqi, 584px);
+    }
+    .capability-new__title { font-size: clamp(24px, 2.1cqi, 30px); }
+  }
+  @media (min-width: 700px) and (max-width: 1199px) {
+    .capability-new__grid { --capability-media-height: clamp(210px, 23cqi, 270px); }
+    .capability-new__title { font-size: clamp(27px, 3cqi, 30px); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -121,7 +121,7 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
     showDialog(`<h2 id="dialog-title">Поделиться лотом</h2><p class="dialog__text">${escapeHtml(lot.name)}</p><p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p><p class="dialog__text">${lot.dateLabel}: ${lot.date}. Данные на 29 октября 2026.</p><label class="sr-only" for="share-link">Ссылка на лот</label><input id="share-link" class="share-input" readonly value="${escapeHtml(url.href)}"><div class="dialog__actions"><button class="button button--primary" type="button" data-copy-lot-link>Скопировать ссылку ${icon('document')}</button><a class="button button--dark" href="${escapeHtml(telegram)}" target="_blank" rel="noopener noreferrer">Telegram ${icon('telegram')}</a><a class="text-link" href="${escapeHtml(email)}">Отправить по почте ${icon('mail')}</a></div>`);
   }
 
-  const formatLayout = matchMedia('(max-width: 900px)');
+  const formatLayout = matchMedia('(max-width: 1199px)');
   const updateFormatOrientation = () => app.querySelector('.formats__tabs')?.setAttribute('aria-orientation', formatLayout.matches ? 'horizontal' : 'vertical');
   formatLayout.addEventListener('change', updateFormatOrientation, { signal });
   updateFormatOrientation();
