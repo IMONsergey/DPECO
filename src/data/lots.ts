@@ -1,5 +1,4 @@
 export type LotCategory = 'receivables' | 'individuals';
-
 export type Lot = {
   id: string;
   name: string;
@@ -14,147 +13,30 @@ export type Lot = {
   debt: number;
   startingPrice?: number;
   startingPercent?: number;
+  startsAt?: string;
+  kind?: 'auction' | 'offers' | 'sold';
 };
 
-// Content transcribed from the supplied DEBTPRICE design. This is not a live auction feed.
+/** Public listing snapshot, verified 29 October 2026 at debtprice.market.
+ * The commercial portal remains authoritative for availability and terms.
+ */
+export const lotsUpdatedAt = '2026-10-29';
+export const lotsSourceUrl = 'https://debtprice.market/';
 export const lots: readonly Lot[] = [
-  {
-    id: 'tsk-logistika-15',
-    name: 'ООО ТСК «ЛОГИСТИКА»',
-    mark: 'ТСК',
-    markColor: '#353c3f',
-    category: 'receivables',
-    cases: 15,
-    statusLabel: 'Просужен',
-    status: '39%',
-    dateLabel: 'Сбор предложений',
-    date: '23.07 – 24.08.26',
-    debt: 138140855,
-  },
-  {
-    id: 'tsk-logistika-5933666',
-    name: 'ООО ТСК «ЛОГИСТИКА»',
-    mark: 'ТСК',
-    markColor: '#353c3f',
-    category: 'receivables',
-    cases: 1,
-    statusLabel: 'Просужен',
-    status: 'да',
-    dateLabel: 'Сбор предложений',
-    date: '03.08 – 21.08.26',
-    debt: 5933666,
-  },
-  {
-    id: 'tsk-logistika-14887296',
-    name: 'ООО ТСК «ЛОГИСТИКА»',
-    mark: 'ТСК',
-    markColor: '#353c3f',
-    category: 'receivables',
-    cases: 1,
-    statusLabel: 'Просужен',
-    status: 'да',
-    dateLabel: 'Сбор предложений',
-    date: '03.08 – 21.08.26',
-    debt: 14887296,
-  },
-  {
-    id: 'profekt-4',
-    name: 'ООО «ПРОФЕКТ 4»',
-    mark: 'П4',
-    markColor: '#00775f',
-    category: 'receivables',
-    cases: 1,
-    statusLabel: 'Просужен',
-    status: 'да',
-    dateLabel: 'Сбор предложений',
-    date: '07.08 – 21.08.26',
-    debt: 5497734,
-  },
-  {
-    id: 'kerting-rus',
-    name: 'ООО «КЁРТИНГ РУС»',
-    mark: 'КР',
-    markColor: '#257898',
-    category: 'receivables',
-    cases: 1,
-    statusLabel: 'Статус',
-    status: 'досудебный',
-    dateLabel: 'Сбор предложений',
-    date: '07.08 – 21.08.26',
-    debt: 11692750,
-  },
-  {
-    id: 'lender-invest',
-    name: 'АО ФК «Лэндэр-Инвест»',
-    mark: 'ЛИ',
-    markColor: '#7550d9',
-    category: 'receivables',
-    cases: 6,
-    statusLabel: 'Просужен',
-    status: 'да',
-    dateLabel: 'Сбор предложений',
-    date: '11.08 – 26.08.26',
-    debt: 10909649,
-  },
-  {
-    id: 'brokton',
-    name: 'МКК «Броктон»',
-    mark: 'b',
-    markColor: '#ffb800',
-    category: 'individuals',
-    cases: 1531,
-    statusLabel: 'Статус',
-    status: 'досудебный',
-    dateLabel: 'Торги',
-    date: '26.08.26, 11:00',
-    debt: 36561495,
-    startingPrice: 7312299,
-    startingPercent: 20,
-  },
-  {
-    id: 'ztch',
-    name: 'МКК «ЗТЧ»',
-    mark: 'ЗТЧ',
-    markColor: '#ffab50',
-    category: 'individuals',
-    cases: 1569,
-    statusLabel: 'Статус',
-    status: 'досудебный',
-    dateLabel: 'Торги',
-    date: '25.08.26, 11:00',
-    debt: 38794460,
-    startingPrice: 7758892,
-    startingPercent: 20,
-  },
-  {
-    id: 'barvil-hd',
-    name: 'МКК «БАРВИЛ ХД»',
-    mark: 'БА',
-    markColor: '#122929',
-    category: 'individuals',
-    cases: 238,
-    statusLabel: 'Статус',
-    status: 'досудебный',
-    dateLabel: 'Торги',
-    date: '27.08.26, 11:00',
-    debt: 3146917,
-    startingPrice: 369763,
-    startingPercent: 11.75,
-  },
-  {
-    id: 'samoylichenko',
-    name: 'Самойличенко С. А.',
-    mark: 'СА',
-    markColor: '#69afbf',
-    category: 'individuals',
-    cases: 1,
-    statusLabel: 'Статус',
-    status: 'досудебный',
-    dateLabel: 'Сбор предложений',
-    date: '20.08 – 11.09.26',
-    debt: 2599517,
-  },
+  { id: 'triumvirat-20261029', name: 'МКК «Триумвират»', mark: 'ТВ', markColor: '#047f73', category: 'individuals', cases: 6952, statusLabel: 'Статус', status: 'досудебный', dateLabel: 'Торги', date: '29.10.26, 11:00', debt: 197347802, startingPrice: 39469561, startingPercent: 20, startsAt: '2026-10-29T11:00:00+03:00', kind: 'auction' },
+  { id: 'arttransstroy-20261106', name: 'ООО «Арттрансстрой»', mark: 'АТ', markColor: '#326a70', category: 'receivables', cases: 1, statusLabel: 'Статус', status: 'досудебный', dateLabel: 'Сбор предложений', date: '23.10 – 06.11.26', debt: 5597640, kind: 'offers' },
+  { id: 'vvs-leasing-20261102', name: 'ООО «ВВС Лизинг»', mark: 'ВЛ', markColor: '#378d95', category: 'receivables', cases: 1, statusLabel: 'Статус', status: 'досудебный', dateLabel: 'Сбор предложений', date: '19.10 – 02.11.26', debt: 78240172, kind: 'offers' },
+  { id: 'denezhnaya-krepost-20261028', name: 'МКК «Денежная крепость»', mark: 'ДК', markColor: '#50766d', category: 'individuals', cases: 8666, statusLabel: 'Статус', status: 'досудебный', dateLabel: 'Дата торгов', date: '28.10.26, 13:00', debt: 275717932, startingPrice: 49629228, startingPercent: 18, startsAt: '2026-10-28T13:00:00+03:00', kind: 'auction' },
+  { id: 'dolg-consulting-20261028', name: 'ПКО «Долг Консалтинг»', mark: 'ДК', markColor: '#227b67', category: 'individuals', cases: 584, statusLabel: 'Статус', status: 'досудебный', dateLabel: 'Дата торгов', date: '28.10.26, 11:00', debt: 8540467, startingPrice: 649076, startingPercent: 7.6, startsAt: '2026-10-28T11:00:00+03:00', kind: 'auction' },
+  { id: 'svoy-bank-sold', name: 'АО «Свой Банк»', mark: 'СБ', markColor: '#456f76', category: 'individuals', cases: 106, statusLabel: 'Статус', status: 'досудебный', dateLabel: 'Результат', date: 'Продано', debt: 4534428, startingPrice: 816197, startingPercent: 18, kind: 'sold' },
+  { id: 'tbank-sold', name: 'АО «ТБанк»', mark: 'Т', markColor: '#8c7e36', category: 'individuals', cases: 17750, statusLabel: 'Просужен', status: '19%', dateLabel: 'Результат', date: 'Продано', debt: 1856371393, startingPrice: 109729258, startingPercent: 5.91, kind: 'sold' },
+  { id: 'denga-sold', name: 'ГК «ДЕНЬГА»', mark: 'Д', markColor: '#157f62', category: 'individuals', cases: 847, statusLabel: 'Статус', status: 'досудебный', dateLabel: 'Результат', date: 'Продано', debt: 20312106, startingPrice: 4062421, startingPercent: 20, kind: 'sold' },
 ];
+
+export function nextAuctionAt(now = Date.now()): number | null {
+  const times = lots.flatMap((lot) => lot.startsAt ? [Date.parse(lot.startsAt)] : []).filter((time) => time > now);
+  return times.length ? Math.min(...times) : null;
+}
 
 const numberFormat = new Intl.NumberFormat('ru-RU');
 

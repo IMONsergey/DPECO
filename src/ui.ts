@@ -1,4 +1,4 @@
-export type IconName = 'arrow-right' | 'arrow-down' | 'arrow-up' | 'arrow-up-right' | 'chevron-down' | 'search' | 'grid' | 'phone' | 'mail' | 'login' | 'share' | 'briefcase' | 'folders' | 'coins' | 'users' | 'close' | 'menu' | 'clock' | 'check';
+export type IconName = 'arrow-right' | 'arrow-down' | 'arrow-up' | 'arrow-up-right' | 'chevron-down' | 'search' | 'grid' | 'phone' | 'mail' | 'login' | 'share' | 'briefcase' | 'folders' | 'coins' | 'users' | 'close' | 'menu' | 'clock' | 'check' | 'document' | 'shield' | 'telegram' | 'chart' | 'globe' | 'arrow-left' | 'plus';
 
 const paths: Record<IconName, string> = {
   'arrow-right': '<path d="M4 12h15M13 6l6 6-6 6"/>',
@@ -20,6 +20,13 @@ const paths: Record<IconName, string> = {
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
   clock: '<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>',
   check: '<path d="m5 12 4 4L19 6"/>',
+  document: '<path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/>',
+  shield: '<path d="m12 3 8 3v6c0 5-8 9-8 9S4 17 4 12V6zM8 12l3 3 5-6"/>',
+  telegram: '<path d="m3 10 18-7-4 18-6-7-4 3v-5zM7 12 18 6M11 14l7-8"/>',
+  chart: '<path d="M4 4v16h16M7 14l4-4 4 2 5-7"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 7h14M5 17h14"/>',
+  'arrow-left': '<path d="M20 12H5M11 6l-6 6 6 6"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
 };
 
 export function icon(name: IconName, className = ''): string {
@@ -34,3 +41,5 @@ export const rubles = (amount: number): string => new Intl.NumberFormat('ru-RU',
 export const asset = (path: string): string => `${import.meta.env.BASE_URL}assets/${path}`;
 export const accountUrl = 'https://my.debtprice.market/site/login';
 export const registerUrl = 'https://my.debtprice.market/site/register';
+
+export const telegramUrl = 'https://t.me/+H7LCyetXYRozYjA6';
