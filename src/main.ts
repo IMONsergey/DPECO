@@ -1,6 +1,7 @@
 import { filterLots, lots, type LotCategory } from './data/lots';
 import { initDotField, initGlobe } from './effects';
 import { lotCards } from './lot-cards';
+import { createContentTransition } from './motion';
 import { capabilities, renderPage, type Audience } from './page';
 import { accountUrl, asset, escapeHtml, icon, registerUrl, rubles } from './ui';
 import './styles.css';
@@ -29,10 +30,38 @@ const mobileMenuButton = select<HTMLButtonElement>('.header__menu');
 const dialog = select<HTMLDialogElement>('#detail-dialog');
 const dialogContent = select<HTMLDivElement>('#dialog-content');
 const searchResult = select<HTMLDivElement>('#search-result');
+const lotsTransition = createContentTransition(select('.lots__stage'), grid);
+cleanups.push(() => lotsTransition.destroy());
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let previousFocus: HTMLElement | null = null;
 let toastTimeout = 0;
 let clockTimeout = 0;
 let scrollFrame = 0;
+let closeTimeout = 0;
+let capabilityFrame = 0;
+let pointerX = -1;
+let pointerY = -1;
+const dropdownTimers = new Map<HTMLDetailsElement, number>();
+
+function closeDropdown(details: HTMLDetailsElement): void {
+  if (!details.open || dropdownTimers.has(details)) return;
+  const finish = () => {
+    details.open = false;
+    details.classList.remove('is-closing');
+    dropdownTimers.delete(details);
+  };
+  if (reducedMotion.matches) { finish(); return; }
+  details.classList.add('is-closing');
+  dropdownTimers.set(details, window.setTimeout(finish, 180));
+}
+
+function openDropdown(details: HTMLDetailsElement): void {
+  window.clearTimeout(dropdownTimers.get(details));
+  dropdownTimers.delete(details);
+  details.classList.remove('is-closing');
+  app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((other) => { if (other !== details) closeDropdown(other); });
+  details.open = true;
+}
 
 function setMobileMenu(open: boolean): void {
   if (header.classList.contains('menu-open') === open) return;
@@ -45,8 +74,9 @@ function setMobileMenu(open: boolean): void {
 
 function renderLots(announce = true): void {
   const visible = filterLots(lots, state.category, state.query);
-  grid.innerHTML = lotCards(visible);
-  grid.scrollLeft = 0;
+  const update = () => { grid.innerHTML = lotCards(visible); grid.scrollLeft = 0; };
+  if (announce) lotsTransition.run(update);
+  else update();
   grid.setAttribute('aria-labelledby', `filter-${state.category}`);
   app.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) => {
     const active = button.dataset.filter === state.category;
@@ -74,6 +104,8 @@ function scrollToLots(): void {
 }
 
 function showDialog(content: string): void {
+  window.clearTimeout(closeTimeout);
+  dialog.classList.remove('is-closing');
   if (!dialog.open) {
     const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     previousFocus = active?.closest('.mobile-menu')
@@ -81,11 +113,20 @@ function showDialog(content: string): void {
       : active?.closest('details')?.querySelector<HTMLElement>('summary') ?? active;
   }
   setMobileMenu(false);
-  app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((item) => { item.open = false; });
+  app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach(closeDropdown);
+  const wasOpen = dialog.open;
   dialogContent.innerHTML = content;
+  if (wasOpen && !reducedMotion.matches) dialogContent.animate([{ opacity: .65 }, { opacity: 1 }], { duration: 260, easing: 'ease-out' });
   document.body.classList.add('has-dialog');
   if (!dialog.open) dialog.showModal();
   select<HTMLButtonElement>('.dialog__close').focus({ preventScroll: true });
+}
+
+function closeDialog(): void {
+  if (!dialog.open || dialog.classList.contains('is-closing')) return;
+  if (reducedMotion.matches) { dialog.close(); return; }
+  dialog.classList.add('is-closing');
+  closeTimeout = window.setTimeout(() => dialog.close(), 200);
 }
 
 function openLot(id: string): void {
@@ -125,6 +166,7 @@ function openCapability(id: string): void {
 }
 
 function setAudience(audience: Audience): void {
+  if (state.audience === audience) return;
   state.audience = audience;
   app.querySelectorAll<HTMLButtonElement>('[data-audience]').forEach((button) => {
     const active = button.dataset.audience === audience;
@@ -134,11 +176,15 @@ function setAudience(audience: Audience): void {
   select('#capability-grid').setAttribute('aria-labelledby', `audience-${audience}`);
   app.querySelectorAll<HTMLElement>('[data-capability-description]').forEach((element) => {
     const item = capabilities.find((entry) => entry.id === element.dataset.capabilityDescription);
-    if (item) element.textContent = item.description[audience];
+    if (item) {
+      element.textContent = item.description[audience];
+      element.getAnimations().forEach((animation) => animation.cancel());
+      if (!reducedMotion.matches) element.animate([{ opacity: .55 }, { opacity: 1 }], { duration: 300, easing: 'ease-out' });
+    }
   });
 }
 
-const compactCapabilities = matchMedia('(max-width: 800px)');
+const compactCapabilities = matchMedia('(max-width: 1199px)');
 function syncCapabilityAccess(): void {
   app.querySelectorAll<HTMLElement>('[data-capability]').forEach((card) => {
     const expanded = compactCapabilities.matches || card.classList.contains('is-active');
@@ -148,7 +194,7 @@ function syncCapabilityAccess(): void {
   });
 }
 function activateCapability(id: string): void {
-  if (compactCapabilities.matches) return;
+  if (compactCapabilities.matches || app.querySelector<HTMLElement>('.capability.is-active')?.dataset.capability === id) return;
   app.querySelectorAll<HTMLElement>('[data-capability]').forEach((card) => {
     card.classList.toggle('is-active', card.dataset.capability === id);
   });
@@ -184,6 +230,13 @@ function checkHash(): void {
 app.addEventListener('click', (event) => {
   const target = event.target instanceof Element ? event.target.closest<HTMLElement>('button, a, summary') : null;
   if (!target) return;
+  if (target.matches('.dropdown > summary')) {
+    event.preventDefault();
+    const details = target.parentElement as HTMLDetailsElement;
+    if (details.open && !dropdownTimers.has(details)) closeDropdown(details);
+    else openDropdown(details);
+    return;
+  }
   if (target.dataset.openLot) openLot(target.dataset.openLot);
   else if (target.dataset.shareLot) void copyLot(target.dataset.shareLot);
   else if (target.dataset.contact) openContact(target.dataset.contact);
@@ -202,18 +255,11 @@ app.addEventListener('click', (event) => {
     if (audience === 'seller' || audience === 'buyer') setAudience(audience);
   } else if (target.dataset.expandCapability) activateCapability(target.dataset.expandCapability);
   else if (target === mobileMenuButton) setMobileMenu(!header.classList.contains('menu-open'));
-  else if (target.classList.contains('dialog__close')) dialog.close();
-  else if (target.classList.contains('partners__pause')) {
-    const paused = !target.closest('.partners')?.classList.contains('is-paused');
-    target.closest('.partners')?.classList.toggle('is-paused', paused);
-    target.setAttribute('aria-pressed', String(paused));
-    target.setAttribute('aria-label', paused ? 'Продолжить бегущую строку' : 'Приостановить бегущую строку');
-    target.innerHTML = icon(paused ? 'play' : 'pause');
-  }
+  else if (target.classList.contains('dialog__close')) closeDialog();
 
   if (target.matches('a[href^="#"]')) {
     setMobileMenu(false);
-    app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((item) => { item.open = false; });
+    app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach(closeDropdown);
   }
 }, { signal });
 
@@ -257,36 +303,42 @@ app.querySelectorAll<HTMLElement>('[role="tablist"]').forEach((tablist) => {
   }, { signal });
 });
 
+// Follow actual pointer movement, so expanding edges cannot trigger a neighbouring card.
+select('#capability-grid').addEventListener('pointermove', (event) => {
+  if (event.pointerType !== 'mouse' || compactCapabilities.matches) return;
+  if (event.clientX === pointerX && event.clientY === pointerY) return;
+  pointerX = event.clientX;
+  pointerY = event.clientY;
+  const card = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-capability]') : null;
+  if (!card) return;
+  cancelAnimationFrame(capabilityFrame);
+  capabilityFrame = requestAnimationFrame(() => activateCapability(card.dataset.capability!));
+}, { passive: true, signal });
 app.querySelectorAll<HTMLElement>('[data-capability]').forEach((card) => {
-  card.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'mouse') activateCapability(card.dataset.capability!);
-  }, { signal });
   card.addEventListener('focusin', () => activateCapability(card.dataset.capability!), { signal });
 });
 compactCapabilities.addEventListener('change', () => { syncCapabilityAccess(); setMobileMenu(false); }, { signal });
 
-app.querySelectorAll<HTMLDetailsElement>('.dropdown').forEach((details) => {
-  details.addEventListener('toggle', () => {
-    if (details.open) app.querySelectorAll<HTMLDetailsElement>('.dropdown').forEach((other) => { if (other !== details) other.open = false; });
-  }, { signal });
-});
 document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
   const path = event.composedPath();
-  if (!path.some((node) => node instanceof Element && node.matches('.dropdown'))) app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((item) => { item.open = false; });
+  if (!path.some((node) => node instanceof Element && node.matches('.dropdown'))) app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach(closeDropdown);
   if (!path.includes(header)) setMobileMenu(false);
 }, { signal });
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;
-  app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((item) => { item.open = false; item.querySelector('summary')?.focus(); });
+  app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((item) => { closeDropdown(item); item.querySelector('summary')?.focus(); });
   if (header.classList.contains('menu-open')) { setMobileMenu(false); mobileMenuButton.focus(); }
 }, { signal });
 dialog.addEventListener('click', (event) => {
   if (event.target !== dialog) return;
   const box = dialog.getBoundingClientRect();
-  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeDialog();
 }, { signal });
+dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeDialog(); }, { signal });
 dialog.addEventListener('close', () => {
+  window.clearTimeout(closeTimeout);
+  dialog.classList.remove('is-closing');
   document.body.classList.remove('has-dialog');
   if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
   previousFocus = null;
@@ -306,10 +358,15 @@ function updateClock(): void {
 document.addEventListener('visibilitychange', updateClock, { signal });
 function updateHeader(): void {
   scrollFrame = 0;
-  header.classList.toggle('is-scrolled', window.scrollY > 70);
+  const introBottom = select('.intro').getBoundingClientRect().bottom;
+  header.classList.toggle('is-scrolled', introBottom < header.offsetHeight + 170);
 }
 window.addEventListener('scroll', () => {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateHeader);
+}, { passive: true, signal });
+window.addEventListener('resize', () => {
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(updateHeader);
+  if (window.innerWidth > 1099) setMobileMenu(false);
 }, { passive: true, signal });
 
 renderLots(false);
@@ -331,6 +388,9 @@ if (import.meta.hot) {
     window.clearTimeout(clockTimeout);
     window.clearTimeout(toastTimeout);
     cancelAnimationFrame(scrollFrame);
+    cancelAnimationFrame(capabilityFrame);
+    window.clearTimeout(closeTimeout);
+    dropdownTimers.forEach((timeout) => window.clearTimeout(timeout));
     document.body.classList.remove('has-dialog');
   });
 }

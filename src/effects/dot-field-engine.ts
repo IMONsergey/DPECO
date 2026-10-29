@@ -112,6 +112,8 @@ export function createDotCascade(
     visible = !('IntersectionObserver' in window);
   let width = 0,
     height = 0,
+    originX = 0,
+    originY = 0,
     scaleX = 1,
     scaleY = 1,
     gap = 22.5,
@@ -274,6 +276,15 @@ export function createDotCascade(
       gap !== nextGap ||
       dotR !== Math.min(settings.dotRadius, nextGap * 0.15);
     if (!changed) return;
+    if (pointerInitialized) {
+      // Keep the same pointer field through responsive layout changes.
+      pointerX += originX - r.left;
+      pointerY += originY - r.top;
+      targetX = clientX - r.left;
+      targetY = clientY - r.top;
+    }
+    originX = r.left;
+    originY = r.top;
     width = r.width;
     height = r.height;
     canvas.width = bw;
@@ -285,8 +296,6 @@ export function createDotCascade(
     maxShift = Math.min(settings.displacement, gap * 0.5 - dotR - 2);
     columns = Math.max(1, Math.ceil((width - offset) / gap));
     rows = Math.max(1, Math.ceil((height - offset) / gap));
-    pointerInitialized = false;
-    level = 0;
     previousRegion = null;
     paintAll();
     if (pointerInside && enabled()) subscribe(frame);
@@ -304,6 +313,8 @@ export function createDotCascade(
     lastTime = now;
     if (pointerInside) {
       const r = canvas.getBoundingClientRect();
+      originX = r.left;
+      originY = r.top;
       targetX = clientX - r.left;
       targetY = clientY - r.top;
       if (!pointerInitialized) {

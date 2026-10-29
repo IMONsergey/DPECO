@@ -57,8 +57,8 @@ export function capabilityCards(audience: Audience): string {
         <span class="capability__icon">${icon(item.icon)}</span>
         <h3><button type="button" class="capability__title" data-expand-capability="${item.id}" aria-expanded="${index === 1}" aria-controls="capability-body-${item.id}">${item.title}</button></h3>
         <div class="capability__body" id="capability-body-${item.id}" ${index !== 1 ? 'inert' : ''}>
-          <p data-capability-description="${item.id}">${item.description[audience]}</p>
-          <button class="button button--primary capability__button" type="button" data-detail="${item.id}"><span>Смотреть подробнее</span>${icon('arrow-right')}</button>
+          <div class="capability__body-inner"><p data-capability-description="${item.id}">${item.description[audience]}</p>
+          <button class="button button--primary capability__button" type="button" data-detail="${item.id}"><span>Смотреть подробнее</span>${icon('arrow-right')}</button></div>
         </div>
       </div>
     </article>
@@ -113,12 +113,13 @@ export function renderPage(): string {
       </nav>
     </header>
     <main id="main">
+      <div class="intro">
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero__dots" data-dots data-dots-color="#9de6dc" data-dots-opacity="0.15" data-dots-end-opacity="0.005" data-dots-spacing="17"></div>
         <div class="hero__glow" aria-hidden="true"></div>
         <div class="hero__globe" id="hero-globe"></div>
         <div class="container hero__inner">
-          <h1 id="hero-title">DEBTPRICE —<br>Крупнейшая платформа<br>для продажи и покупки<br>долговых активов</h1>
+          <h1 id="hero-title">DEBTPRICE —<br>Крупнейшая платформа<br class="hero__line-break"> для продажи и покупки<br class="hero__line-break"> долговых активов</h1>
           <div class="hero__stats">
             <a class="stat stat--trading" href="#lots" aria-label="Посмотреть торги. Часы показывают московское время">
               <time class="stat__value" data-moscow-clock aria-label="Московское время">--:--:--</time>
@@ -135,9 +136,10 @@ export function renderPage(): string {
         </div>
       </section>
       <section class="partners" aria-labelledby="partners-title">
-        <div class="container partners__heading"><h2 id="partners-title">Наши партнёры</h2><p>во всех регионах России и ещё более <span>500 компаний</span></p><button class="partners__pause" aria-label="Приостановить бегущую строку" aria-pressed="false" type="button">${icon('pause')}</button></div>
+        <div class="container partners__heading"><h2 id="partners-title">Наши партнёры</h2><p>во всех регионах России и ещё более <span>500 компаний</span></p></div>
         <div class="partners__marquee" role="region" aria-label="Партнёры DEBTPRICE"><div class="partners__track">${partnerGroup()}${partnerGroup(true)}</div></div>
       </section>
+      </div>
       <section class="lots section" id="lots" aria-labelledby="lots-title">
         <div class="lots__dots" data-dots data-dots-color="#17aca6" data-dots-opacity="0.25" data-dots-end-opacity="0" data-dots-spacing="17"></div>
         <div class="container section__content">
@@ -152,7 +154,7 @@ export function renderPage(): string {
           </div>
           <div class="search-result" id="search-result" hidden><p></p><button type="button" id="clear-search">Сбросить поиск ${icon('close')}</button></div>
           <p class="sr-only" id="lots-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-          <div class="lots__grid" id="lots-grid" role="tabpanel" aria-labelledby="filter-all" tabindex="0"></div>
+          <div class="lots__stage"><div class="lots__grid" id="lots-grid" role="tabpanel" aria-labelledby="filter-all" tabindex="0"></div></div>
         </div>
       </section>
       <section class="offer-section" aria-labelledby="offer-title">

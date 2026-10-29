@@ -174,7 +174,7 @@ void main(){
     a=(exp(-22.*d*d)+.23*exp(-6.*d*d)+.29*ring)*life*smoothstep(.025,.18,v_depth);
   }else{
     float center=u_kind<.5?(.38+.62*smoothstep(.18,.93,v_radial)):(.18+.82*smoothstep(.12,.95,v_radial));
-    float facing=u_kind<.5?(v_depth<0.?.025:.92):(v_depth<0.?.035:.30);
+    float facing=u_kind<.5?mix(.025,.92,smoothstep(-.08,.16,v_depth)):mix(.035,.30,smoothstep(-.08,.16,v_depth));
     a=(1.-smoothstep(.72,1.,d))*center*facing;
   }
   gl_FragColor=vec4(u_color,clamp(a,0.,1.));
@@ -312,7 +312,7 @@ function canvasRenderer(canvas: HTMLCanvasElement, geo: Geography): GlobeRendere
   if (!context) throw Error('Canvas is unavailable');
   const ctx = context;
   const css = (color: Color3) => 'rgb(' + color.map((v) => Math.round(v * 255)).join(',') + ')';
-  const buckets: number[][] = Array.from({ length: 12 }, () => []);
+  const buckets: number[][] = Array.from({ length: 32 }, () => []);
   function points(
     data: Float32Array,
     m: Float32Array,
@@ -332,8 +332,9 @@ function canvasRenderer(canvas: HTMLCanvasElement, geo: Geography): GlobeRendere
           kind === 0
             ? 0.38 + 0.62 * smooth(0.18, 0.93, radial)
             : 0.18 + 0.82 * smooth(0.12, 0.95, radial);
-      const alpha = center * (kind === 0 ? (z < 0 ? 0.025 : 0.92) : z < 0 ? 0.035 : 0.3),
-        index = Math.round(alpha * 11);
+      const facing = smooth(-0.08, 0.16, z);
+      const alpha = center * (kind === 0 ? 0.025 + 0.895 * facing : 0.035 + 0.265 * facing),
+        index = Math.round(alpha * (buckets.length - 1));
       if (index)
         buckets[index]!.push(
           canvas.width / 2 + x * r,
@@ -344,7 +345,7 @@ function canvasRenderer(canvas: HTMLCanvasElement, geo: Geography): GlobeRendere
     ctx.fillStyle = css(color);
     buckets.forEach((b, index) => {
       if (!b.length) return;
-      ctx.globalAlpha = index / 11;
+      ctx.globalAlpha = index / (buckets.length - 1);
       ctx.beginPath();
       for (let j = 0; j < b.length; j += 3) {
         ctx.moveTo(b[j]! + b[j + 2]!, b[j + 1]!);

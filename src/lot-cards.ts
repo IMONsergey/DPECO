@@ -10,6 +10,6 @@ export function lotCards(items: readonly Lot[]): string {
     <h3 class="lot-card__title"><button type="button" data-open-lot="${lot.id}">${escapeHtml(lot.name)}</button></h3>
     <span class="lot-card__badge">${icon(lot.category === 'receivables' ? 'coins' : 'users')}<span>${lot.category === 'receivables' ? 'Дебиторка' : 'Физ. лица'}</span></span>
     <dl class="lot-card__details"><div><dt>Кейсов</dt><dd>${new Intl.NumberFormat('ru-RU').format(lot.cases)}</dd></div><div><dt>${lot.statusLabel}</dt><dd>${lot.status}</dd></div><div><dt>${lot.dateLabel}</dt><dd>${lot.date}</dd></div></dl>
-    <div class="lot-card__amount"><span>Общая сумма задолженности</span>${lot.startingPrice ? `<small>Начальная цена ${rubles(lot.startingPrice)} · ${String(lot.startingPercent).replace('.', ',')}%</small>` : ''}<strong>${rubles(lot.debt)}</strong></div>
+    <div class="lot-card__amount"><span>Общая сумма задолженности</span>${lot.startingPrice ? `<small>Начальная цена ${rubles(lot.startingPrice)} · ${String(lot.startingPercent).replace('.', ',')}%</small>` : '<small aria-hidden="true">&nbsp;</small>'}<strong>${rubles(lot.debt)}</strong></div>
   </article>`).join('');
 }

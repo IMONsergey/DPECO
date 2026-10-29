@@ -1,4 +1,4 @@
-export type IconName = 'arrow-right' | 'arrow-down' | 'arrow-up' | 'arrow-up-right' | 'chevron-down' | 'search' | 'grid' | 'phone' | 'mail' | 'login' | 'share' | 'briefcase' | 'folders' | 'coins' | 'users' | 'close' | 'menu' | 'clock' | 'check' | 'pause' | 'play';
+export type IconName = 'arrow-right' | 'arrow-down' | 'arrow-up' | 'arrow-up-right' | 'chevron-down' | 'search' | 'grid' | 'phone' | 'mail' | 'login' | 'share' | 'briefcase' | 'folders' | 'coins' | 'users' | 'close' | 'menu' | 'clock' | 'check';
 
 const paths: Record<IconName, string> = {
   'arrow-right': '<path d="M4 12h15M13 6l6 6-6 6"/>',
@@ -20,8 +20,6 @@ const paths: Record<IconName, string> = {
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
   clock: '<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>',
   check: '<path d="m5 12 4 4L19 6"/>',
-  pause: '<path d="M9 5v14M15 5v14"/>',
-  play: '<path d="m8 4 12 8-12 8z"/>',
 };
 
 export function icon(name: IconName, className = ''): string {

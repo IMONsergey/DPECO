@@ -58,7 +58,7 @@ export function initDotField(host: HTMLElement): Cleanup {
     direction: selectedDirection,
     hoverRadius: 165,
     displacement: 4,
-    fps: 30,
+    fps: 60,
     interactive: true,
   }, surface);
 
