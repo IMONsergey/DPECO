@@ -160,7 +160,7 @@ export function renderPage(): string {
           <div class="offer">
             <div class="offer__dots" data-dots data-dots-color="#baffec" data-dots-opacity="0.22" data-dots-end-opacity="0.025" data-dots-spacing="15" data-dots-direction="right-to-left"></div>
             <img class="offer__image" src="${asset('images/offer-panels.webp')}" alt="Стеклянные портфели DEBTPRICE" width="1023" height="597" loading="lazy" decoding="async">
-            <div class="offer__content"><h2 id="offer-title">Выберите подходящее<br>предложение</h2><p>Изучите биржу, чтобы посмотреть доступные лоты<br class="desktop-break"> и условия покупки.</p><a class="button button--white" href="#lots"><span>Смотреть подробнее</span>${icon('arrow-right')}</a></div>
+            <div class="offer__content"><h2 id="offer-title">Выберите подходящее <br>предложение</h2><p>Изучите биржу, чтобы посмотреть доступные лоты<br class="desktop-break"> и условия покупки.</p><a class="button button--white" href="#lots"><span>Смотреть подробнее</span>${icon('arrow-right')}</a></div>
           </div>
         </div>
       </section>
