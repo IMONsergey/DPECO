@@ -95,8 +95,8 @@ export function initGlobe(host: HTMLElement): Cleanup {
       fps: 30,
       interactive: true,
       pixelRatio: 1.5,
-      landColor: '#c0fff4',
-      shellColor: '#73e7d9',
+      landColor: '#e0fff6',
+      shellColor: '#51c5ba',
       signalColor: '#ecfff9',
     });
     host.dataset.globeReady = 'true';

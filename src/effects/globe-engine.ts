@@ -173,8 +173,8 @@ void main(){
     float ring=1.-smoothstep(.02,.065,abs(d-(.65+.06*v_life)));
     a=(exp(-22.*d*d)+.23*exp(-6.*d*d)+.29*ring)*life*smoothstep(.025,.18,v_depth);
   }else{
-    float center=u_kind<.5?(.08+.92*smoothstep(.22,.93,v_radial)):(.22+.78*smoothstep(.12,.95,v_radial));
-    float facing=u_kind<.5?(v_depth<0.?.055:.58):(v_depth<0.?.19:.94);
+    float center=u_kind<.5?(.38+.62*smoothstep(.18,.93,v_radial)):(.18+.82*smoothstep(.12,.95,v_radial));
+    float facing=u_kind<.5?(v_depth<0.?.025:.92):(v_depth<0.?.035:.30);
     a=(1.-smoothstep(.72,1.,d))*center*facing;
   }
   gl_FragColor=vec4(u_color,clamp(a,0.,1.));
@@ -281,7 +281,7 @@ function webglRenderer(canvas: HTMLCanvasElement, geo: Geography): GlobeRenderer
           geo.shell.length / 3,
           s.shellMatrix,
           s.outerRadius,
-          s.outerRadius * 0.013,
+          s.outerRadius * 0.0055,
           s.shellColor,
           1,
         );
@@ -330,9 +330,9 @@ function canvasRenderer(canvas: HTMLCanvasElement, geo: Geography): GlobeRendere
       const radial = Math.hypot(x, y),
         center =
           kind === 0
-            ? 0.08 + 0.92 * smooth(0.22, 0.93, radial)
-            : 0.22 + 0.78 * smooth(0.12, 0.95, radial);
-      const alpha = center * (kind === 0 ? (z < 0 ? 0.055 : 0.58) : z < 0 ? 0.19 : 0.94),
+            ? 0.38 + 0.62 * smooth(0.18, 0.93, radial)
+            : 0.18 + 0.82 * smooth(0.12, 0.95, radial);
+      const alpha = center * (kind === 0 ? (z < 0 ? 0.025 : 0.92) : z < 0 ? 0.035 : 0.3),
         index = Math.round(alpha * 11);
       if (index)
         buckets[index]!.push(
@@ -358,7 +358,7 @@ function canvasRenderer(canvas: HTMLCanvasElement, geo: Geography): GlobeRendere
     type: 'canvas2d',
     draw(s: RenderState) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      points(geo.shell, s.shellMatrix, s.outerRadius, s.outerRadius * 0.0105, s.shellColor, 1);
+      points(geo.shell, s.shellMatrix, s.outerRadius, s.outerRadius * 0.0055, s.shellColor, 1);
       points(geo.land, s.globeMatrix, s.radius, s.radius * 0.0077, s.landColor, 0);
       const rgb = s.signalColor.map((v) => Math.round(v * 255)).join(',');
       for (let i = 0; i < s.signals.length; i += 4) {

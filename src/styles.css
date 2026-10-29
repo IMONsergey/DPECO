@@ -128,7 +128,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .hero h1 { font-size: clamp(40px, 4.16vw, 64px); font-weight: 440; line-height: 1.035; letter-spacing: -.041em; max-width: 830px; }
 .hero__dots { z-index: 0; }
 .hero__glow { position: absolute; width: 75%; height: 100%; top: 20%; right: -24%; background: radial-gradient(ellipse, #00a4a962, transparent 65%); pointer-events: none; }
-.hero .hero__globe { position: absolute; z-index: 1; width: clamp(920px, 87vw, 1650px); height: auto; right: -22.5%; top: 85px; aspect-ratio: 2048 / 1739; opacity: .98; mask-image: linear-gradient(#000 55%, #000b 77%, transparent 99%); -webkit-mask-image: linear-gradient(#000 55%, #000b 77%, transparent 99%); }
+.hero .hero__globe { position: absolute; z-index: 1; width: clamp(920px, 87vw, 1650px); height: auto; right: -17%; top: 85px; aspect-ratio: 2048 / 1739; opacity: .98; mask-image: linear-gradient(#000 35%, #000b 57%, transparent 79%); -webkit-mask-image: linear-gradient(#000 35%, #000b 57%, transparent 79%); }
 .hero__stats { display: flex; gap: 14px; margin-top: 58px; }
 .stat { width: 190px; min-height: 190px; border-radius: 13px; display: flex; flex-direction: column; justify-content: space-between; padding: 19px 20px; position: relative; }
 .stat--trading { background: linear-gradient(135deg, #0db2a1, #119b98); transition: background .2s, transform .4s var(--ease); }
@@ -287,7 +287,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
 @media (min-width: 1600px) {
   .hero__inner { padding-top: 180px; }
   .hero { min-height: 955px; }
-  .hero .hero__globe { right: calc((100vw - 1440px) / 2 - 420px); width: 1440px; }
+  .hero .hero__globe { right: calc((100vw - 1440px) / 2 - 350px); width: 1440px; mask-image: linear-gradient(#000 30%, #000b 50%, transparent 70%); -webkit-mask-image: linear-gradient(#000 30%, #000b 50%, transparent 70%); }
   .header__nav { margin-left: 48px; }
 }
 
@@ -395,7 +395,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .hero { min-height: 820px; }
   .hero__inner { padding-top: 145px; padding-bottom: 130px; }
   .hero h1 { font-size: clamp(40px, 5.6vw, 49px); }
-  .hero .hero__globe { width: 950px; right: -470px; top: 190px; opacity: .68; mask-image: linear-gradient(#000 45%, transparent 94%); -webkit-mask-image: linear-gradient(#000 45%, transparent 94%); }
+  .hero .hero__globe { width: 950px; right: -470px; top: 190px; opacity: .68; mask-image: linear-gradient(#000 30%, transparent 78%); -webkit-mask-image: linear-gradient(#000 30%, transparent 78%); }
   .hero__stats { margin-top: 48px; }
   .stat { width: 160px; min-height: 160px; padding: 18px; }
   .stat__bottom { font-size: 20px; }
@@ -414,11 +414,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .section-title { font-size: clamp(36px, 5.6vw, 45px); }
   .lots__toolbar { flex-wrap: wrap; gap: 20px; }
   .lots__account { min-width: 225px; }
-  .lots__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lots__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lot-card { padding: 15px; min-height: 335px; }
   .lot-card__title { font-size: 18px; }
   .lot-card__amount strong { font-size: 25px; }
-  .lot-card__details { font-size: 9px; }
+  .lot-card__details { font-size: 11px; }
   .offer { min-height: 360px; }
   .offer__content { padding: 35px; }
   .offer__content h2 { font-size: 36px; }
@@ -455,7 +455,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .hero { min-height: 795px; }
   .hero__inner { padding-top: 132px; padding-bottom: 84px; }
   .hero h1 { font-size: clamp(30px, 7.4vw, 43px); line-height: 1.08; letter-spacing: -.04em; }
-  .hero .hero__globe { width: 780px; top: 230px; right: -360px; opacity: .78; mask-image: linear-gradient(#000 25%, #0007 70%, transparent 98%); -webkit-mask-image: linear-gradient(#000 25%, #0007 70%, transparent 98%); }
+  .hero .hero__globe { width: 780px; top: 230px; right: -360px; opacity: .78; mask-image: linear-gradient(#000 20%, #0007 50%, transparent 80%); -webkit-mask-image: linear-gradient(#000 20%, #0007 50%, transparent 80%); }
   .hero__stats { margin-top: 46px; gap: 12px; }
   .stat { width: 144px; min-height: 145px; padding: 16px; border-radius: 10px; }
   .stat__value { font-size: 30px; }
@@ -480,22 +480,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .lot-filters::-webkit-scrollbar { display: none; }
   .segmented button { font-size: 11px; padding: 10px 11px; min-height: 36px; }
   .lots__account { min-height: 44px; width: 100%; font-size: 13px; }
-  .lots__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .lot-card { padding: 13px 12px; min-height: 322px; border-radius: 9px; }
+  .lots__grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(270px, 82%); gap: 14px; overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding: 4px var(--gutter) 16px; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: thin; scrollbar-color: #bdded5 transparent; }
+  .lots__grid:has(.lots__empty) { display: block; }
+  .lot-card { padding: 20px; min-height: 370px; border-radius: 12px; scroll-snap-align: start; }
   .lot-card__top { margin-bottom: 13px; }
-  .lot-card__mark { width: 27px; height: 27px; font-size: 9px; }
+  .lot-card__mark { width: 32px; height: 32px; font-size: 11px; }
   .lot-card__tools { gap: 4px; }
-  .lot-card__tools .icon-button { width: 26px; height: 26px; }
+  .lot-card__tools .icon-button { width: 32px; height: 32px; }
   .lot-card__tools .icon { width: 12px; height: 12px; }
-  .lot-card__title { font-size: 16px; min-height: 54px; letter-spacing: -.025em; }
-  .lot-card__badge { font-size: 9px; padding: 4px 5px; gap: 4px; margin-top: 10px; }
+  .lot-card__title { font-size: 23px; min-height: 53px; letter-spacing: -.025em; }
+  .lot-card__badge { font-size: 11px; padding: 6px 7px; gap: 6px; margin-top: 12px; }
   .lot-card__badge .icon { width: 11px; height: 11px; }
-  .lot-card__details { margin-top: 16px; font-size: 8px; gap: 4px; }
-  .lot-card__details > div { padding: 6px 5px; min-height: 29px; gap: 3px; }
+  .lot-card__details { margin-top: 18px; font-size: 11px; gap: 5px; }
+  .lot-card__details > div { padding: 8px 9px; min-height: 32px; gap: 7px; }
   .lot-card__amount { padding-top: 20px; }
-  .lot-card__amount > span { font-size: 9px; }
-  .lot-card__amount small { font-size: 7px; margin-top: 2px; }
-  .lot-card__amount strong { font-size: clamp(18px, 4.75vw, 26px); margin-top: 6px; }
+  .lot-card__amount > span { font-size: 11px; }
+  .lot-card__amount small { font-size: 10px; margin-top: 3px; }
+  .lot-card__amount strong { font-size: 34px; margin-top: 6px; }
   .search-result { align-items: start; flex-direction: column; gap: 4px; font-size: 13px; margin-top: -5px; }
   .lots__empty { padding: 45px 20px; }
   .lots__empty h3 { font-size: 25px; }
@@ -543,12 +544,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .hero { min-height: 760px; }
   .stat { width: 136px; min-height: 140px; padding: 15px; }
   .stat__value { font-size: 28px; }
-  .lots__grid { gap: 9px; }
-  .lot-card { padding: 12px 9px; }
-  .lot-card__title { font-size: 15px; }
-  .lot-card__details { font-size: 7.2px; }
-  .lot-card__details > div { padding-inline: 4px; }
-  .lot-card__amount strong { font-size: 4.7vw; }
+  .lot-card { padding: 18px; }
+  .lot-card__title { font-size: 22px; }
+  .lot-card__amount strong { font-size: 32px; }
   .offer__content { padding: 28px 23px; }
   .offer__content h2 { font-size: 31px; }
   .capability, .capability.is-active { flex-basis: 89%; }

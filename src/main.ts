@@ -35,6 +35,7 @@ let clockTimeout = 0;
 let scrollFrame = 0;
 
 function setMobileMenu(open: boolean): void {
+  if (header.classList.contains('menu-open') === open) return;
   header.classList.toggle('menu-open', open);
   mobileMenu.inert = !open;
   mobileMenuButton.setAttribute('aria-expanded', String(open));
@@ -45,6 +46,7 @@ function setMobileMenu(open: boolean): void {
 function renderLots(announce = true): void {
   const visible = filterLots(lots, state.category, state.query);
   grid.innerHTML = lotCards(visible);
+  grid.scrollLeft = 0;
   grid.setAttribute('aria-labelledby', `filter-${state.category}`);
   app.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) => {
     const active = button.dataset.filter === state.category;
@@ -270,8 +272,9 @@ app.querySelectorAll<HTMLDetailsElement>('.dropdown').forEach((details) => {
 });
 document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
-  if (!event.target.closest('.dropdown')) app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((item) => { item.open = false; });
-  if (!event.target.closest('.site-header')) setMobileMenu(false);
+  const path = event.composedPath();
+  if (!path.some((node) => node instanceof Element && node.matches('.dropdown'))) app.querySelectorAll<HTMLDetailsElement>('.dropdown[open]').forEach((item) => { item.open = false; });
+  if (!path.includes(header)) setMobileMenu(false);
 }, { signal });
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;
