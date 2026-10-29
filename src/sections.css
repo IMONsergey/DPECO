@@ -14,7 +14,7 @@
 .trust-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; color: inherit; }
 .trust-badges > span { display: inline-flex; align-items: center; gap: 9px; min-height: 38px; padding: 8px 12px; border: 1px solid #ffffff36; border-radius: var(--radius-control); background: #ffffff08; font-size: 14px; font-weight: 400; line-height: 1.35; }
 .trust-badges .icon { width: 17px; height: 17px; }
-.partners.partners--light { padding-top: 44px; padding-bottom: 54px; background: #fff; }
+.partners.partners--light { padding-top: 44px; padding-bottom: 0; background: #fff; }
 .partners--light .partners__heading { color: var(--ink); }
 .partners--light .partners__heading p { color: var(--muted); }
 .partners--light .partners__heading p span { color: var(--ink); }
@@ -245,7 +245,7 @@
   .trust-badges { gap: 8px; margin-top: 26px; }
   .trust-badges > span { padding: 8px 10px; font-size: 12px; gap: 7px; }
   .trust-badges .icon { width: 15px; height: 15px; }
-  .partners.partners--light { padding-top: 28px; padding-bottom: 34px; }
+  .partners.partners--light { padding-top: 28px; padding-bottom: 0; }
   .lots .section-heading { flex-direction: column; align-items: flex-start; gap: 15px; }
   .lots__source { margin-top: 18px; font-size: 14px; }
   .formats__layout { gap: 20px; }
