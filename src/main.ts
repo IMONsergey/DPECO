@@ -78,8 +78,9 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
     const element = document.getElementById(id);
     if (!element) return;
     nav.close();
-    if (id === 'top') window.scrollTo({ top: 0, behavior: motion.matches ? 'instant' : 'smooth' });
-    else element.scrollIntoView({ behavior: motion.matches ? 'instant' : 'smooth', block: 'start' });
+    const offset = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 120;
+    const top = id === 'top' || id === 'main' ? 0 : Math.max(0, element.getBoundingClientRect().top + window.scrollY - offset);
+    window.scrollTo({ top, behavior: motion.matches ? 'instant' : 'smooth' });
     if (id === 'main') element.focus({ preventScroll: true });
   }
 
@@ -125,8 +126,11 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
   formatLayout.addEventListener('change', updateFormatOrientation, { signal });
   updateFormatOrientation();
 
+  let formatAnimation: Animation | null = null;
   function selectFormat(id: string): void {
-    if (!app.querySelector(`#format-pane-${CSS.escape(id)}`)) return;
+    const nextPanel = app.querySelector<HTMLElement>(`#format-pane-${CSS.escape(id)}`);
+    if (!nextPanel || nextPanel.classList.contains('is-active')) return;
+    formatAnimation?.cancel();
     app.querySelectorAll<HTMLButtonElement>('[data-format]').forEach((tab) => {
       const active = tab.dataset.format === id;
       tab.setAttribute('aria-selected', String(active));
@@ -138,6 +142,7 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
       panel.inert = !active;
       panel.setAttribute('aria-hidden', String(!active));
     });
+    if (!motion.matches) formatAnimation = nextPanel.animate([{ opacity: .65 }, { opacity: 1 }], { duration: 260, easing: 'ease-out' });
   }
   const journalGrid = app.querySelector<HTMLElement>('#journal-grid');
   const journalStage = journalGrid?.parentElement;
@@ -264,6 +269,7 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
   return () => {
     abort.abort();
     cleanups.forEach((cleanup) => cleanup());
+    formatAnimation?.cancel();
     cancelAnimationFrame(initialFrame);
     window.clearTimeout(toastTimeout);
     window.clearTimeout(closeTimeout);
@@ -306,15 +312,17 @@ function saveCurrentView(): void {
 }
 
 function navigate(hash: string): void {
+  const route = parseRoute(hash);
+  if (route.path === currentRoute.path && route.query.toString() === currentRoute.query.toString()) return;
   saveCurrentView();
   currentEntry = ++nextEntry;
   history.pushState({ dpecoEntry: currentEntry }, '', hash);
-  render(parseRoute(hash));
+  render(route);
 }
 
 function onHistoryChange(): void {
   const next = parseRoute(location.hash);
-  if (next.path === currentRoute.path && next.query.toString() === currentRoute.query.toString()) return;
+  if (next.path === currentRoute.path && next.query.toString() === currentRoute.query.toString() && history.state?.dpecoEntry === currentEntry) return;
   saveCurrentView();
   const entry = history.state?.dpecoEntry;
   if (typeof entry === 'number' && entry !== currentEntry) currentEntry = entry;

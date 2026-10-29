@@ -342,7 +342,7 @@ main:focus, main h1[tabindex='-1']:focus { outline: none; }
   .offer__content h2 { font-size: clamp(36px, 7.3vw, 46px); line-height: 1.06; }
   .offer__content h2 br { display: none; }
   .offer__content p { font-size: 18px; max-width: 350px; margin-top: 22px; }
-  .offer__content .button { margin-top: 28px; min-width: 0; width: 280px; max-width: 100%; min-height: 54px; font-size: 16px; }
+  .offer__content .button { margin-top: 28px; min-width: 0; width: 280px; max-width: 100%; min-height: 54px; font-size: 15px; padding-inline: 18px; gap: 12px; }
   .offer__image { height: 345px; right: -75px; bottom: -28px; opacity: 1; }
   .offer > .offer__dots { inset: 0; }
   .dialog { padding: 44px 26px 30px; border-radius: 16px; }

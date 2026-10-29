@@ -20,7 +20,7 @@
 .info-text-link:hover > .icon { transform: translate(2px, -1px); }
 .info-hero__art { min-width: 0; height: 450px; position: relative; isolation: isolate; align-self: end; }
 .info-hero__art::before { content: ''; position: absolute; inset: 15% -20% -5% -10%; background: radial-gradient(ellipse at center, #c3e6da 0%, #dceee3 42%, transparent 72%); z-index: -1; }
-.info-hero__art img { position: absolute; bottom: -12%; right: -17%; width: 128%; max-width: none; height: auto; mix-blend-mode: multiply; }
+.info-hero__art img { position: absolute; bottom: -12%; right: -17%; width: 128%; max-width: none; height: auto; mix-blend-mode: multiply; mask-image: linear-gradient(#000 62%, transparent 100%); -webkit-mask-image: linear-gradient(#000 62%, transparent 100%); }
 .info-hero__art-label { position: absolute; top: 20px; right: 12px; font-size: 14px; color: #52796a; letter-spacing: .025em; }
 .info-trust { margin-top: 72px; position: relative; z-index: 1; }
 .info-section { padding: clamp(76px, 6.4vw, 112px) 0; }

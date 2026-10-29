@@ -39,7 +39,7 @@ function homePage(): string {
     <section class="offer-section" aria-labelledby="offer-title"><div class="container"><div class="offer">
       <div class="offer__dots" data-dots data-dots-color="#baffec" data-dots-opacity="0.22" data-dots-end-opacity="0.025" data-dots-spacing="17" data-dots-direction="right-to-left"></div>
       <img class="offer__image" src="${asset('images/offer-panels.webp')}" alt="Стеклянные портфели DEBTPRICE" width="1023" height="597" loading="lazy" decoding="async">
-      <div class="offer__content"><h2 id="offer-title">Выберите подходящее<br>предложение</h2><p>Изучите биржу, чтобы посмотреть доступные лоты<br class="desktop-break"> и условия покупки.</p><a class="button button--white" href="#/buyers"><span>Возможности для покупателя</span>${icon('arrow-right')}</a></div>
+      <div class="offer__content"><h2 id="offer-title">Выберите подходящее <br>предложение</h2><p>Изучите биржу, чтобы посмотреть доступные лоты<br class="desktop-break"> и условия покупки.</p><a class="button button--white" href="#/buyers"><span>Выбрать предложение</span>${icon('arrow-right')}</a></div>
     </div></div></section>
     ${renderCapabilities()}
     ${renderFormats()}

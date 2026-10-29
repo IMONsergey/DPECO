@@ -181,7 +181,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 240ms ease, visibility 0s linear 240ms;
+  /* Text is replaced in one frame, then the active panel fades in without ghosting. */
 }
 .format-pane.is-active { z-index: 1; opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
 .format-pane[inert] { pointer-events: none; }
