@@ -72,13 +72,13 @@ const items: readonly Capability[] = [
 
 const additional: Record<Audience, { title: string; description: string; href: string }> = {
   seller: {
-    title: 'Портфели любого объёма',
-    description: 'От одного договора',
+    title: 'Прочие права требования',
+    description: 'Нестандартные активы и отдельные договоры',
     href: '#/sellers/portfeli',
   },
   buyer: {
-    title: 'Долги перед сервисами',
-    description: 'Каршеринг и операторы услуг',
+    title: 'Прочие права требования',
+    description: 'Включая долги перед сервисами и операторами услуг',
     href: '#/buyers',
   },
 };
