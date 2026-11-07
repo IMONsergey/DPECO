@@ -53,7 +53,6 @@ body.has-menu { overflow: hidden; }
 .nav-dropdown.is-open > .header__nav-control > .header__nav-chevron { transform: rotate(180deg); }
 .header__actions .header__account { min-height: 42px; height: 42px; padding-inline: 13px; font-size: 14px; }
 .header__ecosystem > .header__nav-control { padding-inline: 14px; }
-.header__receivables { display: none; }
 .nav-dropdown { position: relative; flex: 0 0 auto; }
 .nav-panel { position: absolute; z-index: 10; top: calc(100% + 12px); left: 0; width: 372px; max-width: calc(100vw - var(--gutter) * 2); padding: 9px; border: 1px solid #e4e7e7; border-radius: var(--radius-card); color: var(--ink); background: #fff; box-shadow: 0 24px 72px #1725261f, 0 4px 16px #17252608; visibility: hidden; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity 240ms var(--ease), transform 240ms var(--ease), visibility 0s linear 240ms; }
 .nav-dropdown.is-open > .nav-panel { visibility: visible; opacity: 1; transform: translateY(0); pointer-events: auto; transition-delay: 0s; }
@@ -101,10 +100,6 @@ body.has-menu { overflow: hidden; }
 .footer__privacy { display: inline-flex; align-items: center; gap: 12px; color: #d1d7d7; font-size: 14px; line-height: 1.5; text-decoration: underline; text-decoration-color: #ffffff40; text-underline-offset: 4px; }
 .footer__privacy > .icon { width: 16px; height: 16px; }
 .footer__privacy:hover { text-decoration-color: currentColor; }
-
-@container header-shell (min-width: 1360px) {
-  .header__receivables { display: inline-flex; }
-}
 
 @container header-shell (max-width: 1359px) {
   .header__contacts .header__email { display: none; }

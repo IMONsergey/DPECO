@@ -39,8 +39,12 @@ export function mountRequestForms(app: HTMLElement, notify: (text: string) => vo
       const subject = subjects[form.dataset.kind ?? 'general'] ?? subjects.general!;
       const lines: string[] = [];
       for (const [name, rawValue] of new FormData(form)) {
-        if (name === 'consent' || typeof rawValue !== 'string' || !rawValue.trim()) continue;
+        if (name === 'consent' || name === 'marketingConsent' || typeof rawValue !== 'string' || !rawValue.trim()) continue;
         lines.push(`${fieldNames[name] ?? name}: ${rawValue.trim()}`);
+      }
+      const marketingConsent = form.elements.namedItem('marketingConsent');
+      if (marketingConsent instanceof HTMLInputElement) {
+        lines.push(`Согласие на рекламные предложения: ${marketingConsent.checked ? 'предоставлено' : 'не предоставлено'}`);
       }
       const body = `${subject}\n\n${lines.join('\n')}\n\nСогласие на обработку персональных данных подтверждено в форме сайта.`;
       drafts.set(form, body);

@@ -4,49 +4,54 @@ import { articles, renderJournalPage, renderSearchResults, searchSitePages } fro
 import { renderInfoPage } from './pages/info';
 import { renderMarketPage } from './pages/market';
 import { isDarkRoute, routeNames, type Route } from './routes';
-import { renderEcosystem, renderFormats, renderJournalPreview, renderLotsSection, renderPartners, renderProcess, renderRequestForm, renderTrustBadges } from './sections';
+import { renderEcosystem, renderFormats, renderJournalPreview, renderLotsSection, renderPartners, renderProcess, renderRequestForm } from './sections';
 import { renderFooter, renderHeader } from './shell';
-import { asset, icon, rubles } from './ui';
+import { accountUrl, icon, rubles } from './ui';
+import './home-redesign.css';
 
 function homePage(): string {
   return `
-    <div class="intro">
-      <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="intro intro--home">
+      <section class="hero hero--home" id="top" aria-labelledby="hero-title">
         <div class="hero__dots" data-dots data-dots-color="#9de6dc" data-dots-opacity="0.15" data-dots-end-opacity="0.005" data-dots-spacing="19"></div>
         <div class="hero__glow" aria-hidden="true"></div>
         <div class="hero__globe" id="hero-globe" aria-hidden="true"></div>
-        <div class="container hero__inner">
-          <h1 id="hero-title" data-text-reveal>DEBTPRICE —<br>Крупнейшая платформа<br class="hero__line-break"> для продажи и покупки<br class="hero__line-break"> долговых активов</h1>
-          <div class="hero__stats" data-stagger>
-            <a class="stat stat--trading" href="#lots" data-scroll="lots">
-              <span class="stat__value" data-auction-countdown>Расписание</span>
-              <span class="stat__bottom"><span data-auction-label>Торги</span><span class="stat__arrow">${icon('arrow-up-right')}</span></span>
-              <span class="stat__hint" data-auction-hint>Даты и условия торгов</span>
-            </a>
-            <div class="stat stat--members"><span class="stat__value">2100<span class="stat__plus">+</span></span><span class="stat__bottom">участников<br>рынка</span></div>
+        <div class="container hero__inner hero-home__inner">
+          <div class="hero-home__lead">
+            <div class="hero-home__eyebrow" data-reveal><span class="hero-home__eyebrow-mark"></span>DEBTPRICE / ЭЛЕКТРОННАЯ ТОРГОВАЯ ПЛОЩАДКА</div>
+            <h1 id="hero-title" data-text-reveal>Продажа и покупка<br> <span>долговых активов.</span></h1>
+            <p class="hero-home__description" data-reveal>Размещайте права требования, выбирайте долговые портфели и&nbsp;проводите сделки на&nbsp;специализированной торговой площадке.</p>
           </div>
-          <div class="hero__actions" data-reveal>
-            <a class="button button--primary" href="#request" data-scroll="request"><span>Продать долг</span>${icon('arrow-up-right')}</a>
-            <a class="button button--white" href="#/buyers"><span>Купить долговые активы</span>${icon('arrow-right')}</a>
+          <div class="hero-home__roles" data-stagger aria-label="Основные сценарии площадки">
+            <article class="hero-role hero-role--seller">
+              <div class="hero-role__top"><span>01 / ПРОДАВЦУ</span>${icon('arrow-up-right')}</div>
+              <div><h2>Продать долг</h2><p>Подберите формат размещения под тип актива.</p></div>
+              <div class="hero-role__links">
+                <a href="#/sellers/portfeli"><span>Долговые портфели</span>${icon('arrow-up-right')}</a>
+                <a href="#/sellers/debitorka"><span>Дебиторская задолженность</span>${icon('arrow-up-right')}</a>
+              </div>
+            </article>
+            <article class="hero-role hero-role--buyer">
+              <div class="hero-role__top"><span>02 / ПОКУПАТЕЛЮ</span>${icon('arrow-up-right')}</div>
+              <div><h2>Купить актив</h2><p>Выбирайте лоты и участвуйте в торгах на ЭТП.</p></div>
+              <a href="${accountUrl}" class="hero-role__primary-link"><span>Участвовать в торгах</span>${icon('arrow-up-right')}</a>
+            </article>
           </div>
-          ${renderTrustBadges()}
-          <a class="hero__scroll icon-button" href="#lots" data-scroll="lots" aria-label="Перейти к лотам">${icon('arrow-down')}</a>
+          <div class="hero-home__foot" data-reveal>
+            <span>АУКЦИОНЫ · ПОРТФЕЛИ · ДЕБИТОРСКАЯ ЗАДОЛЖЕННОСТЬ</span>
+            <a href="#lots" data-scroll="lots"><span>Расписание торгов</span>${icon('arrow-down')}</a>
+          </div>
         </div>
       </section>
-      ${renderPartners()}
     </div>
     ${renderLotsSection()}
-    <section class="offer-section" aria-labelledby="offer-title"><div class="container"><div class="offer">
-      <div class="offer__dots" data-dots data-dots-color="#baffec" data-dots-opacity="0.22" data-dots-end-opacity="0.025" data-dots-spacing="17" data-dots-direction="right-to-left"></div>
-      <img class="offer__image" src="${asset('images/offer-panels.webp')}" alt="Стеклянные портфели DEBTPRICE" width="1023" height="597" loading="lazy" decoding="async">
-      <div class="offer__content"><h2 id="offer-title" data-text-reveal>Выберите подходящее <br>предложение</h2><p>Изучите биржу, чтобы посмотреть доступные лоты<br class="desktop-break"> и условия покупки.</p><a class="button button--white" href="#/buyers"><span>Выбрать предложение</span>${icon('arrow-right')}</a></div>
-    </div></div></section>
+    ${renderPartners(true)}
     ${renderCapabilities()}
     ${renderFormats()}
     ${renderProcess('home')}
+    ${renderRequestForm('portfolio')}
     ${renderEcosystem()}
     ${renderJournalPreview()}
-    ${renderRequestForm()}
   `;
 }
 

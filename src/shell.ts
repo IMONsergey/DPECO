@@ -83,7 +83,6 @@ export function renderHeader(light: boolean): string {
           ${dropdown('sellers', 'Продавцам', navigationPanel(sellerLinks))}
           <a class="header__nav-control header__nav-link" href="#/buyers">Покупателям</a>
           ${dropdown('invest', 'Инвестору', navigationPanel(investorLinks))}
-          <a class="header__nav-control header__nav-link header__receivables" href="#/sellers/debitorka">Дебиторская задолженность</a>
           <a class="header__nav-control header__nav-link" href="#/about">О проекте</a>
           <a class="header__nav-control header__nav-link" href="#/contacts">Контакты</a>
         </nav>

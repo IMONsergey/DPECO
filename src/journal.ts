@@ -44,7 +44,7 @@ function articleCard(item: (typeof articles)[number]): string {
   return `<a class="journal-card" href="#/journal/${item.slug}"><div class="journal-card__media"><img src="${asset(`images/${item.image}`)}" alt="" width="570" height="488" loading="lazy" decoding="async"></div><div class="journal-card__body"><h3>${item.title}</h3><p>${item.excerpt}</p><div class="journal-card__meta"><span>${item.category}</span>${icon('arrow-up-right')}</div></div></a>`;
 }
 export function renderJournalPreview(): string {
-  return `<section class="journal-preview section" aria-labelledby="journal-preview-title"><div class="container"><div class="section-heading"><h2 class="section-title" id="journal-preview-title" data-text-reveal>Частые <span>вопросы</span></h2><a class="text-link" href="#/journal">Все материалы ${icon('arrow-right')}</a></div><div class="journal-grid" data-stagger>${[articles[0], articles[1], articles[4]].map(articleCard).join('')}</div></div></section>`;
+  return `<section class="journal-preview section" aria-labelledby="journal-preview-title"><div class="container"><div class="section-heading"><h2 class="section-title" id="journal-preview-title" data-text-reveal>Практика и <span>материалы</span></h2><a class="text-link" href="#/journal">Все материалы ${icon('arrow-right')}</a></div><div class="journal-grid" data-stagger>${[articles[0], articles[1], articles[4]].map(articleCard).join('')}</div></div></section>`;
 }
 export function renderJournalPage(slug?: string): string {
   const item = articles.find((article) => article.slug === slug);
