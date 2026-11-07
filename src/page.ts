@@ -1,4 +1,5 @@
-import { renderCapabilities } from './components/capabilities';
+import { renderCinematicHome } from './alternative-cinematic';
+import './alternative-cinematic.css';
 import { filterLots, lots } from './data/lots';
 import { articles, renderJournalPage, renderSearchResults, searchSitePages } from './journal';
 import { renderInfoPage } from './pages/info';
@@ -10,49 +11,7 @@ import { accountUrl, icon, rubles } from './ui';
 import './home-redesign.css';
 
 function homePage(): string {
-  return `
-    <div class="intro intro--home">
-      <section class="hero hero--home" id="top" aria-labelledby="hero-title">
-        <div class="hero__dots" data-dots data-dots-color="#9de6dc" data-dots-opacity="0.15" data-dots-end-opacity="0.005" data-dots-spacing="19"></div>
-        <div class="hero__glow" aria-hidden="true"></div>
-        <div class="hero__globe" id="hero-globe" aria-hidden="true"></div>
-        <div class="container hero__inner hero-home__inner">
-          <div class="hero-home__lead">
-            <div class="hero-home__eyebrow" data-reveal><span class="hero-home__eyebrow-mark"></span>DEBTPRICE / ЭЛЕКТРОННАЯ ТОРГОВАЯ ПЛОЩАДКА</div>
-            <h1 id="hero-title" data-text-reveal>Продажа и покупка<br> <span>долговых активов.</span></h1>
-            <p class="hero-home__description" data-reveal>Размещайте права требования, выбирайте долговые портфели и&nbsp;проводите сделки на&nbsp;специализированной торговой площадке.</p>
-          </div>
-          <div class="hero-home__roles" data-stagger aria-label="Основные сценарии площадки">
-            <article class="hero-role hero-role--seller">
-              <div class="hero-role__top"><span>01 / ПРОДАВЦУ</span>${icon('arrow-up-right')}</div>
-              <div><h2>Продать долг</h2><p>Подберите формат размещения под тип актива.</p></div>
-              <div class="hero-role__links">
-                <a href="#/sellers/portfeli"><span>Долговые портфели</span>${icon('arrow-up-right')}</a>
-                <a href="#/sellers/debitorka"><span>Дебиторская задолженность</span>${icon('arrow-up-right')}</a>
-              </div>
-            </article>
-            <article class="hero-role hero-role--buyer">
-              <div class="hero-role__top"><span>02 / ПОКУПАТЕЛЮ</span>${icon('arrow-up-right')}</div>
-              <div><h2>Купить актив</h2><p>Выбирайте лоты и участвуйте в торгах на ЭТП.</p></div>
-              <a href="${accountUrl}" class="hero-role__primary-link"><span>Участвовать в торгах</span>${icon('arrow-up-right')}</a>
-            </article>
-          </div>
-          <div class="hero-home__foot" data-reveal>
-            <span>АУКЦИОНЫ · ПОРТФЕЛИ · ДЕБИТОРСКАЯ ЗАДОЛЖЕННОСТЬ</span>
-            <a href="#lots" data-scroll="lots"><span>Расписание торгов</span>${icon('arrow-down')}</a>
-          </div>
-        </div>
-      </section>
-    </div>
-    ${renderLotsSection()}
-    ${renderPartners(true)}
-    ${renderCapabilities()}
-    ${renderFormats()}
-    ${renderProcess('home')}
-    ${renderRequestForm('portfolio')}
-    ${renderEcosystem()}
-    ${renderJournalPreview()}
-  `;
+  return renderCinematicHome();
 }
 
 function bodyForRoute(route: Route): string {
