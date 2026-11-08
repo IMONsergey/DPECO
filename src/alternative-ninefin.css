@@ -1,0 +1,152 @@
+/* DEBTPRICE / direction 05: product-led information architecture after 9fin.com.
+   Scoped homepage styles; no 9fin assets, branding, metrics or copyrighted text. */
+.ninefin-site { --nf-ink:#162b2d; --nf-muted:#607476; --nf-aqua:#087b76; --nf-line:#dce6e5; --nf-paper:#f4f7f6; color:var(--nf-ink); background:#fff; overflow:clip; }
+.ninefin-site .container { max-width:1520px; }
+.ninefin-site :is(h1,h2,h3) { text-wrap:balance; }
+.ninefin-site a:focus-visible { outline:3px solid #087b76; outline-offset:5px; }
+body:has(.ninefin-site) .site-header.is-light { --nav-border:#cbdad6; --nav-surface:#f7faf9; }
+body:has(.ninefin-site) .site-header.is-light::after { background:linear-gradient(#fff 0%,#fff 65%,#ffffff00 100%); }
+body:has(.ninefin-site) .site-footer { background:#142e32; }
+.ninefin-label,.ninefin-kicker { font-size:11px; font-weight:680; line-height:1.4; letter-spacing:.11em; text-transform:uppercase; }
+.ninefin-pip { display:inline-block; width:8px; height:8px; margin-right:10px; background:var(--nf-aqua); border-radius:50%; vertical-align:1px; }
+.ninefin-hero { position:relative; padding-top:calc(var(--header-height, 120px) + 62px); background:linear-gradient(180deg,#fff 0%,#fff 65%,#f5f8f7 100%); border-bottom:1px solid var(--nf-line); }
+.ninefin-hero__layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(510px,1.04fr); gap:clamp(34px,5vw,94px); align-items:center; min-height:670px; padding-bottom:64px; }
+.ninefin-hero__copy { min-width:0; padding:10px 0 40px; }
+.ninefin-kicker { color:#34766f; }
+.ninefin-hero h1 { font-size:clamp(58px,5.2vw,86px); line-height:1.04; font-weight:510; letter-spacing:-.066em; margin:37px 0 28px; }
+.ninefin-hero h1 em { color:var(--nf-aqua); font-style:normal; font-weight:470; }
+.ninefin-hero__lead { font-size:clamp(18px,1.36vw,21px); line-height:1.52; color:#52696a; max-width:565px; }
+.ninefin-hero__actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:35px; }
+.ninefin-button { display:inline-flex; align-items:center; justify-content:space-between; min-height:54px; padding:0 19px; gap:20px; min-width:190px; border:1px solid #c8d8d4; border-radius:4px; font-weight:615; font-size:14px; line-height:1.25; transition:background-color .24s,color .24s,transform .24s; }
+.ninefin-button span { font-size:20px; font-weight:400; }
+.ninefin-button:hover { transform:translateY(-2px); }
+.ninefin-button--primary { color:#fff; background:#123639; border-color:#123639; }
+.ninefin-button--primary:hover { background:#1a5d5d; }
+.ninefin-button--secondary { color:#1b4545; background:#fff; }
+.ninefin-button--secondary:hover { background:#e8f2ee; }
+.ninefin-hero__note { display:flex; flex-wrap:wrap; gap:13px 26px; margin-top:64px; font-size:10px; color:#68807b; letter-spacing:.08em; }
+.ninefin-product { min-width:0; overflow:hidden; border:1px solid #d5e0df; border-radius:8px; background:white; box-shadow:0 30px 100px #2d69651a,0 4px 16px #183b3912; }
+.ninefin-product__top { background:#142e33; color:#f1fff9; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:18px 21px; font-size:11px; font-weight:650; letter-spacing:.04em; }
+.ninefin-product__mark span { color:#84e1d4; }
+.ninefin-product__date { color:#b0d0cc; font-weight:420; }
+.ninefin-product__intro { display:flex; justify-content:space-between; align-items:end; gap:20px; padding:29px 31px 27px; }
+.ninefin-product__intro small { display:block; font-size:10px; font-weight:650; letter-spacing:.12em; color:var(--nf-aqua); }
+.ninefin-product__intro h2 { margin-top:10px; font-size:clamp(28px,2.5vw,42px); line-height:1.13; font-weight:505; letter-spacing:-.054em; }
+.ninefin-product__index { font-size:35px; letter-spacing:-.08em; color:#237c78; font-weight:470; white-space:nowrap; }
+.ninefin-product__index span { font-size:16px; color:#9bb5b0; letter-spacing:0; }
+.ninefin-product__toolbar { display:flex; justify-content:space-between; gap:20px; padding:12px 31px; background:#f1f6f5; color:#375e5d; font-size:10px; font-weight:655; letter-spacing:.06em; }
+.ninefin-product__scroll { overflow-x:auto; overscroll-behavior-inline:contain; }
+.ninefin-product__table { width:100%; min-width:575px; border-spacing:0; border-collapse:collapse; }
+.ninefin-product__table th { text-align:left; background:#fcfdfd; border-bottom:1px solid #dfe9e6; color:#738d87; font-size:10px; font-weight:575; padding:13px 18px; }
+.ninefin-product__table td { border-bottom:1px solid #e6edeb; padding:18px; font-size:12px; line-height:1.4; white-space:nowrap; }
+.ninefin-product__table td:first-child { font-weight:650; }
+.ninefin-product__table td:first-child a { text-decoration-color:transparent; text-underline-offset:4px; }
+.ninefin-product__table td:first-child a:hover { text-decoration:underline; text-decoration-color:#8aafaa; }
+.ninefin-product__table td:first-child span { color:var(--nf-aqua); }
+.ninefin-category { background:#f0f7f4; border:1px solid #dceae5; color:#496d63; padding:5px 7px; border-radius:2px; font-size:11px; }
+.ninefin-value { font-variant-numeric:tabular-nums; font-weight:550; text-align:right; }
+.ninefin-product__table th:last-child { text-align:right; }
+.ninefin-product__foot { padding:23px 31px 27px; display:flex; align-items:start; justify-content:space-between; gap:16px; }
+.ninefin-product__foot p { font-size:11px; color:#667a75; line-height:1.45; max-width:295px; }
+.ninefin-product__foot a { color:var(--nf-aqua); white-space:nowrap; font-size:11px; font-weight:650; }
+.ninefin-hero__foot { border-top:1px solid #d9e7e3; display:flex; justify-content:space-between; align-items:center; gap:20px; padding-block:23px; font-size:11px; letter-spacing:.075em; color:#607c73; font-weight:580; }
+.ninefin-hero__foot a { display:inline-flex; gap:15px; color:#166f65; font-size:12px; letter-spacing:0; }
+.ninefin-advantage { background:#f6f9f8; padding:125px 0 160px; border-bottom:1px solid #e2e9e7; }
+.ninefin-advantage__layout { display:grid; grid-template-columns:minmax(0,.93fr) minmax(0,1fr); gap:clamp(45px,8vw,150px); }
+.ninefin-advantage__fixed { align-self:start; position:sticky; top:140px; }
+.ninefin-advantage__fixed .ninefin-label { color:var(--nf-aqua); }
+.ninefin-advantage__fixed h2 { font-size:clamp(47px,4.7vw,76px); letter-spacing:-.066em; line-height:1.04; font-weight:480; margin:25px 0 34px; }
+.ninefin-advantage__fixed h2 span { color:#6d908b; }
+.ninefin-advantage__fixed > p:not(.ninefin-label) { color:#66807d; font-size:18px; line-height:1.55; max-width:500px; }
+.ninefin-advantage__list { list-style:none; padding:0; margin:0; counter-reset:none; }
+.ninefin-advantage__list li { display:grid; grid-template-columns:45px 1fr; gap:22px; padding:37px 0 42px; border-bottom:1px solid #c7d9d3; }
+.ninefin-advantage__list li:first-child { border-top:1px solid #c7d9d3; }
+.ninefin-advantage__number { font-size:12px; color:var(--nf-aqua); font-weight:675; padding-top:9px; }
+.ninefin-advantage__list h3 { font-size:clamp(28px,2.65vw,43px); font-weight:515; line-height:1.13; letter-spacing:-.05em; }
+.ninefin-advantage__list p { margin-top:15px; font-size:16px; line-height:1.54; color:#58736e; max-width:520px; }
+.ninefin-advantage__list a { display:inline-flex; gap:25px; padding:0 0 8px; border-bottom:1px solid #70aca4; margin-top:22px; font-size:13px; font-weight:620; color:#146c64; }
+.ninefin-roles { background:#fff; padding:120px 0 140px; }
+.ninefin-roles__header { display:grid; grid-template-columns:230px 1fr; gap:50px; padding-bottom:66px; }
+.ninefin-roles__header .ninefin-label { color:#16796e; padding-top:15px; }
+.ninefin-roles__header h2 { font-size:clamp(54px,5.5vw,91px); line-height:1.03; letter-spacing:-.069em; font-weight:490; }
+.ninefin-roles__lines { border-top:1px solid #dce5e1; }
+.ninefin-role { display:grid; grid-template-columns:200px minmax(0,1fr) minmax(220px,.54fr); gap:clamp(20px,4vw,80px); padding:56px 0 67px; border-bottom:1px solid #dce5e1; }
+.ninefin-role__index { font-size:11px; font-weight:680; letter-spacing:.08em; color:#22766f; padding-top:10px; }
+.ninefin-role h3 { font-size:clamp(34px,3.4vw,56px); line-height:1.08; font-weight:470; letter-spacing:-.061em; }
+.ninefin-role p { max-width:510px; margin-top:20px; font-size:16px; line-height:1.52; color:#607773; }
+.ninefin-role__links { display:flex; flex-direction:column; align-self:end; border-top:1px solid #9fc1b6; }
+.ninefin-role__links a { display:flex; justify-content:space-between; align-items:center; gap:14px; border-bottom:1px solid #9fc1b6; min-height:52px; color:#184d47; font-size:13px; font-weight:610; }
+.ninefin-role__links a:hover { color:#088277; }
+.ninefin-archive { background:#f1f6f4; padding-top:110px; }
+.ninefin-archive__intro { display:grid; grid-template-columns:230px 1fr; gap:50px; padding-bottom:14px; }
+.ninefin-archive__intro .ninefin-label { color:#247369; padding-top:13px; }
+.ninefin-archive__intro h2 { font-size:clamp(49px,5.3vw,88px); letter-spacing:-.072em; font-weight:480; line-height:1.04; }
+.ninefin-archive__intro p:not(.ninefin-label) { margin-top:18px; font-size:17px; color:#5a7871; line-height:1.5; max-width:740px; }
+.ninefin-archive .lots { background:transparent; padding-top:55px; }
+.ninefin-archive .lots .section-heading { display:none; }
+.ninefin-archive .lots__grid { gap:12px; }
+.ninefin-archive .lot-card { background:#fff; border-radius:4px; }
+.ninefin-native { background:#fff; padding-top:120px; }
+.ninefin-native__intro { display:grid; grid-template-columns:230px 1fr; gap:50px; align-items:start; }
+.ninefin-native__intro .ninefin-label { padding-top:10px; color:#247369; }
+.ninefin-native__intro h2 { font-size:clamp(49px,5.1vw,85px); font-weight:475; letter-spacing:-.069em; line-height:1.05; }
+.ninefin-native .section-title { font-weight:470; letter-spacing:-.06em; }
+.ninefin-native .button { border-radius:4px; }
+.ninefin-cta { background:#142f33; color:#f6fffa; padding:128px 0 150px; }
+.ninefin-cta__layout { display:grid; grid-template-columns:230px 1fr; gap:50px; }
+.ninefin-cta .ninefin-label { color:#8fd0bc; padding-top:18px; }
+.ninefin-cta h2 { font-size:clamp(65px,7.4vw,124px); font-weight:440; letter-spacing:-.076em; line-height:1; }
+.ninefin-cta h2 span { color:#8fd5c5; }
+.ninefin-cta p:not(.ninefin-label) { margin:27px 0 31px; font-size:18px; line-height:1.5; color:#c5dad4; max-width:640px; }
+.ninefin-cta .ninefin-button { background:#b8f4de; border-color:#b8f4de; color:#133b3b; }
+.ninefin-cta .ninefin-button:hover { background:#dbfff3; }
+.ninefin-site .request { background:#f1f6f4; }
+.ninefin-end .ecosystem { background:#fff; }
+@media(max-width:1199px) {
+  .ninefin-hero { padding-top:calc(var(--header-height,120px) + 44px); }
+  .ninefin-hero__layout { grid-template-columns:1fr; min-height:0; gap:30px; }
+  .ninefin-hero__copy { padding-bottom:0; }
+  .ninefin-hero h1 { font-size:clamp(58px,7vw,96px); }
+  .ninefin-hero__note { margin-top:38px; }
+  .ninefin-product { max-width:1000px; }
+  .ninefin-advantage__layout { gap:42px; }
+  .ninefin-role { grid-template-columns:145px minmax(0,1fr); }
+  .ninefin-role__links { grid-column:2; }
+}
+@media(max-width:799px) {
+  .ninefin-hero { padding-top:calc(var(--header-height,100px) + 30px); }
+  .ninefin-hero h1 { font-size:clamp(51px,9vw,74px); }
+  .ninefin-product__foot { flex-direction:column; }
+  .ninefin-advantage { padding:90px 0 100px; }
+  .ninefin-advantage__layout,.ninefin-roles__header,.ninefin-archive__intro,.ninefin-native__intro,.ninefin-cta__layout { grid-template-columns:1fr; gap:20px; }
+  .ninefin-advantage__fixed { position:static; }
+  .ninefin-advantage__list { margin-top:28px; }
+  .ninefin-roles { padding:90px 0 110px; }
+  .ninefin-roles__header { padding-bottom:38px; }
+  .ninefin-role { grid-template-columns:1fr; gap:25px; padding-block:41px; }
+  .ninefin-role__links { grid-column:1; }
+  .ninefin-archive { padding-top:78px; }
+  .ninefin-native { padding-top:85px; }
+  .ninefin-cta { padding-block:100px; }
+}
+@media(max-width:499px) {
+  .ninefin-hero__layout { padding-bottom:40px; }
+  .ninefin-hero h1 { font-size:clamp(42px,12.8vw,63px); letter-spacing:-.063em; margin:25px 0; }
+  .ninefin-hero__lead { font-size:16px; }
+  .ninefin-hero__actions { flex-direction:column; align-items:stretch; }
+  .ninefin-button { width:100%; min-height:56px; }
+  .ninefin-hero__note { font-size:9px; gap:10px; }
+  .ninefin-product__intro { padding:23px 18px; }
+  .ninefin-product__intro h2 { font-size:26px; }
+  .ninefin-product__index { font-size:26px; }
+  .ninefin-product__toolbar { padding:13px 18px; }
+  .ninefin-product__foot { padding:19px; }
+  .ninefin-hero__foot { font-size:9px; }
+  .ninefin-advantage__fixed h2 { font-size:clamp(39px,11vw,52px); }
+  .ninefin-advantage__list li { grid-template-columns:30px 1fr; gap:14px; }
+  .ninefin-advantage__list h3 { font-size:29px; }
+  .ninefin-roles__header h2,.ninefin-archive__intro h2,.ninefin-native__intro h2 { font-size:clamp(43px,11.5vw,60px); }
+  .ninefin-role h3 { font-size:37px; }
+  .ninefin-cta h2 { font-size:clamp(54px,13.5vw,77px); }
+}
+@media(prefers-reduced-motion:reduce) { .ninefin-button { transition:none; } }
