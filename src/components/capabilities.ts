@@ -12,7 +12,7 @@ interface Capability {
   imageHeight: number;
   icon: string;
   description: Record<Audience, string>;
-  sellerHref: string;
+  requestKind: 'portfolio' | 'receivables' | 'general';
 }
 
 const items: readonly Capability[] = [
@@ -27,7 +27,7 @@ const items: readonly Capability[] = [
       seller: 'Залоговые и беззалоговые: авто, ипотека, потребительские',
       buyer: 'От банков, МФО и страховых компаний — с полным пакетом документов',
     },
-    sellerHref: '#/sellers/portfeli',
+    requestKind: 'portfolio',
   },
   {
     id: 'factoring',
@@ -40,7 +40,7 @@ const items: readonly Capability[] = [
       seller: 'Уступленная дебиторка по договорам факторинга',
       buyer: 'Права требования, уступленные факторинговыми компаниями',
     },
-    sellerHref: '#/sellers/portfeli',
+    requestKind: 'general',
   },
   {
     id: 'receivables',
@@ -53,7 +53,7 @@ const items: readonly Capability[] = [
       seller: 'Долги юридических лиц — досудебные и просуженные',
       buyer: 'Корпоративных клиентов — с заключением площадки по каждому лоту',
     },
-    sellerHref: '#/sellers/debitorka',
+    requestKind: 'receivables',
   },
   {
     id: 'claims',
@@ -66,7 +66,7 @@ const items: readonly Capability[] = [
       seller: 'По гражданско-правовым договорам и возмещение имущественного вреда',
       buyer: 'По гражданско-правовым договорам и возмещению вреда',
     },
-    sellerHref: '#/sellers/portfeli',
+    requestKind: 'general',
   },
   {
     id: 'other',
@@ -79,7 +79,7 @@ const items: readonly Capability[] = [
       seller: 'Другие виды прав требования. Обсудим актив и подберем подходящий формат сделки.',
       buyer: 'Права требования по другим видам обязательств. Изучите состав и условия актива.',
     },
-    sellerHref: '#/sellers/portfeli',
+    requestKind: 'general',
   },
 ];
 
@@ -87,13 +87,18 @@ const additional: Record<Audience, { title: string; description: string; href: s
   seller: {
     title: 'Портфели любого объёма',
     description: 'От одного договора',
-    href: '#/sellers/portfeli',
+    href: '#request',
   },
   buyer: {
     title: 'Долги перед сервисами',
     description: 'Каршеринг и операторы услуг',
-    href: '#/buyers',
+    href: '#lots',
   },
+};
+
+const actionLabels: Record<Audience, string> = {
+  seller: 'Обсудить продажу',
+  buyer: 'Посмотреть лоты',
 };
 
 const mounts = new WeakMap<HTMLElement, Cleanup>();
@@ -123,7 +128,7 @@ function card(item: Capability, index: number): string {
                 ${measuringLines([item.description.seller, item.description.buyer])}
                 <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
               </div>
-              <a class="button button--primary capability-new__cta" href="${item.sellerHref}" data-capability-new-link="${item.id}" aria-describedby="${descriptionId}"><span>Смотреть подробнее</span><img src="${asset('page10/391-1045/ed8c1.svg')}" alt="" width="16" height="16"></a>
+              <a class="button button--primary capability-new__cta" href="#request" data-request-kind="${item.requestKind}" data-request-interest="${escapeHtml(item.title.join(' '))}" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span><img src="${asset('page10/391-1045/ed8c1.svg')}" alt="" width="16" height="16"></a>
             </div>
           </div>
         </div>
@@ -286,11 +291,22 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
 
     items.forEach((item) => {
       const link = section.querySelector<HTMLAnchorElement>(`[data-capability-new-link="${item.id}"]`);
-      if (link) link.href = next === 'buyer' ? '#/buyers' : item.sellerHref;
+      if (link) {
+        link.href = next === 'buyer' ? '#lots' : '#request';
+        if (next === 'seller') { link.dataset.requestKind = item.requestKind; link.dataset.requestInterest = item.title.join(' '); }
+        else { delete link.dataset.requestKind; delete link.dataset.requestInterest; }
+        link.setAttribute('aria-label', `${actionLabels[next]}: ${item.title.join(' ')}`);
+        replaceText(link.querySelector<HTMLElement>('span'), actionLabels[next]);
+      }
       replaceText(section.querySelector<HTMLElement>(`[data-capability-new-description="${item.id}"]`), item.description[next]);
     });
 
-    if (extra) extra.href = additional[next].href;
+    if (extra) {
+      extra.href = additional[next].href;
+      if (next === 'seller') extra.dataset.requestKind = 'portfolio';
+      else delete extra.dataset.requestKind;
+      extra.setAttribute('aria-label', `${actionLabels[next]}: ${additional[next].title}`);
+    }
     replaceText(section.querySelector<HTMLElement>('[data-capability-new-extra-title]'), additional[next].title);
     replaceText(section.querySelector<HTMLElement>('[data-capability-new-extra-description]'), additional[next].description);
     if (announcement) announcement.textContent = next === 'buyer' ? 'Возможности для покупателя' : 'Возможности для продавца';

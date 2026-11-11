@@ -2,7 +2,7 @@ import { escapeHtml, icon } from './ui';
 
 const fieldNames: Record<string, string> = {
   name: 'Имя', company: 'Организация', email: 'Email', phone: 'Телефон',
-  inn: 'ИНН организации', kpp: 'КПП', debtorInn: 'ИНН должника', amount: 'Сумма задолженности', message: 'Задача',
+  interest: 'Направление', inn: 'ИНН организации', kpp: 'КПП', debtorInn: 'ИНН должника', amount: 'Сумма задолженности', message: 'Задача',
 };
 
 /** No network submission: the visitor reviews an email draft and sends it themselves. */

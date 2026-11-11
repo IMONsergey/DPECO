@@ -1,347 +1,270 @@
 import './styles.css';
 import { mountCapabilities } from './components/capabilities';
-import { archivedLots, filterLots, lots, nextAuctionAt, type LotCategory } from './data/lots';
+import { archivedLots, lots } from './data/lots';
 import { initDotField, initGlobe } from './effects';
 import { mountRequestForms } from './forms';
-import { mountAccordions, mountTabs } from './interactions';
-import { journalCardsFor } from './journal';
-import { lotCards } from './lot-cards';
-import { createContentTransition } from './motion';
+import { renderDocumentsDialog, renderSearchDialog } from './home-overlays';
+import { mountTabs } from './interactions';
 import { mountNavigation } from './navigation';
-import { pageTitle, renderPage } from './page';
-import { cancelRouteTransition, mountPageMotion, transitionRoute } from './page-motion';
-import { parseRoute, type Route } from './routes';
-import { accountUrl, escapeHtml, icon, registerUrl, rubles } from './ui';
+import { renderPage } from './page';
+import { mountPageMotion } from './page-motion';
 import { mountHomeAuctions } from './page10';
 import { mountPage10Sections } from './page10-sections';
+import { homeDestination, type RequestKind } from './routes';
 import { mountTheme } from './theme';
+import { accountUrl, escapeHtml, icon, registerUrl, rubles } from './ui';
 
 const root = document.querySelector<HTMLElement>('#app');
 if (!root) throw new Error('Page root is missing.');
 const app: HTMLElement = root;
-let destroyRoute: (() => void) | undefined;
-let currentRoute: Route = parseRoute(location.hash);
+app.innerHTML = renderPage();
+document.title = 'DEBTPRICE — платформа долговых активов';
+
+const abort = new AbortController();
+const { signal } = abort;
+const motion = matchMedia('(prefers-reduced-motion: reduce)');
+const nav = mountNavigation(app, '');
+const cleanups = [nav.destroy, mountTheme(app), mountHomeAuctions(app), mountPage10Sections(app), mountCapabilities(app), mountTabs(app)];
+const dialog = app.querySelector<HTMLDialogElement>('#detail-dialog')!;
+const dialogContent = app.querySelector<HTMLElement>('#dialog-content')!;
+const toast = app.querySelector<HTMLElement>('#toast')!;
+let previousFocus: HTMLElement | null = null;
+let closeTimeout = 0;
+let toastTimeout = 0;
 let navigationFrame = 0;
-type ViewState = { y: number; category: 'all' | LotCategory; journalCategory: string; schedulePeriod?: string; focusHref?: string };
-const viewStates = new Map<number, ViewState>();
-let nextEntry = Date.now();
-let currentEntry = ++nextEntry;
+let formatAnimation: Animation | null = null;
+let restoreHistory = false;
+let focusSequence = 0;
 const previousScrollRestoration = history.scrollRestoration;
 history.scrollRestoration = 'manual';
-history.replaceState({ ...history.state, dpecoEntry: currentEntry }, '');
 
-function mountRoute(route: Route, saved?: ViewState): () => void {
-  const abort = new AbortController();
-  const { signal } = abort;
-  const cleanups: (() => void)[] = [];
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const nav = mountNavigation(app, route.path);
-  cleanups.push(nav.destroy, mountTheme(app), mountHomeAuctions(app, saved?.category, saved?.schedulePeriod), mountPage10Sections(app), mountCapabilities(app), mountTabs(app), mountAccordions(app));
-  const dialog = app.querySelector<HTMLDialogElement>('#detail-dialog')!;
-  const dialogContent = app.querySelector<HTMLElement>('#dialog-content')!;
-  const toast = app.querySelector<HTMLElement>('#toast')!;
-  let previousFocus: HTMLElement | null = null;
-  let toastTimeout = 0;
-  let closeTimeout = 0;
-  let countdownTimeout = 0;
-  let initialFrame = 0;
-  let category: 'all' | LotCategory = saved?.category ?? 'all';
+function rememberView(): void {
+  const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  if (active && app.contains(active)) active.dataset.homeFocus ||= String(++focusSequence);
+  const form = app.querySelector<HTMLFormElement>('[data-request-form]');
+  history.replaceState({ ...history.state, dpecoHome: {
+    y: window.scrollY, focus: active?.dataset.homeFocus,
+    kind: form?.dataset.kind, interest: form?.querySelector<HTMLInputElement>('[name="interest"]')?.value,
+  } }, '');
+}
 
-  function notify(text: string): void {
-    window.clearTimeout(toastTimeout);
-    toast.textContent = text;
-    toast.classList.add('is-visible');
-    toastTimeout = window.setTimeout(() => toast.classList.remove('is-visible'), 3600);
-  }
-  cleanups.push(mountRequestForms(app, notify));
+function closeForNavigation(): void {
+  previousFocus = null;
+  if (dialog.open) dialog.close();
+  const formats = app.querySelector<HTMLDialogElement>('#p10-format-dialog');
+  if (formats?.open) { formats.dataset.navigationClose = 'true'; formats.close(); }
+}
 
-  const grid = app.querySelector<HTMLElement>('#lots-grid');
-  const lotsStage = app.querySelector<HTMLElement>('.lots__stage');
-  if (grid) app.querySelectorAll<HTMLAnchorElement>('[data-auction-link]').forEach((link) => { link.href = '#lots'; link.dataset.scroll = 'lots'; });
-  const lotsTransition = grid && lotsStage ? createContentTransition(lotsStage, grid) : null;
-  if (lotsTransition) cleanups.push(() => lotsTransition.destroy());
+function notify(text: string): void {
+  window.clearTimeout(toastTimeout);
+  toast.textContent = text;
+  toast.classList.add('is-visible');
+  toastTimeout = window.setTimeout(() => toast.classList.remove('is-visible'), 3600);
+}
+cleanups.push(mountRequestForms(app, notify));
 
-  function renderLots(animate = true): void {
-    if (!grid) return;
-    const visible = filterLots(lots, category, '');
-    const update = () => { grid.innerHTML = lotCards(visible); grid.scrollLeft = 0; };
-    if (animate && lotsTransition) lotsTransition.run(update);
-    else update();
-    grid.setAttribute('aria-labelledby', `filter-${category}`);
-    app.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) => {
-      const active = button.dataset.filter === category;
-      button.setAttribute('aria-selected', String(active));
-      button.tabIndex = active ? 0 : -1;
-    });
-    const announcement = app.querySelector('#lots-announcement');
-    if (animate && announcement) announcement.textContent = `Найдено лотов: ${visible.length}`;
-  }
-  renderLots(false);
-
-  function scrollToId(id: string): void {
-    const element = document.getElementById(id);
-    if (!element) return;
-    nav.close();
-    const offset = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 120;
-    const top = id === 'top' || id === 'main' ? 0 : Math.max(0, element.getBoundingClientRect().top + window.scrollY - offset);
-    window.scrollTo({ top, behavior: motion.matches ? 'instant' : 'smooth' });
-    if (id === 'main') element.focus({ preventScroll: true });
-  }
-
-  function showDialog(content: string): void {
-    window.clearTimeout(closeTimeout);
-    dialog.classList.remove('is-closing');
-    if (!dialog.open) previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    nav.close();
-    dialogContent.innerHTML = content;
-    document.body.classList.add('has-dialog');
-    if (!dialog.open) dialog.showModal();
-    app.querySelector<HTMLButtonElement>('.dialog__close')?.focus({ preventScroll: true });
-  }
-  function closeDialog(): void {
-    if (!dialog.open || dialog.classList.contains('is-closing')) return;
-    if (motion.matches) { dialog.close(); return; }
-    dialog.classList.add('is-closing');
-    closeTimeout = window.setTimeout(() => dialog.close(), 200);
-  }
-  function openLot(id: string): void {
-    const lot = [...lots, ...archivedLots].find((item) => item.id === id);
-    if (!lot) return;
-    showDialog(`<h2 id="dialog-title">${escapeHtml(lot.name)}</h2>
-      <dl class="dialog__details"><div><dt>Вид актива</dt><dd>${lot.category === 'receivables' ? 'Дебиторская задолженность' : 'Портфель физических лиц'}</dd></div><div><dt>Количество кейсов</dt><dd>${lot.cases.toLocaleString('ru-RU')}</dd></div><div><dt>${lot.statusLabel}</dt><dd>${lot.status}</dd></div><div><dt>${lot.dateLabel}</dt><dd>${lot.date}${lot.startsAt ? ' МСК' : ''}</dd></div>${lot.startingPrice ? `<div><dt>Начальная цена</dt><dd>${rubles(lot.startingPrice)}</dd></div>` : ''}</dl>
-      <p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p>
-      <p class="dialog__text">Данные на ${lots.includes(lot) ? '10 ноября' : '29 октября'} 2026. Текущий статус, документы и условия участия доступны в личном кабинете DEBTPRICE.</p>
-      <div class="dialog__actions"><a class="button button--primary" href="${accountUrl}">Перейти к торгам ${icon('login')}</a><a class="button button--dark" href="${registerUrl}">Регистрация ${icon('arrow-right')}</a></div>`);
-  }
-  function shareLot(id: string): void {
-    const lot = lots.find((item) => item.id === id);
-    if (!lot) return;
-    const url = new URL(location.href);
-    url.hash = `/?lot=${id}`;
-    const text = `${lot.name}\nОбщая сумма: ${rubles(lot.debt)}${lot.startingPrice ? `\nНачальная цена: ${rubles(lot.startingPrice)}` : ''}\n${lot.dateLabel}: ${lot.date}`;
-    const telegram = `https://t.me/share/url?url=${encodeURIComponent(url.href)}&text=${encodeURIComponent(text)}`;
-    const email = `mailto:?subject=${encodeURIComponent(lot.name)}&body=${encodeURIComponent(`${text}\n\n${url.href}`)}`;
-    showDialog(`<h2 id="dialog-title">Поделиться лотом</h2><p class="dialog__text">${escapeHtml(lot.name)}</p><p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p><p class="dialog__text">${lot.dateLabel}: ${lot.date}. Данные на 10 ноября 2026.</p><label class="sr-only" for="share-link">Ссылка на лот</label><input id="share-link" class="share-input" readonly value="${escapeHtml(url.href)}"><div class="dialog__actions"><button class="button button--primary" type="button" data-copy-lot-link>Скопировать ссылку ${icon('document')}</button><a class="button button--dark" href="${escapeHtml(telegram)}" target="_blank" rel="noopener noreferrer">Telegram ${icon('telegram')}</a><a class="text-link" href="${escapeHtml(email)}">Отправить по почте ${icon('mail')}</a></div>`);
-  }
-
-  const formatLayout = matchMedia('(max-width: 1199px)');
-  const updateFormatOrientation = () => app.querySelector('.formats__tabs')?.setAttribute('aria-orientation', formatLayout.matches ? 'horizontal' : 'vertical');
-  formatLayout.addEventListener('change', updateFormatOrientation, { signal });
-  updateFormatOrientation();
-
-  let formatAnimation: Animation | null = null;
-  function selectFormat(id: string): void {
-    const nextPanel = app.querySelector<HTMLElement>(`#format-pane-${CSS.escape(id)}`);
-    if (!nextPanel || nextPanel.classList.contains('is-active')) return;
-    formatAnimation?.cancel();
-    app.querySelectorAll<HTMLButtonElement>('[data-format]').forEach((tab) => {
-      const active = tab.dataset.format === id;
-      tab.setAttribute('aria-selected', String(active));
-      tab.tabIndex = active ? 0 : -1;
-    });
-    app.querySelectorAll<HTMLElement>('.format-pane').forEach((panel) => {
-      const active = panel.id === `format-pane-${id}`;
-      panel.classList.toggle('is-active', active);
-      panel.inert = !active;
-      panel.setAttribute('aria-hidden', String(!active));
-    });
-    if (!motion.matches) formatAnimation = nextPanel.animate([{ opacity: .65 }, { opacity: 1 }], { duration: 260, easing: 'ease-out' });
-  }
-  const journalGrid = app.querySelector<HTMLElement>('#journal-grid');
-  const journalStage = journalGrid?.parentElement;
-  const journalTransition = journalGrid && journalStage ? createContentTransition(journalStage, journalGrid) : null;
-  if (journalTransition) cleanups.push(() => journalTransition.destroy());
-  function selectJournal(categoryName: string, animate = true): void {
-    if (!journalGrid) return;
-    const update = () => { journalGrid.innerHTML = journalCardsFor(categoryName); };
-    if (animate && journalTransition) journalTransition.run(update);
-    else update();
-    app.querySelectorAll<HTMLButtonElement>('[data-journal-filter]').forEach((tab) => {
-      const active = tab.dataset.journalFilter === categoryName;
-      tab.setAttribute('aria-selected', String(active));
-      tab.tabIndex = active ? 0 : -1;
-      if (active) journalGrid.setAttribute('aria-labelledby', tab.id);
-    });
-  }
-  if (saved?.journalCategory && journalGrid) selectJournal(saved.journalCategory, false);
-
-  app.addEventListener('click', (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (!target) return;
-    const localLink = target.closest<HTMLElement>('[data-scroll]');
-    if (localLink) { event.preventDefault(); scrollToId(localLink.dataset.scroll ?? ''); return; }
-    const lot = target.closest<HTMLElement>('[data-open-lot]');
-    if (lot) { openLot(lot.dataset.openLot!); return; }
-    const share = target.closest<HTMLElement>('[data-share-lot]');
-    if (share) { shareLot(share.dataset.shareLot!); return; }
-    if (target.closest('[data-copy-lot-link]')) {
-      const input = app.querySelector<HTMLInputElement>('#share-link');
-      if (input) navigator.clipboard.writeText(input.value).then(() => { if (!signal.aborted) notify('Ссылка на лот скопирована'); }).catch(() => { if (signal.aborted) return; input.focus(); input.select(); notify('Выделите и скопируйте ссылку'); });
-      return;
-    }
-    if (target.closest('.dialog__close')) { closeDialog(); return; }
-    const filter = target.closest<HTMLButtonElement>('[data-filter]');
-    if (filter && ['all', 'receivables', 'individuals'].includes(filter.dataset.filter ?? '')) {
-      const next = filter.dataset.filter as typeof category;
-      if (next !== category) { category = next; renderLots(); }
-      return;
-    }
-    if (target.closest('[data-reset-filters]')) { category = 'all'; renderLots(); app.querySelector<HTMLElement>('#filter-all')?.focus({ preventScroll: true }); return; }
-    const format = target.closest<HTMLButtonElement>('[data-format]');
-    if (format) { selectFormat(format.dataset.format!); return; }
-    const journalTab = target.closest<HTMLButtonElement>('[data-journal-filter]');
-    if (journalTab) { selectJournal(journalTab.dataset.journalFilter!); return; }
-    // Native local anchors stay on the current route instead of becoming page routes.
-    const anchor = target.closest<HTMLAnchorElement>('a[href^="#"]');
-    const hash = anchor?.getAttribute('href') ?? '';
-    if (hash && !hash.startsWith('#/') && !hash.startsWith('#lot-')) {
-      const id = hash.slice(1);
-      if (document.getElementById(id)) { event.preventDefault(); scrollToId(id); }
-    }
-    if (anchor && hash.startsWith('#/') && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) {
-      event.preventDefault();
-      nav.close();
-      if (hash === location.hash) { cancelRouteTransition(); window.scrollTo({ top: 0, behavior: motion.matches ? 'instant' : 'smooth' }); }
-      else navigate(hash);
-    }
-  }, { signal });
-
-  app.querySelectorAll<HTMLFormElement>('[data-site-search]').forEach((form) => {
-    const input = form.querySelector<HTMLInputElement>('input[name="q"]')!;
-    input.value = route.path === 'search' ? route.query.get('q') ?? '' : '';
-    input.addEventListener('input', () => input.setCustomValidity(''), { signal });
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const query = input.value.trim().replace(/\s+/gu, ' ').slice(0, 120);
-      if (!query) { input.setCustomValidity('Введите название лота, тему или раздел.'); input.reportValidity(); return; }
-      nav.close();
-      navigate(`#/search?q=${encodeURIComponent(query)}`);
-    }, { signal });
-  });
-
-  dialog.addEventListener('click', (event) => {
-    if (event.target !== dialog) return;
-    const box = dialog.getBoundingClientRect();
-    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeDialog();
-  }, { signal });
-  dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeDialog(); }, { signal });
-  dialog.addEventListener('close', () => {
-    window.clearTimeout(closeTimeout);
-    dialog.classList.remove('is-closing');
-    document.body.classList.remove('has-dialog');
-    if (previousFocus?.isConnected && !previousFocus.closest('[inert]') && previousFocus.getClientRects().length) previousFocus.focus({ preventScroll: true });
-    previousFocus = null;
-  }, { signal });
-
-  function updateCountdown(): void {
-    window.clearTimeout(countdownTimeout);
-    if (document.hidden) return;
-    const now = Date.now();
-    const next = nextAuctionAt(now);
-    let value = 'Расписание';
-    let hint = 'Даты и условия торгов';
-    if (next) {
-      const total = Math.max(0, Math.floor((next - now) / 1000));
-      const hours = Math.floor(total / 3600);
-      value = [hours, Math.floor(total % 3600 / 60), total % 60].map((part) => String(part).padStart(2, '0')).join(':');
-      hint = `До торгов ${new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow' }).format(next)} МСК`;
-    }
-    app.querySelectorAll<HTMLElement>('[data-auction-countdown]').forEach((node) => {
-      node.textContent = value;
-      node.classList.toggle('is-schedule', next === null);
-      node.setAttribute('aria-label', next ? `До ближайших торгов ${value}` : 'Расписание торгов');
-    });
-    app.querySelectorAll<HTMLElement>('[data-auction-label]').forEach((node) => { node.textContent = next ? 'До торгов' : 'Торги'; });
-    app.querySelectorAll<HTMLElement>('[data-auction-hint]').forEach((node) => { node.textContent = hint; });
-    if (next) countdownTimeout = window.setTimeout(updateCountdown, 1000 - (now % 1000));
-  }
-  document.addEventListener('visibilitychange', updateCountdown, { signal });
-  updateCountdown();
-
-  for (const host of app.querySelectorAll<HTMLElement>('[data-dots]')) {
-    try { cleanups.push(initDotField(host)); } catch { /* Decorative effects cannot block content. */ }
-  }
-  const globe = app.querySelector<HTMLElement>('#hero-globe');
-  if (globe) { try { cleanups.push(initGlobe(globe)); } catch { /* Atmospheric CSS remains visible. */ } }
-
-  cleanups.push(mountPageMotion(app, Boolean(saved)));
-
-  const lotId = route.query.get('lot');
-  if (lotId) openLot(lotId);
-  const section = route.query.get('section');
-  if (section) initialFrame = requestAnimationFrame(() => scrollToId(section));
-
-  return () => {
-    abort.abort();
-    cleanups.forEach((cleanup) => cleanup());
-    formatAnimation?.cancel();
-    cancelAnimationFrame(initialFrame);
-    window.clearTimeout(toastTimeout);
-    window.clearTimeout(closeTimeout);
-    window.clearTimeout(countdownTimeout);
-    if (dialog.open) dialog.close();
-    document.body.classList.remove('has-dialog', 'has-menu');
+function selectRequest(kind: string | undefined, interestLabel?: string): void {
+  const labels: Record<RequestKind, string> = {
+    general: '', portfolio: 'Продажа розничного портфеля',
+    receivables: 'Продажа дебиторской задолженности', buyer: 'Подбор долгового актива',
   };
+  const selected: RequestKind = kind === 'portfolio' || kind === 'receivables' || kind === 'buyer' ? kind : 'general';
+  const form = app.querySelector<HTMLFormElement>('[data-request-form]');
+  if (!form) return;
+  form.dataset.kind = selected;
+  const context = form.querySelector<HTMLElement>('[data-request-context]');
+  const text = context?.querySelector('[data-request-context-label]');
+  const interest = form.querySelector<HTMLInputElement>('input[name="interest"]');
+  const label = interestLabel || labels[selected];
+  if (context) context.hidden = !label;
+  if (text) text.textContent = label;
+  if (interest) interest.value = label;
+  form.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
-function render(route: Route, first = false, saved?: ViewState): void {
-  destroyRoute?.();
-  currentRoute = route;
-  app.innerHTML = renderPage(route);
-  document.title = pageTitle(route);
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  destroyRoute = mountRoute(route, saved);
-  if (saved) window.scrollTo({ top: saved.y, behavior: 'instant' });
+function scrollToId(id: string, updateUrl = true, animate = true): void {
+  const element = document.getElementById(id);
+  if (!element) return;
+  if (updateUrl && location.hash !== `#${id}`) rememberView();
+  nav.close();
+  closeForNavigation();
+  const offset = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 120;
+  const top = id === 'top' || id === 'main' ? 0 : Math.max(0, element.getBoundingClientRect().top + window.scrollY - offset);
+  if (updateUrl && location.hash !== `#${id}`) {
+    const form = app.querySelector<HTMLFormElement>('[data-request-form]');
+    history.pushState({ dpecoHome: { y: top, kind: form?.dataset.kind, interest: form?.querySelector<HTMLInputElement>('[name="interest"]')?.value } }, '', `#${id}`);
+  }
+  const heading = element.matches('main') ? element : element.querySelector<HTMLElement>('h1, h2');
+  if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+  window.scrollTo({ top, behavior: motion.matches || !animate ? 'instant' : 'smooth' });
+}
+
+function showDialog(content: string, view: string): void {
+  window.clearTimeout(closeTimeout);
+  dialog.classList.remove('is-closing');
+  const formats = app.querySelector<HTMLDialogElement>('#p10-format-dialog');
+  if (formats?.open) { formats.dataset.navigationClose = 'true'; formats.close(); }
+  if (!dialog.open) {
+    const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    previousFocus = active?.closest('.nav-dropdown')?.querySelector<HTMLElement>('[data-nav-toggle]')
+      ?? (active?.closest('#mobile-menu') ? app.querySelector<HTMLElement>('[data-mobile-toggle]') : active);
+  }
+  nav.close();
+  dialogContent.innerHTML = content;
+  dialog.dataset.view = view;
+  document.body.classList.add('has-dialog');
+  if (!dialog.open) dialog.showModal();
+  const focus = view === 'search' ? dialog.querySelector<HTMLInputElement>('#dialog-search') : dialog.querySelector<HTMLButtonElement>('.dialog__close');
+  focus?.focus({ preventScroll: true });
+}
+
+function closeDialog(): void {
+  if (!dialog.open || dialog.classList.contains('is-closing')) return;
+  if (motion.matches) { dialog.close(); return; }
+  dialog.classList.add('is-closing');
+  closeTimeout = window.setTimeout(() => dialog.close(), 200);
+}
+
+function openLot(id: string): void {
+  const lot = [...lots, ...archivedLots].find(item => item.id === id);
+  if (!lot) return;
+  showDialog(`<h2 id="dialog-title">${escapeHtml(lot.name)}</h2>
+    <dl class="dialog__details"><div><dt>Вид актива</dt><dd>${lot.category === 'receivables' ? 'Дебиторская задолженность' : 'Портфель физических лиц'}</dd></div><div><dt>Количество кейсов</dt><dd>${lot.cases.toLocaleString('ru-RU')}</dd></div><div><dt>${escapeHtml(lot.statusLabel)}</dt><dd>${escapeHtml(lot.status)}</dd></div><div><dt>${escapeHtml(lot.dateLabel)}</dt><dd>${escapeHtml(lot.date)}${lot.startsAt ? ' МСК' : ''}</dd></div>${lot.startingPrice ? `<div><dt>Начальная цена</dt><dd>${rubles(lot.startingPrice)}</dd></div>` : ''}</dl>
+    <p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p>
+    <p class="dialog__text">Данные на ${lots.includes(lot) ? '10 ноября' : '29 октября'} 2026. Текущий статус, документы и условия участия доступны в личном кабинете DEBTPRICE.</p>
+    <div class="dialog__actions"><a class="button button--primary" href="${accountUrl}">Перейти к торгам ${icon('login')}</a><a class="button button--dark" href="${registerUrl}">Регистрация ${icon('arrow-right')}</a></div>`, 'lot');
+}
+
+function selectFormat(id: string): void {
+  const nextPanel = app.querySelector<HTMLElement>(`#format-pane-${CSS.escape(id)}`);
+  if (!nextPanel || nextPanel.classList.contains('is-active')) return;
+  formatAnimation?.cancel();
+  app.querySelectorAll<HTMLButtonElement>('[data-format]').forEach(tab => {
+    const active = tab.dataset.format === id;
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+  });
+  app.querySelectorAll<HTMLElement>('.format-pane').forEach(panel => {
+    const active = panel === nextPanel;
+    panel.classList.toggle('is-active', active);
+    panel.inert = !active;
+    panel.setAttribute('aria-hidden', String(!active));
+  });
+  if (!motion.matches) formatAnimation = nextPanel.animate([{ opacity: .65 }, { opacity: 1 }], { duration: 260, easing: 'ease-out' });
+}
+const formatLayout = matchMedia('(max-width: 1199px)');
+const updateFormatOrientation = () => app.querySelector('.formats__tabs')?.setAttribute('aria-orientation', formatLayout.matches ? 'horizontal' : 'vertical');
+formatLayout.addEventListener('change', updateFormatOrientation, { signal });
+updateFormatOrientation();
+
+app.addEventListener('click', event => {
+  const target = event.target instanceof Element ? event.target : null;
+  if (!target) return;
+  const anchor = target.closest<HTMLAnchorElement>('a');
+  if (anchor && (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)) return;
+  if (target.closest('[data-request-reset]')) { selectRequest('general'); return; }
+  const request = target.closest<HTMLElement>('[data-request-kind]');
+  if (request) selectRequest(request.dataset.requestKind, request.dataset.requestInterest);
+  if (target.closest('[data-open-documents]')) { event.preventDefault(); showDialog(renderDocumentsDialog(), 'documents'); return; }
+  const lot = target.closest<HTMLElement>('[data-open-lot]');
+  if (lot) { event.preventDefault(); openLot(lot.dataset.openLot!); return; }
+  if (target.closest('.dialog__close')) { closeDialog(); return; }
+  const format = target.closest<HTMLButtonElement>('[data-format]');
+  if (format) { selectFormat(format.dataset.format!); return; }
+  const localLink = target.closest<HTMLElement>('[data-scroll]');
+  if (localLink) { event.preventDefault(); scrollToId(localLink.dataset.scroll ?? ''); return; }
+  const href = anchor?.getAttribute('href') ?? '';
+  if (href.startsWith('#')) {
+    event.preventDefault();
+    const destination = homeDestination(href);
+    if (destination.kind) selectRequest(destination.kind);
+    else if (destination.section === 'request' && !request) selectRequest('general');
+    if (destination.documents) showDialog(renderDocumentsDialog(), 'documents');
+    else if (destination.lot) openLot(destination.lot);
+    else if (destination.search !== undefined) showDialog(renderSearchDialog(destination.search), 'search');
+    else if (destination.section) scrollToId(destination.section);
+  }
+}, { signal });
+
+app.addEventListener('input', event => {
+  if (event.target instanceof HTMLInputElement && event.target.closest('[data-site-search]')) event.target.setCustomValidity('');
+}, { signal });
+app.addEventListener('submit', event => {
+  const form = event.target instanceof HTMLFormElement ? event.target : null;
+  if (!form?.matches('[data-site-search]')) return;
+  event.preventDefault();
+  const input = form.querySelector<HTMLInputElement>('input[name="q"]')!;
+  const query = input.value.trim().replace(/\s+/gu, ' ').slice(0, 120);
+  if (!query) { input.setCustomValidity('Введите название лота, тему или раздел.'); input.reportValidity(); return; }
+  showDialog(renderSearchDialog(query), 'search');
+}, { signal });
+
+dialog.addEventListener('click', event => {
+  if (event.target !== dialog) return;
+  const box = dialog.getBoundingClientRect();
+  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeDialog();
+}, { signal });
+dialog.addEventListener('cancel', event => { event.preventDefault(); closeDialog(); }, { signal });
+dialog.addEventListener('keydown', event => {
+  if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); closeDialog(); }
+}, { signal });
+dialog.addEventListener('close', () => {
+  window.clearTimeout(closeTimeout);
+  dialog.classList.remove('is-closing');
+  document.body.classList.remove('has-dialog');
+  if (previousFocus?.isConnected && !previousFocus.closest('[inert]') && previousFocus.getClientRects().length) previousFocus.focus({ preventScroll: true });
+  previousFocus = null;
+}, { signal });
+
+for (const host of app.querySelectorAll<HTMLElement>('[data-dots]')) {
+  try { cleanups.push(initDotField(host)); } catch { /* Decorative effects cannot block content. */ }
+}
+const globe = app.querySelector<HTMLElement>('#hero-globe');
+if (globe) { try { cleanups.push(initGlobe(globe)); } catch { /* Atmospheric CSS remains visible. */ } }
+cleanups.push(mountPageMotion(app, false));
+
+function applyHash(): void {
+  const destination = homeDestination(location.hash);
+  const addressedDialog = destination.documents || destination.lot || destination.search !== undefined;
+  if (restoreHistory && history.state?.dpecoHome && typeof history.state.dpecoHome.y === 'number') {
+    const saved = history.state.dpecoHome;
+    nav.close();
+    closeForNavigation();
+    if (saved.kind) selectRequest(saved.kind, saved.interest);
+    window.scrollTo({ top: saved.y, behavior: 'instant' });
+    if (saved.focus) app.querySelector<HTMLElement>(`[data-home-focus="${CSS.escape(saved.focus)}"]`)?.focus({ preventScroll: true });
+    restoreHistory = false;
+    if (!addressedDialog) return;
+  }
+  restoreHistory = false;
+  if (destination.kind) selectRequest(destination.kind);
+  if (destination.documents) showDialog(renderDocumentsDialog(), 'documents');
+  else if (destination.lot) openLot(destination.lot);
+  else if (destination.search !== undefined) showDialog(renderSearchDialog(destination.search), 'search');
+  else if (destination.section) {
+    const id = document.getElementById(destination.section) ? destination.section : 'top';
+    if (location.hash.startsWith('#/')) history.replaceState(history.state, '', `#${id}`);
+    scrollToId(id, false, false);
+  }
+}
+function scheduleHash(restore = false): void {
+  restoreHistory ||= restore;
   cancelAnimationFrame(navigationFrame);
-  if (saved?.focusHref) {
-    navigationFrame = requestAnimationFrame(() => {
-      [...app.querySelectorAll<HTMLAnchorElement>('main a')].find((link) => link.getAttribute('href') === saved.focusHref)?.focus({ preventScroll: true });
-    });
-  } else if (!first && !saved && !route.query.has('lot')) {
-    navigationFrame = requestAnimationFrame(() => {
-      const heading = app.querySelector<HTMLElement>('main h1');
-      if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
-    });
-  }
+  navigationFrame = requestAnimationFrame(applyHash);
 }
+window.addEventListener('hashchange', () => scheduleHash(), { signal });
+window.addEventListener('popstate', () => scheduleHash(true), { signal });
+window.addEventListener('beforeunload', rememberView, { signal });
+if (location.hash || history.state?.dpecoHome) scheduleHash(true);
 
-function saveCurrentView(): void {
-  const selectedCategory = app.querySelector<HTMLButtonElement>('[data-filter][aria-selected="true"]')?.dataset.filter;
-  const focus = document.activeElement instanceof HTMLAnchorElement && document.activeElement.closest('main') ? document.activeElement.getAttribute('href') ?? undefined : undefined;
-  viewStates.set(currentEntry, {
-    y: window.scrollY,
-    category: selectedCategory === 'receivables' || selectedCategory === 'individuals' ? selectedCategory : 'all',
-    journalCategory: app.querySelector<HTMLButtonElement>('[data-journal-filter][aria-selected="true"]')?.dataset.journalFilter ?? 'all',
-    schedulePeriod: app.querySelector<HTMLButtonElement>('[data-schedule-period][aria-selected="true"]')?.dataset.schedulePeriod,
-    focusHref: focus,
-  });
-}
-
-function navigate(hash: string): void {
-  const route = parseRoute(hash);
-  if (route.path === currentRoute.path && route.query.toString() === currentRoute.query.toString()) { cancelRouteTransition(); return; }
-  transitionRoute(() => {
-    saveCurrentView();
-    currentEntry = ++nextEntry;
-    history.pushState({ dpecoEntry: currentEntry }, '', hash);
-    render(route);
-  });
-}
-
-function onHistoryChange(): void {
-  const next = parseRoute(location.hash);
-  if (next.path === currentRoute.path && next.query.toString() === currentRoute.query.toString() && history.state?.dpecoEntry === currentEntry) return;
-  cancelRouteTransition();
-  saveCurrentView();
-  const entry = history.state?.dpecoEntry;
-  if (typeof entry === 'number' && entry !== currentEntry) currentEntry = entry;
-  else {
-    currentEntry = ++nextEntry;
-    history.replaceState({ ...history.state, dpecoEntry: currentEntry }, '');
-  }
-  render(next, false, viewStates.get(currentEntry));
-}
-window.addEventListener('hashchange', onHistoryChange);
-window.addEventListener('popstate', onHistoryChange);
-render(currentRoute, true);
-if (import.meta.hot) import.meta.hot.dispose(() => { cancelRouteTransition(); destroyRoute?.(); cancelAnimationFrame(navigationFrame); window.removeEventListener('hashchange', onHistoryChange); window.removeEventListener('popstate', onHistoryChange); history.scrollRestoration = previousScrollRestoration; });
+if (import.meta.hot) import.meta.hot.dispose(() => {
+  abort.abort();
+  cleanups.forEach(cleanup => cleanup());
+  formatAnimation?.cancel();
+  cancelAnimationFrame(navigationFrame);
+  window.clearTimeout(toastTimeout);
+  window.clearTimeout(closeTimeout);
+  if (dialog.open) dialog.close();
+  document.body.classList.remove('has-dialog', 'has-menu');
+  history.scrollRestoration = previousScrollRestoration;
+});

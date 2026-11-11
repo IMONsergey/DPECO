@@ -45,7 +45,7 @@ function renderHero(): string {
     <div class="container hero__inner"><div class="p10-hero__copy">
       <h1 id="hero-title" data-text-reveal>Продайте и&nbsp;купите<br class="p10-hero__break"> долговые обязательства<br class="p10-hero__break"> на&nbsp;DEBTPRICE</h1>
       <p class="p10-hero__description" data-reveal>Электронная торговая площадка по&nbsp;уступке прав требования</p>
-      <div class="hero__actions" data-reveal><a class="button button--white" href="#sell-buy" data-scroll="sell-buy">Продать долг ${icon('arrow-right')}</a><a class="button button--primary" href="#/buyers">Купить долг ${icon('arrow-right')}</a></div>
+      <div class="hero__actions" data-reveal><a class="button button--white" href="#sell-buy" data-scroll="sell-buy">Продать долг ${icon('arrow-right')}</a><a class="button button--primary" href="#lots">Купить долг ${icon('arrow-right')}</a></div>
       ${renderBadges()}
     </div>${renderNextAuction()}</div>
   </section></div>`;
@@ -100,8 +100,8 @@ function renderSchedule(): string {
 
 function renderTradeChoices(): string {
   return `<section class="p10-choices" id="sell-buy" aria-label="Продать или купить долг" data-node-id="391:935"><div class="container p10-choices__grid" data-stagger>
-    <article class="p10-choice p10-choice--sell"><img class="p10-choice__art" src="${p10Asset('935','af699.webp')}" alt="" width="324" height="324" loading="lazy"><h2>Продать долг</h2><p>Выберите тип задолженности</p><div class="p10-choice__actions"><a class="button button--primary" href="#/sellers/debitorka">Дебиторская задолженность ${icon('arrow-right')}</a><a class="button button--white" href="#/sellers/portfeli">Розничная задолженность ${icon('arrow-right')}</a></div></article>
-    <article class="p10-choice p10-choice--buy"><img class="p10-choice__art" src="${p10Asset('935','7c7e9.webp')}" alt="" width="344" height="344" loading="lazy"><h2>Купить портфель на торгах</h2><p>Долговые активы на&nbsp;электронной<br>торговой площадке</p><div class="p10-choice__actions"><a class="button button--primary" href="#/buyers">Купить долг ${icon('arrow-right')}</a></div></article>
+    <article class="p10-choice p10-choice--sell"><img class="p10-choice__art" src="${p10Asset('935','af699.webp')}" alt="" width="324" height="324" loading="lazy"><h2>Продать долг</h2><p>Выберите тип задолженности</p><div class="p10-choice__actions"><a class="button button--primary" href="#request" data-request-kind="receivables">Дебиторская задолженность ${icon('arrow-right')}</a><a class="button button--white" href="#request" data-request-kind="portfolio">Розничная задолженность ${icon('arrow-right')}</a></div></article>
+    <article class="p10-choice p10-choice--buy"><img class="p10-choice__art" src="${p10Asset('935','7c7e9.webp')}" alt="" width="344" height="344" loading="lazy"><h2>Купить портфель на торгах</h2><p>Долговые активы на&nbsp;электронной<br>торговой площадке</p><div class="p10-choice__actions"><a class="button button--primary" href="#lots">Купить долг ${icon('arrow-right')}</a></div></article>
   </div></section>`;
 }
 
@@ -141,9 +141,10 @@ export function mountHomeAuctions(app: HTMLElement, savedCategory: 'all' | LotCa
   let nextId = '';
 
   function render(animate = true): void {
-    const nowParts = new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Europe/Moscow'}).format(new Date());
-    const previousMonth = new Date(`${nowParts.slice(0,7)}-01T12:00:00+03:00`); previousMonth.setUTCMonth(previousMonth.getUTCMonth()-1);
-    const previousKey = previousMonth.toISOString().slice(0,7);
+    const nowParts = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'numeric', timeZone: 'Europe/Moscow' }).formatToParts(new Date());
+    const year = Number(nowParts.find(part => part.type === 'year')!.value);
+    const month = Number(nowParts.find(part => part.type === 'month')!.value);
+    const previousKey = new Date(Date.UTC(year, month - 2, 1)).toISOString().slice(0, 7);
     const previous = [...lots,...archivedLots].filter(lot => lot.startsAt ? lot.startsAt.startsWith(previousKey) : previousKey === '2026-10');
     const source = period === 'previous' ? previous : lots.filter(lot => !lot.startsAt || Date.parse(lot.startsAt) > Date.now());
     const visible = filterLots(source, category, '');

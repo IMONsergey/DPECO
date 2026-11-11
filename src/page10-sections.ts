@@ -64,6 +64,8 @@ function renderConsultation(): string {
     </div>
     <form class="p10-consultation__form" data-request-form data-kind="general" data-reveal>
       <div class="p10-consultation__fields">
+        <input type="hidden" name="interest" value="">
+        <div class="p10-request-context" data-request-context hidden><span data-request-context-label></span><button type="button" data-request-reset>Сбросить</button></div>
         ${field('name', 'Фамилия Имя Отчество', 'text', 'Как к вам обращаться', 'name')}
         <div class="p10-consultation__field-row">${field('email', 'Электронная почта', 'email', 'name@company.ru', 'email')}${field('phone', 'Телефон', 'tel', '+7 (___) ___-__-__', 'tel')}</div>
         <div>${field('company', 'Ваша организация', 'text', 'Название организации', 'organization')}<p class="p10-consultation__company-hint">Укажите полное название организации</p></div>
@@ -216,7 +218,8 @@ export function mountPage10Sections(host: HTMLElement): () => void {
   }, { signal });
   dialog.addEventListener('close', () => {
     document.documentElement.classList.remove('p10-modal-open');
-    if (restoreFocus?.isConnected) restoreFocus.focus({ preventScroll: true });
+    if (!dialog.dataset.navigationClose && restoreFocus?.isConnected) restoreFocus.focus({ preventScroll: true });
+    delete dialog.dataset.navigationClose;
   }, { signal });
   return () => { abort.abort(); brandObserver.disconnect(); if (dialog.open) dialog.close(); document.documentElement.classList.remove('p10-modal-open'); };
 }

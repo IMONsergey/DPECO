@@ -147,8 +147,8 @@
 .p10-header.is-light .header__nav .header__nav-control:hover { color: var(--accent-dark); }
 .p10-header .header__nav .header__nav-chevron { width: 11px; height: 11px; }
 .p10-header .header__ecosystem > .header__nav-control { min-height: 36px; height: 36px; padding: 0 14px; min-width: 258px; justify-content: space-between; font-size: 16px; background: transparent; border-color: currentColor; }
-.p10-header .header__ecosystem > .header__nav-control > .header__nav-chevron { display: none; }
-.p10-header .header__ecosystem > .header__nav-control::after { content: '→'; font-size: 20px; }
+.p10-header .header__ecosystem > .header__nav-control > .header__nav-chevron { display: block; width: 20px; height: 20px; }
+.p10-header .header__ecosystem.is-open > .header__nav-control > .header__nav-chevron { transform: rotate(90deg); }
 .p10-header .header__ecosystem .nav-panel { left: auto; right: 0; }
 .p10-search { position: relative; }
 .p10-search > button { min-height: 36px; height: 36px; background: transparent; border-color: currentColor; font-size: 16px; padding-inline: 14px; }
