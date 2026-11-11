@@ -184,7 +184,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .dialog[open] { animation: dialog-in 340ms var(--ease); }
 .dialog.is-closing { animation: dialog-out 200ms ease-in forwards; pointer-events: none; }
 .dialog.is-closing::backdrop { animation: backdrop-out 200ms ease-in forwards; }
-.dialog__close { position: absolute; top: 16px; right: 16px; background: #f0f2f2; }
+.dialog__close { display: flex; position: sticky; z-index: 5; top: 8px; margin: -32px -32px -12px auto; background: var(--surface, #f0f2f2); box-shadow: 0 0 0 4px var(--surface-raised, #fff); }
 .dialog h2 { font-size: 40px; font-weight: 450; letter-spacing: -.04em; line-height: 1.1; padding-right: 12px; }
 .dialog__text { margin-top: 24px; font-size: 18px; line-height: 1.5; color: var(--muted); }
 .dialog__details { margin-top: 28px; display: grid; gap: 1px; }
@@ -298,6 +298,7 @@ main:focus, main h1[tabindex='-1']:focus { outline: none; }
   .offer__image { position: relative; grid-column: 1; grid-row: 2; justify-self: end; width: 100%; max-width: 520px; height: auto; right: auto; bottom: auto; margin-top: 12px; margin-right: -8%; }
   .offer > .offer__dots { inset: 0; }
   .dialog { padding: 44px 26px 30px; border-radius: var(--radius-card); }
+  .dialog__close { margin: -28px -10px -16px auto; }
   .dialog h2 { font-size: 33px; }
   .dialog__text { font-size: 17px; }
   .dialog__amount { font-size: 34px; }

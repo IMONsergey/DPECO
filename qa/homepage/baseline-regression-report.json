@@ -1,0 +1,1110 @@
+{
+  "phase": "baseline",
+  "createdAt": "2026-11-11T09:11:09.485Z",
+  "output": "/home/sergey/Projects/DPECO-home/qa/homepage/results/regressions-baseline-2026-11-11T09-11-09-473Z",
+  "checks": [
+    {
+      "browser": "chromium",
+      "name": "responsive-visible-content",
+      "status": "pass",
+      "details": [
+        {
+          "width": 320,
+          "overflow": 0
+        },
+        {
+          "width": 390,
+          "overflow": -15
+        },
+        {
+          "width": 600,
+          "overflow": -15
+        },
+        {
+          "width": 768,
+          "overflow": -15
+        },
+        {
+          "width": 900,
+          "overflow": -15
+        },
+        {
+          "width": 1024,
+          "overflow": -15
+        },
+        {
+          "width": 1199,
+          "overflow": -15
+        },
+        {
+          "width": 1200,
+          "overflow": -15
+        },
+        {
+          "width": 1280,
+          "overflow": -15
+        },
+        {
+          "width": 1440,
+          "overflow": -15
+        },
+        {
+          "width": 1920,
+          "overflow": -15
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "name": "capability-cta-unclipped",
+      "status": "pass",
+      "details": {
+        "states": 30
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "document-close-deeplink-reload",
+      "status": "fail",
+      "error": "AssertionError [ERR_ASSERTION]: Closed deep-link dialog reopens on reload\n\n1 !== 0\n\n    at file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:126:12\n    at async check (file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:54:24)\n    at async file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:120:3"
+    },
+    {
+      "browser": "chromium",
+      "name": "dialog-back-forward-and-scroll",
+      "status": "fail",
+      "error": "AssertionError [ERR_ASSERTION]: Opening documents does not create an addressed history entry\n    at file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:132:12\n    at async check (file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:54:24)\n    at async file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:129:3"
+    },
+    {
+      "browser": "chromium",
+      "name": "search-documents-reset-and-visible-close",
+      "status": "fail",
+      "error": "AssertionError [ERR_ASSERTION]: {\"scroll\":112,\"closeY\":-52.796875,\"boxY\":42.203125,\"boxBottom\":801.796875}\n    at file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:146:12\n    at async check (file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:54:24)\n    at async file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:140:3"
+    },
+    {
+      "browser": "chromium",
+      "name": "buyer-intent-resets-archive-filter",
+      "status": "fail",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'false' !== 'true'\n\n    at file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:160:12\n    at async check (file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:54:24)\n    at async file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:152:3"
+    },
+    {
+      "browser": "chromium",
+      "name": "form-rejects-malformed-phone",
+      "status": "fail",
+      "error": "AssertionError [ERR_ASSERTION]: [{\"value\":\"abc1234567890\",\"valid\":true,\"message\":\"\"},{\"value\":\"123456789012345678901234567890\",\"valid\":true,\"message\":\"\"}]\n    at file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:176:12\n    at async check (file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:54:24)\n    at async file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:164:3"
+    },
+    {
+      "browser": "chromium",
+      "name": "formats-short-viewport-close-and-back",
+      "status": "fail",
+      "error": "AssertionError [ERR_ASSERTION]: Format open did not update history\n    at file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:186:12\n    at async check (file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:54:24)\n    at async file:///home/sergey/Projects/DPECO-home/qa/homepage/check-regressions.mjs:179:3"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "ecosystem-390",
+      "file": "chromium-ecosystem-390.png"
+    },
+    {
+      "name": "ecosystem-900",
+      "file": "chromium-ecosystem-900.png"
+    },
+    {
+      "name": "ecosystem-1024",
+      "file": "chromium-ecosystem-1024.png"
+    },
+    {
+      "name": "ecosystem-1280",
+      "file": "chromium-ecosystem-1280.png"
+    },
+    {
+      "name": "ecosystem-1920",
+      "file": "chromium-ecosystem-1920.png"
+    },
+    {
+      "name": "capabilities-1280-buyer-other",
+      "file": "chromium-capabilities-1280-buyer-other.png"
+    },
+    {
+      "name": "FAIL-document-close-deeplink-reload",
+      "file": "chromium-FAIL-document-close-deeplink-reload.png"
+    },
+    {
+      "name": "FAIL-dialog-back-forward-and-scroll",
+      "file": "chromium-FAIL-dialog-back-forward-and-scroll.png"
+    },
+    {
+      "name": "documents-after-search",
+      "file": "chromium-documents-after-search.png"
+    },
+    {
+      "name": "FAIL-search-documents-reset-and-visible-close",
+      "file": "chromium-FAIL-search-documents-reset-and-visible-close.png"
+    },
+    {
+      "name": "FAIL-buyer-intent-resets-archive-filter",
+      "file": "chromium-FAIL-buyer-intent-resets-archive-filter.png"
+    },
+    {
+      "name": "FAIL-form-rejects-malformed-phone",
+      "file": "chromium-FAIL-form-rejects-malformed-phone.png"
+    },
+    {
+      "name": "formats-short-viewport",
+      "file": "chromium-formats-short-viewport.png"
+    },
+    {
+      "name": "FAIL-formats-short-viewport-close-and-back",
+      "file": "chromium-FAIL-formats-short-viewport-close-and-back.png"
+    }
+  ],
+  "runtimeErrors": [],
+  "networkWrites": [],
+  "build": [
+    {
+      "name": "index-K_Fm4vOk.js",
+      "sha256": "22594cc8ae0f9d58e2dd83452548a1a30b6e730c283ba6e15e0b3c2e4c7feab6"
+    },
+    {
+      "name": "style-_Pw1yUOh.css",
+      "sha256": "2ded2eea4f9111db83d91d2d23c1eafafd0a011248778b0e1f8a7d0b6cbac098"
+    }
+  ],
+  "responsive": {
+    "chromium": [
+      {
+        "width": 320,
+        "geometry": {
+          "viewport": 320,
+          "document": 320
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 44,
+            "y": 11933.09375,
+            "width": 232,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 44,
+            "y": 12453.09375,
+            "width": 232,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 44,
+            "y": 12521.09375,
+            "width": 232,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 44,
+            "y": 13021.09375,
+            "width": 232,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 44,
+            "y": 13521.09375,
+            "width": 232,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 44,
+            "y": 14071.09375,
+            "width": 232,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "geometry": {
+          "viewport": 390,
+          "document": 375
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 52,
+            "y": 11626.09375,
+            "width": 271,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 52,
+            "y": 12138.09375,
+            "width": 271,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 52,
+            "y": 12206.09375,
+            "width": 271,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 52,
+            "y": 12706.09375,
+            "width": 271,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 52,
+            "y": 13206.09375,
+            "width": 271,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 52,
+            "y": 13726.09375,
+            "width": 271,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 600,
+        "geometry": {
+          "viewport": 600,
+          "document": 585
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 52,
+            "y": -387.8125,
+            "width": 481,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 52,
+            "y": 124.1875,
+            "width": 481,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 52,
+            "y": 192.1875,
+            "width": 481,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 52,
+            "y": 692.1875,
+            "width": 481,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 52,
+            "y": 1192.1875,
+            "width": 481,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 52,
+            "y": 1692.1875,
+            "width": 481,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 768,
+        "geometry": {
+          "viewport": 768,
+          "document": 753
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 56,
+            "y": -1897.09375,
+            "width": 641,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 56,
+            "y": -1455.09375,
+            "width": 314.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 382.5,
+            "y": -1455.09375,
+            "width": 314.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 52,
+            "y": -929.09375,
+            "width": 286.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 414.5,
+            "y": -929.09375,
+            "width": 286.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 52,
+            "y": -447.09375,
+            "width": 400,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 900,
+        "geometry": {
+          "viewport": 900,
+          "document": 885
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 52,
+            "y": -1034.09375,
+            "width": 352.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 480.5,
+            "y": -1034.09375,
+            "width": 170.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 662.75,
+            "y": -1034.09375,
+            "width": 170.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 52,
+            "y": -510.09375,
+            "width": 209.65625,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 337.65625,
+            "y": -530.09375,
+            "width": 209.671875,
+            "height": 76,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 623.328125,
+            "y": -512.09375,
+            "width": 209.671875,
+            "height": 76,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 1024,
+        "geometry": {
+          "viewport": 1024,
+          "document": 1009
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 52,
+            "y": 423.03125,
+            "width": 414.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 542.5,
+            "y": 423.03125,
+            "width": 201.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 755.75,
+            "y": 423.03125,
+            "width": 201.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 52,
+            "y": 947.03125,
+            "width": 251,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 379,
+            "y": 947.03125,
+            "width": 251,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 706,
+            "y": 947.03125,
+            "width": 251,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 1199,
+        "geometry": {
+          "viewport": 1199,
+          "document": 1184
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 52,
+            "y": 422.75,
+            "width": 502,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 630,
+            "y": 422.75,
+            "width": 245,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 887,
+            "y": 422.75,
+            "width": 245,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 52,
+            "y": 946.75,
+            "width": 309.328125,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 437.328125,
+            "y": 946.75,
+            "width": 309.328125,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 822.65625,
+            "y": 946.75,
+            "width": 309.34375,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 1200,
+        "geometry": {
+          "viewport": 1200,
+          "document": 1185
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 72,
+            "y": -570.1875,
+            "width": 478.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 634.5,
+            "y": -570.1875,
+            "width": 231.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 881.75,
+            "y": -570.1875,
+            "width": 231.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 72,
+            "y": -46.1875,
+            "width": 291,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 447,
+            "y": -46.1875,
+            "width": 291,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 822,
+            "y": -44.1875,
+            "width": 291,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 1280,
+        "geometry": {
+          "viewport": 1280,
+          "document": 1265
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 72,
+            "y": -569.90625,
+            "width": 518.484375,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 674.484375,
+            "y": -569.90625,
+            "width": 251.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 941.734375,
+            "y": -569.90625,
+            "width": 251.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 72,
+            "y": -45.90625,
+            "width": 317.65625,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 473.65625,
+            "y": -45.90625,
+            "width": 317.671875,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 875.328125,
+            "y": -43.90625,
+            "width": 317.65625,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 1440,
+        "geometry": {
+          "viewport": 1440,
+          "document": 1425
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 80,
+            "y": 160.875,
+            "width": 582.5,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 762.5,
+            "y": 160.875,
+            "width": 283.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 1061.75,
+            "y": 160.875,
+            "width": 283.25,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 80,
+            "y": 684.875,
+            "width": 355,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 535,
+            "y": 684.875,
+            "width": 355,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 990,
+            "y": 686.875,
+            "width": 355,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      },
+      {
+        "width": 1920,
+        "geometry": {
+          "viewport": 1920,
+          "document": 1905
+        },
+        "ecosystem": [
+          {
+            "text": "Читать Медиа",
+            "x": 312.5,
+            "y": 160.875,
+            "width": 590,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DEBT TECH",
+            "x": 1002.5,
+            "y": 160.875,
+            "width": 287,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "DOLG TALK",
+            "x": 1305.5,
+            "y": 160.875,
+            "width": 287,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Войти на площадку",
+            "x": 312.5,
+            "y": 684.875,
+            "width": 360,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Перейти к Навигатору",
+            "x": 772.5,
+            "y": 684.875,
+            "width": 360,
+            "height": 56,
+            "clipped": []
+          },
+          {
+            "text": "Смотреть подробнее",
+            "x": 1232.5,
+            "y": 686.875,
+            "width": 360,
+            "height": 56,
+            "clipped": []
+          }
+        ]
+      }
+    ]
+  },
+  "capabilities": {
+    "chromium": [
+      {
+        "width": 490.5,
+        "audience": "seller",
+        "card": "credit",
+        "text": "Обсудить продажу",
+        "x": 65,
+        "y": 781.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "seller",
+        "card": "factoring",
+        "text": "Обсудить продажу",
+        "x": 629.5,
+        "y": 781.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "seller",
+        "card": "receivables",
+        "text": "Обсудить продажу",
+        "x": 65,
+        "y": 659.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "seller",
+        "card": "claims",
+        "text": "Обсудить продажу",
+        "x": 629.5,
+        "y": 659.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "seller",
+        "card": "other",
+        "text": "Обсудить продажу",
+        "x": 65,
+        "y": 659.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "buyer",
+        "card": "credit",
+        "text": "Посмотреть лоты",
+        "x": 65,
+        "y": 1005.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "buyer",
+        "card": "factoring",
+        "text": "Посмотреть лоты",
+        "x": 629.5,
+        "y": 1005.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "buyer",
+        "card": "receivables",
+        "text": "Посмотреть лоты",
+        "x": 65,
+        "y": 659.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "buyer",
+        "card": "claims",
+        "text": "Посмотреть лоты",
+        "x": 629.5,
+        "y": 659.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 490.5,
+        "audience": "buyer",
+        "card": "other",
+        "text": "Посмотреть лоты",
+        "x": 65,
+        "y": 659.8125,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.265625,
+        "audience": "seller",
+        "card": "credit",
+        "text": "Обсудить продажу",
+        "x": 65,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.28125,
+        "audience": "seller",
+        "card": "factoring",
+        "text": "Обсудить продажу",
+        "x": 284.171875,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.265625,
+        "audience": "seller",
+        "card": "receivables",
+        "text": "Обсудить продажу",
+        "x": 503.359375,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.28125,
+        "audience": "seller",
+        "card": "claims",
+        "text": "Обсудить продажу",
+        "x": 722.53125,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.28125,
+        "audience": "seller",
+        "card": "other",
+        "text": "Обсудить продажу",
+        "x": 941.71875,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.265625,
+        "audience": "buyer",
+        "card": "credit",
+        "text": "Посмотреть лоты",
+        "x": 65,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.28125,
+        "audience": "buyer",
+        "card": "factoring",
+        "text": "Посмотреть лоты",
+        "x": 284.171875,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.265625,
+        "audience": "buyer",
+        "card": "receivables",
+        "text": "Посмотреть лоты",
+        "x": 503.359375,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.28125,
+        "audience": "buyer",
+        "card": "claims",
+        "text": "Посмотреть лоты",
+        "x": 722.53125,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 258.28125,
+        "audience": "buyer",
+        "card": "other",
+        "text": "Посмотреть лоты",
+        "x": 941.71875,
+        "y": 787.09375,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "seller",
+        "card": "credit",
+        "text": "Обсудить продажу",
+        "x": 69,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "seller",
+        "card": "factoring",
+        "text": "Обсудить продажу",
+        "x": 318.28125,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "seller",
+        "card": "receivables",
+        "text": "Обсудить продажу",
+        "x": 567.5625,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "seller",
+        "card": "claims",
+        "text": "Обсудить продажу",
+        "x": 816.84375,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.875,
+        "audience": "seller",
+        "card": "other",
+        "text": "Обсудить продажу",
+        "x": 1066.125,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "buyer",
+        "card": "credit",
+        "text": "Посмотреть лоты",
+        "x": 69,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "buyer",
+        "card": "factoring",
+        "text": "Посмотреть лоты",
+        "x": 318.28125,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "buyer",
+        "card": "receivables",
+        "text": "Посмотреть лоты",
+        "x": 567.5625,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.859375,
+        "audience": "buyer",
+        "card": "claims",
+        "text": "Посмотреть лоты",
+        "x": 816.84375,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      },
+      {
+        "width": 289.875,
+        "audience": "buyer",
+        "card": "other",
+        "text": "Посмотреть лоты",
+        "x": 1066.125,
+        "y": 792.875,
+        "height": 52,
+        "clipped": []
+      }
+    ]
+  },
+  "finishedAt": "2026-11-11T09:11:36.013Z",
+  "passed": 2,
+  "failed": 6
+}

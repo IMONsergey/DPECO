@@ -125,6 +125,23 @@ async function waitSelected(selector, selected = true) {
 async function waitHash(hash) {
   await waitFor(async () => new URL(page.url()).hash === hash, `Expected location ${hash}`);
 }
+function destinationOf(hash) {
+  const at = hash.indexOf('?');
+  return {
+    section: at < 0 ? hash : hash.slice(0, at),
+    // Compare every decoded parameter, including duplicates, independently of
+    // serialization order. Extra/missing intent parameters still fail.
+    query: [...new URLSearchParams(at < 0 ? '' : hash.slice(at + 1))].sort(([a], [b]) => a.localeCompare(b)),
+  };
+}
+function expectedDestination(section, query = {}) {
+  return { section, query: Object.entries(query).sort(([a], [b]) => a.localeCompare(b)) };
+}
+async function waitDestination(section, query = {}) {
+  const expected = expectedDestination(section, query);
+  await waitFor(async () => JSON.stringify(destinationOf(new URL(page.url()).hash)) === JSON.stringify(expected), `Expected destination ${JSON.stringify(expected)}`);
+  assert.deepEqual(destinationOf(new URL(page.url()).hash), expected);
+}
 async function waitScrollStable() {
   let previous = await page.evaluate(() => scrollY), stable = 0;
   await waitFor(async () => {
@@ -139,6 +156,7 @@ async function closeDetail() {
     await page.keyboard.press('Escape');
     await waitFor(async () => !(await page.locator('#detail-dialog').evaluate(element => element.open)), 'Detail dialog did not close');
   }
+  await waitFor(async () => await page.evaluate(() => !document.querySelector('#detail-dialog').open && !document.querySelector('#p10-format-dialog').open && !document.body.classList.contains('has-dialog') && !document.documentElement.classList.contains('p10-modal-open')), 'Escape did not close the full overlay stack and release scrolling');
 }
 async function sweepAndInspect() {
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
@@ -204,6 +222,7 @@ async function submitSearch(query) {
   await page.locator('#header-search').fill(query);
   await page.locator('#header-search').press('Enter');
   await waitFor(async () => await page.locator('#detail-dialog').getAttribute('data-view') === 'search', 'Search dialog missing');
+  await waitDestination('#search', { q: query });
 }
 
 try {
@@ -272,10 +291,11 @@ try {
       assert.equal(await trigger.evaluate(element => element === document.activeElement), true);
       await trigger.click();
       await page.locator('#nav-panel-sellers [data-request-kind="receivables"]').click();
-      await waitHash('#request');
+      await waitDestination('#request', { kind: 'receivables' });
       assert.equal(await page.locator('[data-request-form]').getAttribute('data-kind'), 'receivables');
       assert.equal(await page.locator('[data-request-context]').isVisible(), true);
       assert.match(await page.locator('[data-request-context]').innerText(), /дебиторской/i);
+      assert.equal(await page.locator('[name="interest"]').inputValue(), 'Продажа дебиторской задолженности');
       await page.locator('.header__brand').click();
       await waitHash('#top');
       await waitFor(async () => await page.evaluate(() => scrollY < 3), 'Logo did not scroll to page top');
@@ -295,21 +315,23 @@ try {
       await page.locator('#filter-receivables').press('Home');
       await waitSelected('#filter-all');
       await waitFor(async () => await page.locator('.p10-auction').count() === 6, 'All filter did not restore schedule');
-      await page.locator('#period-upcoming').focus();
+      await page.locator('button#period-upcoming').focus();
       await page.keyboard.press('ArrowRight');
-      await waitSelected('#period-previous');
+      await waitSelected('button#period-previous');
       await waitFor(async () => await page.locator('.p10-auction').count() === 8, 'Previous-month snapshot count mismatch');
       await page.locator('#filter-receivables').click();
       await waitFor(async () => await page.locator('.p10-auction').count() === 2, 'Receivables filter mismatch');
       await page.locator('#filter-all').click();
-      await page.locator('#period-upcoming').click();
+      await page.locator('button#period-upcoming').click();
       await waitFor(async () => await page.locator('.p10-auction').count() === 6, 'Upcoming did not restore');
       const lotButton = page.locator('[data-open-lot="zaimer-20261111"]').first();
       await lotButton.click();
+      await waitDestination('#lot-zaimer-20261111');
       assert.equal(await page.locator('#detail-dialog').getAttribute('data-view'), 'lot');
       assert.match(await page.locator('#dialog-title').innerText(), /Займер/);
       assert.match(await page.locator('#dialog-content').innerText(), /10 ноября 2026/);
       await closeDetail();
+      await waitDestination('#lots');
       assert.equal(await lotButton.evaluate(element => element === document.activeElement), true);
       return { fixedDate: '2026-11-11T06:30:00Z', upcoming: 6, previousMonth: 8, previousReceivables: 2, dialog: 'Займер' };
     });
@@ -318,6 +340,7 @@ try {
       for (const format of ['english', 'dutch', 'offers', 'listing']) {
         const trigger = page.locator(`[data-p10-format-open="${format}"]`);
         await trigger.click();
+        await waitDestination(`#format-${format}`);
         assert.equal(await page.locator('#p10-format-dialog').evaluate(element => element.open), true);
         await waitSelected(`[data-format="${format}"]`);
         assert.notEqual(await page.locator(`#format-pane-${format}`).getAttribute('aria-hidden'), 'true');
@@ -325,15 +348,20 @@ try {
         assert.equal(await page.locator(`#format-pane-${format}`).isVisible(), true);
         await page.keyboard.press('Escape');
         await waitFor(async () => !(await page.locator('#p10-format-dialog').evaluate(element => element.open)), 'Format dialog remained open');
+        await waitDestination('#formats');
         assert.equal(await trigger.evaluate(element => element === document.activeElement), true);
       }
       await page.locator('[data-p10-format-open="english"]').click();
       await page.locator('[data-format="english"]').focus();
       await page.keyboard.press('ArrowDown');
       await waitSelected('[data-format="dutch"]');
+      await waitDestination('#format-dutch');
       await page.keyboard.press('End');
       await waitSelected('[data-format="listing"]');
+      await waitDestination('#format-listing');
       await page.keyboard.press('Escape');
+      await waitDestination('#formats');
+      await waitFor(async () => !(await page.locator('#p10-format-dialog').evaluate(element => element.open)), 'Escape did not close format dialog after keyboard selection');
       return { formats: 4, keyboard: ['ArrowDown', 'End', 'Escape'] };
     });
     await check('capabilities-audience-cta-updates-and-context', async () => {
@@ -343,16 +371,40 @@ try {
       await seller.focus();
       await page.keyboard.press('ArrowRight');
       await waitSelected('[data-capability-new-audience="buyer"]');
-      const buyerLinks = await page.locator('[data-capability-new-link]').evaluateAll(elements => elements.map(element => ({ href: element.getAttribute('href'), requestKind: element.getAttribute('data-request-kind'), label: element.textContent.trim() })));
+      const buyerLinks = await page.locator('[data-capability-new-link]').evaluateAll(elements => elements.map(element => ({ id: element.getAttribute('data-capability-new-link'), href: element.getAttribute('href'), requestKind: element.getAttribute('data-request-kind'), category: element.getAttribute('data-lots-category'), period: element.getAttribute('data-lots-period'), label: element.textContent.trim() })));
       assert.equal(buyerLinks.length, 5);
-      assert.ok(buyerLinks.every(link => link.href === '#lots' && link.requestKind === null));
+      const capabilityIntents = {
+        credit: { category: 'individuals', kind: 'portfolio', interest: 'Кредитные портфели' },
+        factoring: { category: 'receivables', kind: 'general', interest: 'Факторинговые портфели' },
+        receivables: { category: 'receivables', kind: 'receivables', interest: 'Дебиторская задолженность' },
+        claims: { category: 'all', kind: 'general', interest: 'Права требования' },
+        other: { category: 'all', kind: 'general', interest: 'Прочие права требования' },
+      };
+      assert.deepEqual(buyerLinks.map(link => link.id), Object.keys(capabilityIntents));
+      for (const link of buyerLinks) {
+        const intent = capabilityIntents[link.id];
+        assert.deepEqual(destinationOf(link.href), expectedDestination('#lots', { category: intent.category, period: 'upcoming' }));
+        assert.equal(link.requestKind, null);
+        assert.equal(link.category, intent.category);
+        assert.equal(link.period, 'upcoming');
+        assert.equal(link.label, 'Посмотреть лоты');
+      }
       await buyer.press('ArrowLeft');
       await waitSelected('[data-capability-new-audience="seller"]');
-      const sellerLinks = await page.locator('[data-capability-new-link]').evaluateAll(elements => elements.map(element => ({ href: element.getAttribute('href'), requestKind: element.getAttribute('data-request-kind'), label: element.textContent.trim() })));
-      assert.ok(sellerLinks.every(link => link.href === '#request' && link.requestKind));
+      const sellerLinks = await page.locator('[data-capability-new-link]').evaluateAll(elements => elements.map(element => ({ id: element.getAttribute('data-capability-new-link'), href: element.getAttribute('href'), requestKind: element.getAttribute('data-request-kind'), requestInterest: element.getAttribute('data-request-interest'), label: element.textContent.trim() })));
+      assert.equal(sellerLinks.length, 5);
+      for (const link of sellerLinks) {
+        const intent = capabilityIntents[link.id];
+        assert.deepEqual(destinationOf(link.href), expectedDestination('#request', { kind: intent.kind, interest: intent.interest }));
+        assert.equal(link.requestKind, intent.kind);
+        assert.equal(link.requestInterest, intent.interest);
+        assert.equal(link.label, 'Обсудить продажу');
+      }
       await page.locator('[data-capability-new-expand="factoring"]').focus();
       await page.locator('[data-capability-new-link="factoring"]').click();
-      await waitHash('#request');
+      await waitDestination('#request', { interest: 'Факторинговые портфели' });
+      assert.equal(await page.locator('[data-request-form]').getAttribute('data-kind'), 'general');
+      assert.equal(await page.locator('[name="interest"]').inputValue(), 'Факторинговые портфели');
       assert.match(await page.locator('[data-request-context]').innerText(), /Факторинговые портфели/);
       return { buyerLinks, sellerLinks };
     });
@@ -382,7 +434,7 @@ try {
       const before = beforeNavigation.scrollY;
       const sourceBefore = beforeNavigation.sourceBox;
       await page.locator('[data-capability-new-link="factoring"]').click();
-      await waitHash('#request');
+      await waitDestination('#request', { interest: 'Факторинговые портфели' });
       await delay(600);
       await page.goBack();
       await waitHash('');
@@ -415,15 +467,19 @@ try {
       await page.locator('.header__brand').click();
       await waitHash('#top');
       await page.locator('[data-p10-format-open="english"]').click();
+      await waitDestination('#format-english');
       assert.equal(await page.locator('#p10-format-dialog').evaluate(element => element.open), true);
       await page.goBack();
-      await waitHash('');
+      // Opening a modal now creates its own history entry. One Back closes the
+      // modal and restores its immediate homepage source, which is #top here.
+      await waitDestination('#top');
       await waitFor(async () => !(await page.locator('#p10-format-dialog').evaluate(element => element.open)), 'Back left the format dialog open');
       // HTMLDialogElement.close() queues its close event. Its open property
       // changes before the listener has removed the document's scroll lock.
       const immediatelyAfterClose = await page.evaluate(() => ({ open: document.querySelector('#p10-format-dialog').open, scrollLocked: document.documentElement.classList.contains('p10-modal-open') }));
       await waitFor(async () => await page.evaluate(() => !document.querySelector('#p10-format-dialog').open && !document.documentElement.classList.contains('p10-modal-open')), 'Back did not settle both dialog closure and document scroll unlock');
       const settledAfterClose = await page.evaluate(() => ({ open: document.querySelector('#p10-format-dialog').open, scrollLocked: document.documentElement.classList.contains('p10-modal-open'), overflow: getComputedStyle(document.documentElement).overflow }));
+      assert.equal(await page.locator('[data-p10-format-open="english"]').evaluate(element => element === document.activeElement), true, 'Back did not restore the format trigger');
       return { manualScrollBefore: before, restoredScroll: restored, exactScrollDrift: restored - before, sourceBefore, sourceAfter, sourceFocusRestored: true, formatClosedOnBack: true, immediatelyAfterClose, settledAfterClose, navigationEvidence: { beforeNavigation, afterInitialScrollStable, animationFrameObservation, afterTwoFramesAnd300ms, settledNavigation } };
     });
     await check('search-section-lot-empty-and-dialog-navigation', async () => {
@@ -434,18 +490,22 @@ try {
       assert.equal(await page.locator('#detail-dialog').evaluate(element => element.open), false);
       await submitSearch('Займер');
       await page.locator('#detail-dialog [data-open-lot="zaimer-20261111"]').click();
+      await waitDestination('#lot-zaimer-20261111');
       assert.equal(await page.locator('#detail-dialog').getAttribute('data-view'), 'lot');
       assert.match(await page.locator('#dialog-title').innerText(), /Займер/);
       await closeDetail();
+      await waitDestination('#formats');
       await submitSearch('zzzz-no-such-debt-2941');
       assert.match(await page.locator('.home-search__count').innerText(), /Ничего не найдено/);
       assert.equal(await page.locator('#detail-dialog .home-result').count(), 0);
       await closeDetail();
-      return { section: '#formats', lot: 'zaimer-20261111', emptyState: true };
+      await waitDestination('#formats');
+      return { section: '#formats', lot: 'zaimer-20261111', emptyState: true, escapeClosedEntireSearchLotStack: true };
     });
     await check('documents-six-official-links', async () => {
       await openHome();
       await page.locator('.p10-footer [data-open-documents]').click();
+      await waitDestination('#documents');
       assert.equal(await page.locator('#detail-dialog').getAttribute('data-view'), 'documents');
       const links = await page.locator('#detail-dialog .home-result').evaluateAll(elements => elements.map(element => ({ title: element.textContent.trim(), href: element.href, target: element.target, rel: element.rel })));
       assert.equal(links.length, 6);
@@ -453,6 +513,7 @@ try {
       assert.ok(links.some(link => link.href.endsWith('DEBTPRICE_details.pdf')));
       assert.ok(links.some(link => link.href.endsWith('DEBTPRICE_debt_list_BLANK.xlsx')));
       await closeDetail();
+      await waitHash('');
       return { links, networkCheck: 'Link targets inspected; no files submitted or external pages opened.' };
     });
     await check('form-validation-and-reviewed-draft-no-transmission', async () => {
@@ -468,7 +529,14 @@ try {
       await form.locator('[name="consent"]').check();
       await form.locator('button[type="submit"]').click();
       assert.equal(await form.locator('.request__status').isVisible(), false);
-      assert.match(await form.locator('[name="phone"]').evaluate(element => element.validationMessage), /10 цифр/);
+      assert.match(await form.locator('[name="phone"]').evaluate(element => element.validationMessage), /от 10 до 15 цифр/);
+      for (const invalid of ['abc1234567890', '1234567890123456']) {
+        await form.locator('[name="phone"]').fill(invalid);
+        await form.locator('button[type="submit"]').click();
+        assert.equal(await form.locator('.request__status').isVisible(), false);
+        assert.equal(await form.locator('[name="phone"]').evaluate(element => element.validity.valid), false);
+        assert.match(await form.locator('[name="phone"]').evaluate(element => element.validationMessage), /от 10 до 15 цифр/);
+      }
       await form.locator('[name="phone"]').fill('+7 000 000-00-00');
       assert.equal(await form.locator('input[type="checkbox"]').nth(1).isChecked(), false);
       await form.locator('button[type="submit"]').click();
@@ -481,7 +549,7 @@ try {
       await form.locator('[name="company"]').fill('Проверка сброса черновика');
       assert.equal(await form.locator('.request__status').isVisible(), false);
       assert.equal(writes.length, 0, 'Unexpected network write request');
-      return { invalidEmpty: true, invalidPhone: true, draftPrepared: true, optionalMarketingUnchecked: true, draftInvalidatedAfterEdit: true, mailtoClicked: false, writes: 0 };
+      return { invalidEmpty: true, invalidPhone: ['too-short', 'letters', 'too-long'], draftPrepared: true, optionalMarketingUnchecked: true, draftInvalidatedAfterEdit: true, mailtoClicked: false, writes: 0 };
     });
     await check('legacy-links-keep-homepage', async () => {
       await openHome('#/buyers');
@@ -489,9 +557,10 @@ try {
       assert.equal(await page.locator('#hero-title').count(), 1);
       assert.equal(await page.locator('#ecosystem').count(), 1);
       await page.goto(baseURL + '/#/sellers/debitorka', { waitUntil: 'networkidle' });
-      await waitHash('#request');
+      await waitDestination('#request', { kind: 'receivables' });
       assert.equal(await page.locator('[data-request-form]').getAttribute('data-kind'), 'receivables');
-      return { buyers: '#lots', sellers: '#request', homepagePreserved: true };
+      assert.equal(await page.locator('[name="interest"]').inputValue(), 'Продажа дебиторской задолженности');
+      return { buyers: '#lots', sellers: '#request?kind=receivables', homepagePreserved: true };
     });
     await check('addressed-dialogs-survive-reload-with-history-state', async () => {
       const results = [];
@@ -512,6 +581,9 @@ try {
         }
         results.push({ hash, view, reopened: true, historyStatePresent: await page.evaluate(() => Boolean(history.state?.dpecoHome)) });
         await closeDetail();
+        await waitDestination('#top');
+        await page.reload({ waitUntil: 'networkidle' });
+        assert.equal(await page.locator('#detail-dialog').evaluate(element => element.open), false, 'A closed direct-link dialog reopened on reload');
       }
       return results;
     });
@@ -520,7 +592,7 @@ try {
       await openHome('#lots');
       assert.equal(await page.locator('.p10-auction').count(), 0);
       assert.equal(await page.locator('.p10-schedule__empty').isVisible(), true);
-      assert.match(await page.locator('[data-next-name]').innerText(), /Новые лоты на площадке/);
+      assert.match(await page.locator('[data-next-name]').innerText(), /Расписание на площадке/);
       return { fixedDate: '2026-11-14T06:30:00Z', upcoming: 0 };
     });
     await context.close();
@@ -569,6 +641,8 @@ try {
       await page.locator('[data-p10-format-open="dutch"]').click();
       await waitSelected('[data-format="dutch"]');
       await page.keyboard.press('Escape');
+      await waitFor(async () => !(await page.locator('#p10-format-dialog').evaluate(element => element.open)), 'Reduced-motion format dialog did not close');
+      await waitHash('');
       return { state, motionState };
     });
     await context.close();

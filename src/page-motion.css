@@ -20,8 +20,8 @@
 .has-tab-indicator { position: relative; isolation: isolate; }
 .tab-indicator { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; border-radius: calc(var(--radius-control) - 2px); background: var(--ink); }
 .tab-indicator-ready .tab-indicator { transition: transform 480ms var(--ease), width 480ms var(--ease), height 480ms var(--ease); }
-.has-tab-indicator [role='tab'] { position: relative; z-index: 1; background: transparent !important; transition: color 280ms ease; }
-.has-tab-indicator [role='tab'][aria-selected='true'] { color: white; }
+.has-tab-indicator [role='tab'] { position: relative; z-index: 1; transition: color 280ms ease, background-color 240ms ease; }
+.has-tab-indicator [role='tab'][aria-selected='true'] { color: white; background: transparent !important; }
 .has-tab-indicator [role='tab']:not([aria-selected='true']) { color: var(--ink); }
 .scene-image { translate: 0 var(--image-travel, 0px); transition: translate 900ms var(--ease); }
 .process__steps > .motion-pending::before { transform: scaleX(0); }

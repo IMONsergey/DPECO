@@ -1,0 +1,177 @@
+{
+  "source": "https://docs.google.com/document/d/1hH3xng6E4rAf-Cfeqz9VMI788a7nFbq_0TAJrdfv444/edit?tab=t.0",
+  "title": "Правки по верстке сайта | DEBTPRICE",
+  "readAt": "2026-11-11",
+  "screenshotsInspected": 33,
+  "scope": "Главная; сохранить Page10, исходную графику, анимации, светлую/темную темы. Боевой debtprice.market вне объема.",
+  "requirements": [
+    {
+      "id": "H1",
+      "text": "Центрировать иконку темы",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "H2",
+      "text": "Контакты ближе к кнопкам входа",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "H3",
+      "text": "Продавцы: сплошной выпадающий список без левых иконок с chevron справа",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "H4",
+      "text": "Корректная стрелка открытого меню",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "H5-H7",
+      "text": "Компактный поиск без зеленой рамки и лишней внешней оболочки",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "H8",
+      "text": "Состояния кнопок входа и регистрации",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "H9-H10",
+      "text": "Аккуратная экосистема с точными подсказками из документа",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "G1",
+      "text": "Плашки с текущим временем МСК и2100+ участниками",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "G2",
+      "text": "Реальный обратный отсчет с секундами",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "T1",
+      "text": "Заливки переключателей расписания по дизайну",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "T2",
+      "text": "Состояния кнопки всех торгов",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "S1",
+      "text": "Состояния кнопок продажи/покупки",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "O1",
+      "text": "Состояния регистрации оффера",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "O2",
+      "text": "Оффер расположен сразу после возможностей",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "C1",
+      "text": "Заливка неактивной вкладки возможностей",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "C2",
+      "text": "Плавное раскрытие карточек, полный текст и доступный CTA",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "C3",
+      "text": "Состояния CTA возможностей",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "F1",
+      "text": "Описания Продавцу/Покупателю занимают ширину колонки",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "F2",
+      "text": "Компактная кнопка подготовки заявки",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "F3",
+      "text": "Указанная подпись о подготовке письма удалена без ложного успеха",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "E1",
+      "text": "Компактная кнопка Читать Медиа",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "M1",
+      "text": "Hover иfocus карточек материалов",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "FT1",
+      "text": "Белый логотип на темной плашке без внутренней рамки",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "FT2-FT3",
+      "text": "Колонка Экосистема перед Платформой с6ссылками",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "FT4",
+      "text": "Telegram, MAX, WhatsApp без ссылок",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "QA",
+      "text": "Адаптивность320-1920 иобе темы, сценарии навигации, отсутствие ошибок",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "DELIVERY",
+      "text": "Обновление указанных превью ипроверка опубликованной сборки",
+      "required": true,
+      "allow_na": false
+    }
+  ],
+  "notes": [
+    "2100+ сохранено как предоставленный клиентом контент; не показатель изAPI.",
+    "GoogleDoc заканчивается пустым пунктом4; нового требования он не содержит.",
+    "Сохранен честный почтовый черновик; CRMвне текущих визуальных правок.",
+    "НативныйSafari требует отдельной проверки; WebKitне выдавать заSafari."
+  ]
+}

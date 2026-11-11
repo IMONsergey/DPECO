@@ -1,4 +1,4 @@
-import { asset, escapeHtml } from '../ui';
+import { asset, escapeHtml, icon } from '../ui';
 import './capabilities.css';
 
 type Audience = 'seller' | 'buyer';
@@ -13,6 +13,7 @@ interface Capability {
   icon: string;
   description: Record<Audience, string>;
   requestKind: 'portfolio' | 'receivables' | 'general';
+  buyerCategory: 'all' | 'individuals' | 'receivables';
 }
 
 const items: readonly Capability[] = [
@@ -28,6 +29,7 @@ const items: readonly Capability[] = [
       buyer: 'От банков, МФО и страховых компаний — с полным пакетом документов',
     },
     requestKind: 'portfolio',
+    buyerCategory: 'individuals',
   },
   {
     id: 'factoring',
@@ -41,6 +43,7 @@ const items: readonly Capability[] = [
       buyer: 'Права требования, уступленные факторинговыми компаниями',
     },
     requestKind: 'general',
+    buyerCategory: 'receivables',
   },
   {
     id: 'receivables',
@@ -54,6 +57,7 @@ const items: readonly Capability[] = [
       buyer: 'Корпоративных клиентов — с заключением площадки по каждому лоту',
     },
     requestKind: 'receivables',
+    buyerCategory: 'receivables',
   },
   {
     id: 'claims',
@@ -67,6 +71,7 @@ const items: readonly Capability[] = [
       buyer: 'По гражданско-правовым договорам и возмещению вреда',
     },
     requestKind: 'general',
+    buyerCategory: 'all',
   },
   {
     id: 'other',
@@ -80,6 +85,7 @@ const items: readonly Capability[] = [
       buyer: 'Права требования по другим видам обязательств. Изучите состав и условия актива.',
     },
     requestKind: 'general',
+    buyerCategory: 'all',
   },
 ];
 
@@ -102,6 +108,12 @@ const actionLabels: Record<Audience, string> = {
 };
 
 const mounts = new WeakMap<HTMLElement, Cleanup>();
+
+function destination(item: Capability, audience: Audience): string {
+  return audience === 'buyer'
+    ? `#lots?${new URLSearchParams({ category: item.buyerCategory, period: 'upcoming' })}`
+    : `#request?${new URLSearchParams({ kind: item.requestKind, interest: item.title.join(' ') })}`;
+}
 
 /** Hidden measuring lines reserve the larger of both texts without truncating either. */
 function measuringLines(values: readonly string[]): string {
@@ -128,7 +140,7 @@ function card(item: Capability, index: number): string {
                 ${measuringLines([item.description.seller, item.description.buyer])}
                 <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
               </div>
-              <a class="button button--primary capability-new__cta" href="#request" data-request-kind="${item.requestKind}" data-request-interest="${escapeHtml(item.title.join(' '))}" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span><img src="${asset('page10/391-1045/ed8c1.svg')}" alt="" width="16" height="16"></a>
+              <a class="button button--primary capability-new__cta" href="${escapeHtml(destination(item, 'seller'))}" data-request-kind="${item.requestKind}" data-request-interest="${escapeHtml(item.title.join(' '))}" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span>${icon('arrow-right')}</a>
             </div>
           </div>
         </div>
@@ -180,11 +192,48 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   let intentTimer = 0;
   let lastPointerX = -1;
   let lastPointerY = -1;
+  let lastGridWidth = 0;
+  let measureFrame = 0;
+  let disposed = false;
 
   function cancelIntent(): void {
     window.clearTimeout(intentTimer);
     intentTimer = 0;
     pendingCard = '';
+  }
+
+  // Keep the expanded copy at its final width while the outside of the card
+  // opens. Otherwise every interpolated grid width creates a new line break.
+  // The taller of both audiences reserves enough room for the whole CTA.
+  function measureExpandedContent(force = false): void {
+    if (!grid || disposed) return;
+    if (compactLayout.matches) {
+      lastGridWidth = 0;
+      section.style.removeProperty('--capability-detail-width');
+      section.style.removeProperty('--capability-expanded-height');
+      return;
+    }
+    const width = grid.clientWidth;
+    if (!width || (!force && Math.abs(width - lastGridWidth) < 1)) return;
+    lastGridWidth = width;
+    const gap = Number.parseFloat(getComputedStyle(grid).columnGap) || 0;
+    const padding = Number.parseFloat(getComputedStyle(section).getPropertyValue('--capability-expanded-padding')) || 28;
+    const expandedWidth = (width - gap * (cards.length - 1)) * 1.517241 / (cards.length - 1 + 1.517241);
+    section.style.setProperty('--capability-detail-width', `${Math.max(0, expandedWidth - padding * 2 - 2)}px`);
+    const descriptionHeight = Math.max(0, ...cards.map((card) =>
+      card.querySelector<HTMLElement>('.capability-new__description-frame')?.offsetHeight ?? 0,
+    ));
+    // Media 252, heading 72, top inset 8, description gap 32,
+    // CTA gap 18, CTA 52, bottom inset 28 and two 1px borders.
+    section.style.setProperty('--capability-expanded-height', `${Math.max(536, 464 + descriptionHeight)}px`);
+  }
+
+  function scheduleMeasure(): void {
+    cancelAnimationFrame(measureFrame);
+    measureFrame = requestAnimationFrame(() => {
+      measureFrame = 0;
+      measureExpandedContent();
+    });
   }
 
   function syncCardAccess(): void {
@@ -226,15 +275,22 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
       ? event.target.closest<HTMLElement>('[data-capability-new-card]')
       : null;
     const id = card?.dataset.capabilityNewCard;
-    // Keep a keyboard-focused CTA available. Pointer-origin focus (including a
-    // restored link after Back) must not leave hover locked on its previous card.
+    // Keyboard focus owns the open card, including the path from its heading
+    // to its CTA. A scroll or a moving neighbour must not close that path.
+    // Pointer-origin focus still lets normal mouse hover select another card.
     const focused = document.activeElement;
-    if (focused?.closest('.capability-new__body') && focused.matches(':focus-visible')) return;
+    if (focused?.closest('[data-capability-new-card]') && focused.matches(':focus-visible')) return;
     if (!id || id === activeCard) { cancelIntent(); return; }
     if (id === pendingCard) return;
     cancelIntent();
     pendingCard = id;
-    intentTimer = window.setTimeout(() => activateCard(id), 80);
+    intentTimer = window.setTimeout(() => {
+      // Recheck the actual hit target after the intent delay. Rapid pointer
+      // movement or an unfinished card transition can invalidate the old hit.
+      const hit = document.elementFromPoint(lastPointerX, lastPointerY)?.closest<HTMLElement>('[data-capability-new-card]');
+      if (hit?.dataset.capabilityNewCard === id) activateCard(id);
+      else cancelIntent();
+    }, 120);
   }, { passive: true, signal });
 
   grid?.addEventListener('pointerleave', () => {
@@ -250,6 +306,28 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     if (card?.dataset.capabilityNewCard) activateCard(card.dataset.capabilityNewCard);
   }, { signal });
 
+  grid?.addEventListener('pointerdown', cancelIntent, { passive: true, signal });
+  window.addEventListener('scroll', cancelIntent, { passive: true, capture: true, signal });
+
+  grid?.addEventListener('keydown', (event) => {
+    if (compactLayout.matches || !(event.target instanceof Element)) return;
+    const trigger = event.target.closest<HTMLButtonElement>('[data-capability-new-expand]');
+    if (!trigger) return;
+    const index = cards.findIndex((card) => card.dataset.capabilityNewCard === trigger.dataset.capabilityNewExpand);
+    if (index < 0) return;
+    let nextIndex: number;
+    switch (event.key) {
+      case 'ArrowRight': nextIndex = (index + 1) % cards.length; break;
+      case 'ArrowLeft': nextIndex = (index - 1 + cards.length) % cards.length; break;
+      case 'Home': nextIndex = 0; break;
+      case 'End': nextIndex = cards.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    cards[nextIndex]?.querySelector<HTMLButtonElement>('[data-capability-new-expand]')?.focus({ preventScroll: true });
+  }, { signal });
+
   grid?.addEventListener('click', (event) => {
     if (!(event.target instanceof Element) || event.target.closest('a')) return;
     const card = event.target.closest<HTMLElement>('[data-capability-new-card]');
@@ -259,8 +337,13 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   compactLayout.addEventListener('change', () => {
     cancelIntent();
     syncCardAccess();
+    measureExpandedContent(true);
   }, { signal });
   syncCardAccess();
+  measureExpandedContent(true);
+  const resizeObserver = new ResizeObserver(scheduleMeasure);
+  if (grid) resizeObserver.observe(grid);
+  document.fonts.ready.then(() => measureExpandedContent(true));
 
   function replaceText(element: HTMLElement | null, text: string): void {
     if (!element) return;
@@ -292,9 +375,18 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     items.forEach((item) => {
       const link = section.querySelector<HTMLAnchorElement>(`[data-capability-new-link="${item.id}"]`);
       if (link) {
-        link.href = next === 'buyer' ? '#lots' : '#request';
-        if (next === 'seller') { link.dataset.requestKind = item.requestKind; link.dataset.requestInterest = item.title.join(' '); }
-        else { delete link.dataset.requestKind; delete link.dataset.requestInterest; }
+        link.href = destination(item, next);
+        if (next === 'seller') {
+          link.dataset.requestKind = item.requestKind;
+          link.dataset.requestInterest = item.title.join(' ');
+          delete link.dataset.lotsCategory;
+          delete link.dataset.lotsPeriod;
+        } else {
+          delete link.dataset.requestKind;
+          delete link.dataset.requestInterest;
+          link.dataset.lotsCategory = item.buyerCategory;
+          link.dataset.lotsPeriod = 'upcoming';
+        }
         link.setAttribute('aria-label', `${actionLabels[next]}: ${item.title.join(' ')}`);
         replaceText(link.querySelector<HTMLElement>('span'), actionLabels[next]);
       }
@@ -303,8 +395,15 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
 
     if (extra) {
       extra.href = additional[next].href;
-      if (next === 'seller') extra.dataset.requestKind = 'portfolio';
-      else delete extra.dataset.requestKind;
+      if (next === 'seller') {
+        extra.dataset.requestKind = 'portfolio';
+        delete extra.dataset.lotsCategory;
+        delete extra.dataset.lotsPeriod;
+      } else {
+        delete extra.dataset.requestKind;
+        extra.dataset.lotsCategory = 'all';
+        extra.dataset.lotsPeriod = 'upcoming';
+      }
       extra.setAttribute('aria-label', `${actionLabels[next]}: ${additional[next].title}`);
     }
     replaceText(section.querySelector<HTMLElement>('[data-capability-new-extra-title]'), additional[next].title);
@@ -346,12 +445,13 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     animations.clear();
   }, { signal });
 
-  let disposed = false;
   const cleanup = () => {
     if (disposed) return;
     disposed = true;
     abort.abort();
     cancelIntent();
+    cancelAnimationFrame(measureFrame);
+    resizeObserver.disconnect();
     animations.forEach((animation) => animation.cancel());
     animations.clear();
     mounts.delete(section);

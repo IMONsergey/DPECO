@@ -75,7 +75,6 @@ function renderConsultation(): string {
         <label class="p10-request-consent"><input type="checkbox" name="consent" required><span>Согласен на обработку персональных данных в соответствии с <a href="https://my.debtprice.market/Privacy_policy.pdf" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a> и <a href="https://my.debtprice.market/Personal_data_consent.pdf" target="_blank" rel="noopener noreferrer">согласием</a></span></label>
         <label class="p10-request-consent"><input type="checkbox" name="Рекламные предложения" value="Согласие дано"><span>Соглашаюсь на рекламные предложения от DEBTPRICE по электронной почте, номеру телефона и в мессенджерах</span></label>
       </div>
-      <p class="p10-consultation__delivery">Подготовим письмо с вашими данными. Проверьте и отправьте его из своей почты.</p>
       <div class="request__status p10-consultation__status" id="request-status" role="status" aria-live="polite" hidden></div>
     </form>
   </section>`;
@@ -173,14 +172,12 @@ function renderPage10Materials(): string {
   </section>`;
 }
 
-export function renderPage10Sections(): string {
-  return `${renderCapabilities()}${renderPage10Formats()}${renderPage10Process()}${renderPage10Ecosystem()}${renderPage10Materials()}`;
+export function renderPage10Sections(offer = ''): string {
+  return `${renderCapabilities()}${offer}${renderPage10Formats()}${renderPage10Process()}${renderPage10Ecosystem()}${renderPage10Materials()}`;
 }
 
 /** Page 10 reuses the established form, capability, tab and reveal mounts. */
 export function mountPage10Sections(host: HTMLElement): () => void {
-  const dialog = host.querySelector<HTMLDialogElement>('#p10-format-dialog');
-  if (!dialog) return () => {};
   const abort = new AbortController();
   const { signal } = abort;
   const fitBrand = (wrapper: HTMLElement) => {
@@ -195,31 +192,5 @@ export function mountPage10Sections(host: HTMLElement): () => void {
     wrapper.querySelector('img')?.addEventListener('load', () => fitBrand(wrapper), { signal });
     fitBrand(wrapper);
   });
-  let restoreFocus: HTMLElement | null = null;
-  const close = () => dialog.close();
-  host.addEventListener('click', (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    const trigger = target?.closest<HTMLButtonElement>('[data-p10-format-open]');
-    if (trigger) {
-      restoreFocus = trigger;
-      if (!dialog.open) dialog.showModal();
-      document.documentElement.classList.add('p10-modal-open');
-      const tab = dialog.querySelector<HTMLButtonElement>(`[data-format="${CSS.escape(trigger.dataset.p10FormatOpen ?? 'english')}"]`);
-      tab?.click();
-      dialog.querySelector('.formats__layout')?.classList.add('is-revealed');
-      dialog.querySelector<HTMLButtonElement>('[data-p10-format-close]')?.focus({ preventScroll: true });
-    }
-    if (target?.closest('[data-p10-format-close]')) close();
-  }, { signal });
-  dialog.addEventListener('click', (event) => {
-    if (event.target !== dialog) return;
-    const rect = dialog.getBoundingClientRect();
-    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) close();
-  }, { signal });
-  dialog.addEventListener('close', () => {
-    document.documentElement.classList.remove('p10-modal-open');
-    if (!dialog.dataset.navigationClose && restoreFocus?.isConnected) restoreFocus.focus({ preventScroll: true });
-    delete dialog.dataset.navigationClose;
-  }, { signal });
-  return () => { abort.abort(); brandObserver.disconnect(); if (dialog.open) dialog.close(); document.documentElement.classList.remove('p10-modal-open'); };
+  return () => { abort.abort(); brandObserver.disconnect(); };
 }

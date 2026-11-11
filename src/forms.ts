@@ -27,7 +27,12 @@ export function mountRequestForms(app: HTMLElement, notify: (text: string) => vo
         if (field.required && !field.value) field.setCustomValidity('Заполните это поле.');
       }
       const phone = form.elements.namedItem('phone');
-      if (phone instanceof HTMLInputElement && phone.value.replace(/\D/gu, '').length < 10) phone.setCustomValidity('Укажите номер с кодом страны или города: не менее 10 цифр.');
+      if (phone instanceof HTMLInputElement) {
+        const digits = phone.value.replace(/\D/gu, '');
+        if (!/^\+?[\d\s().-]+$/u.test(phone.value) || digits.length < 10 || digits.length > 15) {
+          phone.setCustomValidity('Укажите телефон с кодом страны или города: от 10 до 15 цифр. Можно использовать +, пробелы, скобки и дефисы.');
+        }
+      }
       const amount = form.elements.namedItem('amount');
       if (amount instanceof HTMLInputElement) {
         const value = Number(amount.value.replace(/[\s\u00a0₽]/gu, '').replace(',', '.'));

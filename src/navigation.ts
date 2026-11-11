@@ -6,7 +6,14 @@ export function mountNavigation(app: HTMLElement, currentPath: string): { close:
   const abort = new AbortController();
   const { signal } = abort;
   const dropdowns = [...header.querySelectorAll<HTMLElement>('.nav-dropdown')];
+  const ecosystemItems = [...header.querySelectorAll<HTMLElement>('[data-ecosystem-item]')];
+  const ecosystemPanel = header.querySelector<HTMLElement>('#nav-panel-ecosystem');
+  let hoveredEcosystemItem: HTMLElement | undefined;
   let scrollFrame = 0;
+
+  function showEcosystemTooltip(item?: HTMLElement): void {
+    ecosystemItems.forEach((entry) => entry.classList.toggle('is-tooltip-visible', entry === item));
+  }
 
   function setDropdown(dropdown: HTMLElement, open: boolean): void {
     const trigger = dropdown.querySelector<HTMLButtonElement>('[data-nav-toggle]');
@@ -16,6 +23,10 @@ export function mountNavigation(app: HTMLElement, currentPath: string): { close:
     trigger.setAttribute('aria-expanded', String(open));
     panel.inert = !open;
     panel.setAttribute('aria-hidden', String(!open));
+    if (!open && dropdown.dataset.navId === 'ecosystem') {
+      hoveredEcosystemItem = undefined;
+      showEcosystemTooltip();
+    }
   }
   function closeDropdowns(except?: HTMLElement): void {
     dropdowns.forEach((item) => { if (item !== except) setDropdown(item, false); });
@@ -30,6 +41,26 @@ export function mountNavigation(app: HTMLElement, currentPath: string): { close:
     if (open) closeDropdowns();
   }
   const close = () => { closeDropdowns(); setMenu(false); };
+
+  // One readable description at a time; a tooltip never becomes another link.
+  ecosystemItems.forEach((item) => {
+    item.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'touch') return;
+      hoveredEcosystemItem = item;
+      showEcosystemTooltip(item);
+    }, { signal });
+    item.addEventListener('focusin', () => showEcosystemTooltip(item), { signal });
+    item.addEventListener('focusout', (event) => {
+      const next = event.relatedTarget instanceof Node ? event.relatedTarget : null;
+      const focusedItem = next ? ecosystemItems.find((entry) => entry.contains(next)) : undefined;
+      showEcosystemTooltip(focusedItem ?? hoveredEcosystemItem);
+    }, { signal });
+  });
+  ecosystemPanel?.addEventListener('pointerleave', () => {
+    hoveredEcosystemItem = undefined;
+    const focusedItem = ecosystemItems.find((item) => item.contains(document.activeElement));
+    showEcosystemTooltip(focusedItem);
+  }, { signal });
 
   for (const link of header.querySelectorAll<HTMLAnchorElement>('a[href^="#/"]')) {
     const path = link.getAttribute('href')?.slice(2).split('?')[0];

@@ -7,6 +7,7 @@ import { accountUrl, asset, escapeHtml, icon, registerUrl, rubles } from './ui';
 const sourceDate = '10 ноября 2026';
 const number = new Intl.NumberFormat('ru-RU');
 const shortTime = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow' });
+const liveTime = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Moscow' });
 const longDate = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Moscow' });
 const dayDate = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', weekday: 'long', timeZone: 'Europe/Moscow' });
 
@@ -21,9 +22,9 @@ function sellerMark(lot: Lot, extraClass = ''): string {
 function renderNextAuction(): string {
   const next = lots.find(lot => lot.startsAt && Date.parse(lot.startsAt) > Date.now());
   return `<aside class="p10-next" aria-label="Ближайшие торги" data-reveal>
-    <div class="p10-next__seller" data-next-seller>${next ? sellerMark(next) : `<span class="p10-next__empty-icon">${icon('clock')}</span>`}<div><small data-next-label>${next ? 'Ближайшие торги' : 'Расписание торгов'}</small><strong data-next-name>${next ? escapeHtml(next.name) : 'Новые лоты на площадке'}</strong></div></div>
+    <div class="p10-next__seller" data-next-seller>${next ? sellerMark(next) : `<span class="p10-next__empty-icon">${icon('clock')}</span>`}<div><small data-next-label>${next ? 'Ближайшие торги' : 'Расписание торгов'}</small><strong data-next-name>${next ? escapeHtml(next.name) : 'Расписание на площадке'}</strong></div></div>
     <div class="p10-next__date"><small data-next-date>${next?.startsAt ? longDate.format(Date.parse(next.startsAt)).replace(' г.', '') : 'Актуальные даты и условия'}</small><strong data-next-time>${next?.startsAt ? shortTime.format(Date.parse(next.startsAt)) + ' МСК' : 'В личном кабинете'}</strong></div>
-    <div class="p10-next__count"><small data-next-count-label>${next ? 'До начала' : 'Торги'}</small><strong data-next-countdown>${next ? 'Расчет времени' : 'На площадке'}</strong></div>
+    <div class="p10-next__count"><small data-next-count-label>${next ? 'До начала' : 'Торги'}</small><strong data-next-countdown role="timer" aria-live="off">${next ? 'Расчет времени' : 'На площадке'}</strong></div>
     <a class="button button--primary" href="${accountUrl}">Перейти на площадку ${icon('arrow-right')}</a>
   </aside>`;
 }
@@ -45,8 +46,15 @@ function renderHero(): string {
     <div class="container hero__inner"><div class="p10-hero__copy">
       <h1 id="hero-title" data-text-reveal>Продайте и&nbsp;купите<br class="p10-hero__break"> долговые обязательства<br class="p10-hero__break"> на&nbsp;DEBTPRICE</h1>
       <p class="p10-hero__description" data-reveal>Электронная торговая площадка по&nbsp;уступке прав требования</p>
-      <div class="hero__actions" data-reveal><a class="button button--white" href="#sell-buy" data-scroll="sell-buy">Продать долг ${icon('arrow-right')}</a><a class="button button--primary" href="#lots">Купить долг ${icon('arrow-right')}</a></div>
+      <div class="hero__actions" data-reveal><a class="button button--white" href="#sell-buy" data-scroll="sell-buy">Продать долг ${icon('arrow-right')}</a><a class="button button--primary" href="#lots?category=all&amp;period=upcoming" data-lots-category="all" data-lots-period="upcoming">Купить долг ${icon('arrow-right')}</a></div>
       ${renderBadges()}
+      <div class="p10-hero__metrics" aria-label="Площадка DEBTPRICE" data-reveal>
+        <a class="p10-metric p10-metric--trading" href="#lots" data-scroll="lots" aria-label="Расписание торгов, время московское">
+          <div class="p10-metric__value"><time data-moscow-clock aria-label="Текущее московское время">${liveTime.format(Date.now())}</time><small>(МСК)</small></div>
+          <div class="p10-metric__label"><span>Торги</span><span class="p10-metric__arrow">${icon('arrow-up-right')}</span></div>
+        </a>
+        <div class="p10-metric p10-metric--members"><strong class="p10-metric__value">2100+</strong><span class="p10-metric__label">участников<br>рынка</span></div>
+      </div>
     </div>${renderNextAuction()}</div>
   </section></div>`;
 }
@@ -66,7 +74,7 @@ function row(lot: Lot): string {
 }
 
 function scheduleTable(visible: readonly Lot[], archive: boolean): string {
-  if (!visible.length) return `<div class="p10-schedule__empty"><span>${icon('search')}</span><h3>В этом разделе пока нет лотов</h3><p>Выберите другой тип портфеля или&nbsp;посмотрите актуальные предложения на&nbsp;площадке.</p><a class="button button--primary" href="${accountUrl}">Перейти к торгам ${icon('arrow-right')}</a></div>`;
+  if (!visible.length) return `<div class="p10-schedule__empty"><span>${icon('search')}</span><h3>По выбранным условиям нет данных</h3><p>В опубликованном срезе нет подходящих лотов. Измените фильтры или&nbsp;проверьте актуальные предложения на&nbsp;площадке.</p><a class="button button--primary" href="${accountUrl}">Перейти к торгам ${icon('arrow-right')}</a></div>`;
   const groups = new Map<string, Lot[]>();
   for (const lot of visible) {
     const key = lot.startsAt?.slice(0, 10) ?? (archive ? 'Другие предложения · данные на 29 октября 2026' : 'Другие предложения');
@@ -100,8 +108,8 @@ function renderSchedule(): string {
 
 function renderTradeChoices(): string {
   return `<section class="p10-choices" id="sell-buy" aria-label="Продать или купить долг" data-node-id="391:935"><div class="container p10-choices__grid" data-stagger>
-    <article class="p10-choice p10-choice--sell"><img class="p10-choice__art" src="${p10Asset('935','af699.webp')}" alt="" width="324" height="324" loading="lazy"><h2>Продать долг</h2><p>Выберите тип задолженности</p><div class="p10-choice__actions"><a class="button button--primary" href="#request" data-request-kind="receivables">Дебиторская задолженность ${icon('arrow-right')}</a><a class="button button--white" href="#request" data-request-kind="portfolio">Розничная задолженность ${icon('arrow-right')}</a></div></article>
-    <article class="p10-choice p10-choice--buy"><img class="p10-choice__art" src="${p10Asset('935','7c7e9.webp')}" alt="" width="344" height="344" loading="lazy"><h2>Купить портфель на торгах</h2><p>Долговые активы на&nbsp;электронной<br>торговой площадке</p><div class="p10-choice__actions"><a class="button button--primary" href="#lots">Купить долг ${icon('arrow-right')}</a></div></article>
+    <article class="p10-choice p10-choice--sell"><img class="p10-choice__art" src="${p10Asset('935','af699.webp')}" alt="" width="324" height="324" loading="lazy"><h2>Продать долг</h2><p>Выберите тип задолженности</p><div class="p10-choice__actions"><a class="button button--primary" href="#request?kind=receivables" data-request-kind="receivables">Дебиторская задолженность ${icon('arrow-right')}</a><a class="button button--white" href="#request?kind=portfolio" data-request-kind="portfolio">Розничная задолженность ${icon('arrow-right')}</a></div></article>
+    <article class="p10-choice p10-choice--buy"><img class="p10-choice__art" src="${p10Asset('935','7c7e9.webp')}" alt="" width="344" height="344" loading="lazy"><h2>Купить портфель на торгах</h2><p>Долговые активы на&nbsp;электронной<br>торговой площадке</p><div class="p10-choice__actions"><a class="button button--primary" href="#lots?category=all&amp;period=upcoming" data-lots-category="all" data-lots-period="upcoming">Купить долг ${icon('arrow-right')}</a></div></article>
   </div></section>`;
 }
 
@@ -125,7 +133,7 @@ function renderOffer(): string {
 }
 
 export function renderPage10Home(): string {
-  return `<div class="p10-home">${renderHero()}${renderSchedule()}${renderTradeChoices()}${renderPage10Partners()}${renderOffer()}${renderPage10Sections()}</div>`;
+  return `<div class="p10-home">${renderHero()}${renderSchedule()}${renderTradeChoices()}${renderPage10Partners()}${renderPage10Sections(renderOffer())}</div>`;
 }
 
 export function mountHomeAuctions(app: HTMLElement, savedCategory: 'all' | LotCategory = 'all', savedPeriod = 'upcoming'): () => void {
@@ -148,26 +156,43 @@ export function mountHomeAuctions(app: HTMLElement, savedCategory: 'all' | LotCa
     const previous = [...lots,...archivedLots].filter(lot => lot.startsAt ? lot.startsAt.startsWith(previousKey) : previousKey === '2026-10');
     const source = period === 'previous' ? previous : lots.filter(lot => !lot.startsAt || Date.parse(lot.startsAt) > Date.now());
     const visible = filterLots(source, category, '');
-    const update = () => { result!.innerHTML = scheduleTable(visible, period === 'previous'); };
-    if (animate) transition.run(update); else update();
+    const update = () => {
+      result!.innerHTML = scheduleTable(visible, period === 'previous');
+      result!.dataset.scheduleCategory = category;
+      result!.dataset.schedulePeriod = period;
+    };
+    if (animate) transition.run(update); else { transition.settle(); update(); }
     app.querySelectorAll<HTMLButtonElement>('[data-schedule-filter]').forEach(button => { const active = button.dataset.scheduleFilter === category; button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1; });
-    app.querySelectorAll<HTMLButtonElement>('[data-schedule-period]').forEach(button => { const active = button.dataset.schedulePeriod === period; button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1; });
+    app.querySelectorAll<HTMLButtonElement>('button[data-schedule-period]').forEach(button => { const active = button.dataset.schedulePeriod === period; button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1; });
     result!.setAttribute('aria-labelledby', `period-${period}`);
-    const sourceLabel=app.querySelector('[data-schedule-source-date]'); if(sourceLabel)sourceLabel.textContent=period==='previous' && visible.every(item=>archivedLots.includes(item)) ? '29 октября 2026' : sourceDate;
+    const sourceLabel=app.querySelector('[data-schedule-source-date]'); if(sourceLabel)sourceLabel.textContent=period==='previous' && source.length > 0 && source.every(item=>archivedLots.includes(item)) ? '29 октября 2026' : sourceDate;
     if (animate) app.querySelector('#p10-schedule-announcement')!.textContent = `Найдено лотов: ${visible.length}`;
   }
   app.addEventListener('click', event => {
     const target = event.target instanceof Element ? event.target : null;
     const type = target?.closest<HTMLButtonElement>('[data-schedule-filter]');
     if (type) { category = type.dataset.scheduleFilter as typeof category; render(); }
-    const date = target?.closest<HTMLButtonElement>('[data-schedule-period]');
+    const date = target?.closest<HTMLButtonElement>('button[data-schedule-period]');
     if (date) { period = date.dataset.schedulePeriod!; render(); }
+  }, {signal});
+
+  // Destination links carry a deliberate buying intent; plain anchors leave
+  // the visitor's current filter untouched. Synchronous rendering also gives
+  // navigation and history restoration the final section height.
+  app.addEventListener('debtprice:schedule-select', event => {
+    const detail = (event as CustomEvent<{ category?: string; period?: string }>).detail;
+    if (!detail) return;
+    if (detail.category === 'all' || detail.category === 'individuals' || detail.category === 'receivables') category = detail.category;
+    if (detail.period === 'upcoming' || detail.period === 'previous') period = detail.period;
+    render(false);
   }, {signal});
 
   function updateNext(): void {
     window.clearTimeout(timer);
     if (document.hidden) return;
     const now = Date.now();
+    const clock = app.querySelector<HTMLTimeElement>('[data-moscow-clock]');
+    if (clock) { clock.textContent = liveTime.format(now); clock.dateTime = new Date(now).toISOString(); }
     const next = lots.find(lot => lot.startsAt && Date.parse(lot.startsAt) > now);
     const write = (selector: string, text: string) => { const node=app.querySelector(selector); if(node)node.textContent=text; };
     if (next?.startsAt) {
@@ -181,17 +206,22 @@ export function mountHomeAuctions(app: HTMLElement, savedCategory: 'all' | LotCa
         nextId=next.id;
       }
       const seconds=Math.max(0,Math.ceil((Date.parse(next.startsAt)-now)/1000));
-      const hours=Math.floor(seconds/3600),minutes=Math.floor(seconds%3600/60);
-      write('[data-next-countdown]',hours>0?`${hours} ч ${minutes} мин`:`${minutes} мин ${seconds%60} с`);
-      timer=window.setTimeout(updateNext,1000-now%1000);
+      const hours=Math.floor(seconds/3600),minutes=Math.floor(seconds%3600/60),remainingSeconds=seconds%60;
+      const pad = (value: number) => String(value).padStart(2, '0');
+      write('[data-next-countdown]',`${pad(hours)}:${pad(minutes)}:${pad(remainingSeconds)}`);
+      app.querySelector('[data-next-countdown]')?.setAttribute('aria-label',`До начала ${hours} ч ${minutes} мин ${remainingSeconds} с`);
     } else {
       if (nextId) { nextId = ''; render(false); }
       const seller=app.querySelector('[data-next-seller]');
-      if(seller)seller.innerHTML=`<span class="p10-next__empty-icon">${icon('clock')}</span><div><small data-next-label>Расписание торгов</small><strong data-next-name>Новые лоты на площадке</strong></div>`;
-      write('[data-next-label]','Расписание торгов'); write('[data-next-name]','Новые лоты на площадке');
+      if(seller)seller.innerHTML=`<span class="p10-next__empty-icon">${icon('clock')}</span><div><small data-next-label>Расписание торгов</small><strong data-next-name>Расписание на площадке</strong></div>`;
+      write('[data-next-label]','Расписание торгов'); write('[data-next-name]','Расписание на площадке');
       write('[data-next-date]','Актуальные даты и условия'); write('[data-next-time]','В личном кабинете');
       write('[data-next-count-label]','Торги'); write('[data-next-countdown]','На площадке');
+      app.querySelector('[data-next-countdown]')?.removeAttribute('aria-label');
     }
+    // Recalculate from the clock, including after background tabs resume.
+    // The Moscow clock continues even when the dated schedule has no next lot.
+    timer=window.setTimeout(updateNext,1000-now%1000);
   }
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){render(false);updateNext();}},{signal});
   render(false); updateNext();

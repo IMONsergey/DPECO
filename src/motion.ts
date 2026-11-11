@@ -1,5 +1,6 @@
 type ContentTransition = {
   run(update: () => void): void;
+  settle(): void;
   destroy(): void;
 };
 
@@ -111,6 +112,7 @@ export function createContentTransition(
 
   return {
     run,
+    settle,
     destroy(): void {
       destroyed = true;
       settle();
