@@ -108,7 +108,7 @@ function renderTradeChoices(): string {
 const partners = [
   ['ФАСП','b6f7c.webp','fasp.webp'], ['ПКБ','4d80f.webp','pkb.webp'], ['Инкас Коллект','d7d49.webp','inkas-collect.webp'],
   ['Legal Collection','25cfa.webp','legal-collection.webp'], ['Express Collection','','express-collection.webp'],
-  ['СИТ Коллектор','9cc9c.webp','sit.webp'], ['СКМ','9a1a7.webp','skm.webp'], ['ТРАСТ','11e53.webp','trust.webp'],
+  ['СИТ Коллектор','9cc9c.webp','sit.webp'], ['СКМ','4e813.svg','skm.webp'], ['ТРАСТ','trust.svg','trust.webp'],
 ];
 
 function renderPage10Partners(): string {

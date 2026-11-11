@@ -49,9 +49,10 @@
 .p10-process-step--4 .p10-process-step__copy p { color: #fff; }
 .p10-process-step--4 .p10-process-step__number { background: #fff; color: #007c77; }
 .p10-consultation { position: relative; display: grid; grid-template-columns: minmax(0, 620fr) minmax(0, 612fr); align-items: start; gap: 48px; min-height: 656px; margin-top: 39px; padding: 40px; overflow: hidden; border-radius: 24px; background: linear-gradient(137deg, #007c7700 25.281%, #007c77 75.416%), #0e2020; color: #fff; isolation: isolate; }
-.p10-consultation__art { position: absolute; z-index: -1; left: -131px; top: -450px; display: grid; place-items: center; width: 1196.155px; height: 1443.497px; pointer-events: none; }
-.p10-consultation__art > div { width: 706.502px; height: 1260.582px; transform: rotate(26.6deg); -webkit-mask-image: var(--p10-mask-a), var(--p10-mask-b); mask-image: var(--p10-mask-a), var(--p10-mask-b); -webkit-mask-position: 0 0; mask-position: 0 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
-.p10-consultation__art img { width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.p10-consultation__art { position: absolute; z-index: 0; left: -131px; top: -450px; display: grid; place-items: center; width: 1196.155px; height: 1443.497px; pointer-events: none; }
+/* Decorative backgrounds load independently of native lazy-image visibility. */
+.p10-consultation__art > div { width: 706.502px; height: 1260.582px; transform: rotate(26.6deg); background-position: center; background-size: cover; background-repeat: no-repeat; -webkit-mask-image: var(--p10-mask-a), var(--p10-mask-b); mask-image: var(--p10-mask-a), var(--p10-mask-b); -webkit-mask-position: 0 0; mask-position: 0 0; -webkit-mask-size: 1196.155px 1443.497px; mask-size: 1196.155px 1443.497px; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+.p10-consultation__copy, .p10-consultation__form { position: relative; z-index: 1; }
 .p10-consultation__copy { display: flex; flex-direction: column; justify-content: space-between; align-self: stretch; gap: 48px; min-width: 0; min-height: 576px; }
 .p10-consultation__heading > p { color: #71cec1; font-size: 16px; font-weight: 600; line-height: 20px; letter-spacing: .2px; }
 .p10-consultation__heading h2 { margin-top: 16px; color: #fff; font-size: 44px; font-weight: 500; line-height: 48px; letter-spacing: -1.2px; }
@@ -130,7 +131,8 @@
 .p10-ecosystem-card--auction .p10-ecosystem-card__background::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 26%, #0009); }
 .p10-ecosystem-card--navigator .p10-ecosystem-card__background > img { left: -281px; top: 0; width: 738px; height: 502px; object-fit: fill; object-position: bottom; }
 .p10-ecosystem-card--navigator .p10-ecosystem-card__background::after { content: ''; position: absolute; inset: 0; background: linear-gradient(88deg, transparent 58.6%, #0009); }
-.p10-ecosystem-card--rating { background: radial-gradient(ellipse at 90% 100%, #007264, #1dc8b400 70%), linear-gradient(90deg, #00a28f, #099e99); }
+/* The blend image and its mint backdrop must share one stacking context. */
+.p10-ecosystem-card--rating .p10-ecosystem-card__background { background: radial-gradient(ellipse at 90% 100%, #007264, #1dc8b400 70%), linear-gradient(90deg, #00a28f, #099e99); }
 .p10-ecosystem-card--rating .p10-ecosystem-card__background > img { left: -109.5px; top: -196.5px; width: 503px; height: 894px; transform: rotate(-90deg); filter: blur(2px); mix-blend-mode: soft-light; }
 .p10-ecosystem-card--rating .p10-ecosystem-card__background::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 16%, #0e20208c 43%); }
 .p10-ecosystem :focus-visible { outline-color: #fff; }

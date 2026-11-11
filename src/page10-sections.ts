@@ -47,7 +47,7 @@ const process = [
 function renderConsultation(): string {
   const field = (name: string, label: string, type: string, placeholder: string, autocomplete: string) => `<label class="p10-request-field"><span>${label}</span><input name="${name}" type="${type}" placeholder="${placeholder}" autocomplete="${autocomplete}" maxlength="${name === 'phone' ? 30 : 180}" required aria-describedby="request-status"></label>`;
   return `<section class="p10-consultation" id="request" aria-labelledby="p10-request-title">
-    <div class="p10-consultation__art" aria-hidden="true" data-parallax><div style="--p10-mask-a: url('${image('391-1130', '82855.svg')}'); --p10-mask-b: url('${image('391-1130', 'cf828.svg')}')"><img src="${image('391-1130', '518d7.webp')}" alt="" loading="lazy" decoding="async"></div></div>
+    <div class="p10-consultation__art" aria-hidden="true" data-parallax><div style="--p10-mask-a: url('${image('391-1130', '82855.svg')}'); --p10-mask-b: url('${image('391-1130', 'cf828.svg')}'); background-image: url('${image('391-1130', '518d7.webp')}')"></div></div>
     <div class="p10-consultation__copy">
       <div class="p10-consultation__heading"><p>Индивидуальные условия</p><h2 id="p10-request-title" data-text-reveal>Оставьте заявку<br> на консультацию</h2></div>
       <div class="p10-consultation__benefits">

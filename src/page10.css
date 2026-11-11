@@ -107,6 +107,10 @@
 .p10-partners .partners__group { gap: 10px; padding-right: 10px; }
 .p10-partners .partner { width: 181px; min-height: 152px; padding: 24px 21px; background: #f5f6f6; color: #687174; border: 0; border-radius: 6px; }
 .p10-partners .partner img { width: 138px; height: 52px; object-fit: contain; object-position: left center; opacity: .72; filter: grayscale(1); }
+.p10-partners .partner img[alt='ПКБ'] { width: 95px; height: 36px; margin-top: 1px; object-fit: fill; opacity: .6; }
+.p10-partners .partner img[alt='СКМ'],.p10-partners .partner img[alt='ТРАСТ'] { width: auto; height: auto; opacity: 1; filter: none; mix-blend-mode: normal; }
+.p10-partners .partner img[alt='СКМ'] { margin-top: 4px; }
+.p10-partners .partner img[alt='ТРАСТ'] { margin-top: -9px; }
 .p10-partners .partner span { font-size: 13px; }
 .p10-partners .partners__marquee:hover .partners__track,.p10-partners .partners__marquee:focus-within .partners__track { animation-play-state: paused; }
 .p10-partners__dots { position: absolute; z-index: -1; height: 150px; bottom: 0; left: 0; right: 0; pointer-events: none; }
@@ -225,6 +229,10 @@
   .p10-auction > .p10-auction__cases { grid-column: 1; grid-row: 3; }.p10-auction > .p10-auction__debt { grid-column: 2; grid-row: 3; font-size: 17px; }.p10-auction > .p10-auction__price { grid-column: 1/-1; grid-row: 4; padding-top: 16px; border-top: 1px solid var(--line); }.p10-auction__price strong { font-size: 28px; }.p10-status { max-width: 160px; }.p10-auction-day th { font-size: 14px; padding: 10px 14px; }.p10-auction-day th small { font-size: 12px; }
   .p10-schedule__bottom { margin-top: 24px; }.p10-schedule__bottom .button { width: 100%; min-width: 0; }.p10-source-note { text-align: left; }
   .p10-choices { padding-top: 22px; padding-bottom: 24px; }.p10-choices__grid { grid-template-columns: 1fr; gap: 16px; }.p10-choice { padding: 24px; min-height: 224px; }.p10-choice h2 { font-size: 28px; line-height: 32px; max-width: 300px; }.p10-choice p { max-width: 70%; }.p10-choice__art { opacity: 1; }.p10-choice__actions { margin-top: 28px; }.p10-choice--buy .p10-choice__actions { margin-top: 28px; }.p10-choice__actions .button { font-size: 15px; padding-inline: 16px; }
+  .p10-choice--buy .p10-choice__art {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 68%);
+    mask-image: linear-gradient(90deg, transparent, #000 68%);
+  }
   .p10-partners { padding: 40px 0 64px; }.p10-partners .partners__heading { align-items: start; flex-direction: column; gap: 16px; padding-bottom: 26px; }.p10-partners .partners__heading p { font-size: 14px; line-height: 22px; }.p10-partners .partner { width: 160px; min-height: 135px; padding: 20px; }.p10-partners .partner img { width: 120px; }.p10-partners .partner span { font-size: 12px; }
   .p10-offer { margin-top: 0; padding: 0 0 44px; }.p10-offer .offer { min-height: 520px; display: block; }.p10-offer .offer__content { min-height: 0; padding: 30px 24px; max-width: 100%; }.p10-offer .offer__content h2 { font-size: 38px; line-height: 1.02; }.p10-offer .offer__content h2 br { display: none; }.p10-offer .offer__content p { margin-top: 20px; font-size: 16px; line-height: 24px; }.p10-offer .offer__content .button { margin-top: 26px; width: 100%; max-width: 280px; }
   .p10-offer__art { width: 440px; height: 458px; left: auto; right: -130px; top: 300px; opacity: 1; }.p10-offer .offer__image { width: 440px; height: 458px; position: absolute; }.p10-offer__logo { top: 116px; left: 158px; transform: rotate(17.6deg) skewX(17.6deg) scale(.65); transform-origin: top left; }
