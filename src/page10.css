@@ -108,9 +108,9 @@
 .p10-partners .partner { width: 181px; min-height: 152px; padding: 24px 21px; background: #f5f6f6; color: #687174; border: 0; border-radius: 6px; }
 .p10-partners .partner img { width: 138px; height: 52px; object-fit: contain; object-position: left center; opacity: .72; filter: grayscale(1); }
 .p10-partners .partner img[alt='ПКБ'] { width: 95px; height: 36px; margin-top: 1px; object-fit: fill; opacity: .6; }
-.p10-partners .partner img[alt='СКМ'],.p10-partners .partner img[alt='ТРАСТ'] { width: auto; height: auto; opacity: 1; filter: none; mix-blend-mode: normal; }
+.p10-partners .partner img[alt='СКМ'],.p10-partners .partner img[alt='ТРАСТ'] { width: auto; height: auto; align-self: flex-start; opacity: 1; filter: none; mix-blend-mode: normal; }
 .p10-partners .partner img[alt='СКМ'] { margin-top: 4px; }
-.p10-partners .partner img[alt='ТРАСТ'] { margin-top: -9px; }
+.p10-partners .partner img[alt='ТРАСТ'] { margin-top: -9px; filter: grayscale(1); }
 .p10-partners .partner span { font-size: 13px; }
 .p10-partners .partners__marquee:hover .partners__track,.p10-partners .partners__marquee:focus-within .partners__track { animation-play-state: paused; }
 .p10-partners__dots { position: absolute; z-index: -1; height: 150px; bottom: 0; left: 0; right: 0; pointer-events: none; }
@@ -183,6 +183,13 @@
   .p10-auction__price strong { font-size: 22px; }.p10-col-seller { width: 27%; }.p10-col-debt { width: 17.5%; }
   .p10-choice { padding: 24px; }.p10-choice h2 { font-size: 26px; }.p10-choice__actions { gap: 8px; }.p10-choice__actions .button { font-size: 13px; padding-inline: 13px; }
   .p10-choice p { font-size: 16px; line-height: 24px; }
+  .p10-choice--buy .p10-choice__art,
+  [data-theme='dark'] .p10-choice--sell .p10-choice__art {
+    -webkit-mask-image: linear-gradient(90deg, transparent 18%, #000 82%);
+    mask-image: linear-gradient(90deg, transparent 18%, #000 82%);
+  }
+  [data-theme='dark'] .p10-choice--sell p { max-width: 18ch; }
+  .p10-offer .offer__content p { max-width: min(100%, 28rem); }
 }
 @media (max-width: 1199px) {
   :root:has(.site-header.p10-header:not(.has-event)) { --header-height: 72px; }
@@ -224,21 +231,19 @@
   .p10-next { padding: 20px; border-radius: 12px; margin-top: 36px; gap: 20px; grid-template-columns: 1fr 1fr; }.p10-next__seller { grid-column: 1/-1; }.p10-next__date { grid-column: 1; }.p10-next__count { grid-column: 2; }.p10-next .button { grid-column: 1/-1; grid-row: auto; justify-self: stretch; min-height: 48px; font-size: 15px; }
   .p10-next strong { font-size: 22px; }.p10-next__seller strong { font-size: 22px; }.p10-next small { font-size: 12px; line-height: 18px; margin-bottom: 4px; }
   .p10-schedule { padding-top: 40px; }.p10-schedule__toolbar { margin-top: 24px; gap: 20px; margin-bottom: 24px; }.p10-schedule__type { width: 100%; justify-content: space-between; margin-left: 0; }.p10-schedule__type > span { font-size: 13px; }
-  .p10-home .segmented { gap: 4px; }.p10-home .segmented button { font-size: 14px; padding-inline: 14px; }.p10-period { width: 100%; }.p10-period button { flex: 1; }.p10-schedule__type .segmented button { min-width: 0; padding-inline: 14px; }
+  .p10-home .segmented { gap: 4px; }.p10-home .segmented button { font-size: 14px; padding-inline: 14px; }.p10-period { width: 100%; min-width: 0; align-items: stretch; }.p10-home .p10-period button { flex: 1 1 auto; min-width: 0; white-space: normal; }.p10-schedule__type .segmented button { min-width: 0; padding-inline: 14px; }
   .p10-auction { padding: 20px; grid-template-columns: 1fr 1fr; gap: 20px 16px; }.p10-auction > th { padding-right: 36px; }.p10-auction__seller { font-size: 17px; gap: 12px; }.p10-auction__action { right: 16px; top: 24px; }.p10-auction__action .icon-button { width: 36px; height: 36px; }
   .p10-auction > .p10-auction__cases { grid-column: 1; grid-row: 3; }.p10-auction > .p10-auction__debt { grid-column: 2; grid-row: 3; font-size: 17px; }.p10-auction > .p10-auction__price { grid-column: 1/-1; grid-row: 4; padding-top: 16px; border-top: 1px solid var(--line); }.p10-auction__price strong { font-size: 28px; }.p10-status { max-width: 160px; }.p10-auction-day th { font-size: 14px; padding: 10px 14px; }.p10-auction-day th small { font-size: 12px; }
   .p10-schedule__bottom { margin-top: 24px; }.p10-schedule__bottom .button { width: 100%; min-width: 0; }.p10-source-note { text-align: left; }
   .p10-choices { padding-top: 22px; padding-bottom: 24px; }.p10-choices__grid { grid-template-columns: 1fr; gap: 16px; }.p10-choice { padding: 24px; min-height: 224px; }.p10-choice h2 { font-size: 28px; line-height: 32px; max-width: 300px; }.p10-choice p { max-width: 70%; }.p10-choice__art { opacity: 1; }.p10-choice__actions { margin-top: 28px; }.p10-choice--buy .p10-choice__actions { margin-top: 28px; }.p10-choice__actions .button { font-size: 15px; padding-inline: 16px; }
-  .p10-choice--buy .p10-choice__art {
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 68%);
-    mask-image: linear-gradient(90deg, transparent, #000 68%);
-  }
   .p10-partners { padding: 40px 0 64px; }.p10-partners .partners__heading { align-items: start; flex-direction: column; gap: 16px; padding-bottom: 26px; }.p10-partners .partners__heading p { font-size: 14px; line-height: 22px; }.p10-partners .partner { width: 160px; min-height: 135px; padding: 20px; }.p10-partners .partner img { width: 120px; }.p10-partners .partner span { font-size: 12px; }
   .p10-offer { margin-top: 0; padding: 0 0 44px; }.p10-offer .offer { min-height: 520px; display: block; }.p10-offer .offer__content { min-height: 0; padding: 30px 24px; max-width: 100%; }.p10-offer .offer__content h2 { font-size: 38px; line-height: 1.02; }.p10-offer .offer__content h2 br { display: none; }.p10-offer .offer__content p { margin-top: 20px; font-size: 16px; line-height: 24px; }.p10-offer .offer__content .button { margin-top: 26px; width: 100%; max-width: 280px; }
   .p10-offer__art { width: 440px; height: 458px; left: auto; right: -130px; top: 300px; opacity: 1; }.p10-offer .offer__image { width: 440px; height: 458px; position: absolute; }.p10-offer__logo { top: 116px; left: 158px; transform: rotate(17.6deg) skewX(17.6deg) scale(.65); transform-origin: top left; }
   .p10-footer { padding: 40px 0; }.p10-footer__navigation { grid-template-columns: 1fr 1fr; gap: 32px 20px; }.p10-footer__navigation nav { gap: 15px; }.p10-footer__navigation h2 { font-size: 21px; }.p10-footer__navigation a { font-size: 15px; }.p10-footer__contacts { flex-direction: column; gap: 18px; font-size: 16px; }.p10-footer__bottom { align-items: start; flex-wrap: wrap; gap: 12px 24px; }.p10-footer__bottom > a { margin-left: 0; flex-basis: 100%; }.p10-footer__legal { margin-top: 34px; }
 }
 @media (max-width: 399px) {
-  :root { --gutter: 18px; }.p10-home .section-title { font-size: 34px; }.p10-hero h1 { font-size: 37px; }.p10-hero .hero__actions .button { padding-inline: 12px; font-size: 14px; }.p10-trust > span { font-size: 11px; padding-inline: 8px; gap: 6px; }.p10-next { padding: 16px; gap: 16px; }.p10-next strong { font-size: 20px; }.p10-next__seller strong { font-size: 21px; }.p10-schedule__type { align-items: start; flex-direction: column; gap: 10px; }.p10-schedule__type .segmented { width: 100%; }.p10-schedule__type .segmented button { flex: 1; }.p10-period button { font-size: 13px; padding-inline: 10px; }.p10-auction { padding: 16px; gap: 18px 12px; }.p10-auction__seller { font-size: 16px; gap: 10px; }.p10-auction__seller .p10-seller-logo { width: 42px; height: 42px; flex-basis: 42px; }.p10-auction > .p10-auction__debt { font-size: 15px; }.p10-auction__action { top: 20px; right: 12px; }.p10-choice { padding: 22px; }.p10-choice h2 { font-size: 26px; }.p10-choice p { max-width: 80%; }.p10-choice__art { right: -100px; opacity: .6; }.p10-choice--buy .p10-choice__art { right: -110px; }.p10-offer .offer__content { padding-inline: 22px; }.p10-offer .offer__content h2 { font-size: 34px; }
+  :root { --gutter: 18px; }.p10-home .section-title { font-size: 34px; }.p10-hero h1 { font-size: 37px; }.p10-hero .hero__actions .button { padding-inline: 12px; font-size: 14px; }.p10-trust > span { font-size: 11px; padding-inline: 8px; gap: 6px; }.p10-next { padding: 16px; gap: 16px; }.p10-next strong { font-size: 20px; }.p10-next__seller strong { font-size: 21px; }.p10-schedule__type { align-items: start; flex-direction: column; gap: 10px; }.p10-schedule__type .segmented { width: 100%; }.p10-schedule__type .segmented button { flex: 1; }.p10-home .p10-period button { font-size: 13px; padding-inline: 8px; }.p10-auction { padding: 16px; gap: 18px 12px; }.p10-auction__seller { font-size: 16px; gap: 10px; }.p10-auction__seller .p10-seller-logo { width: 42px; height: 42px; flex-basis: 42px; }.p10-auction > .p10-auction__debt { font-size: 15px; }.p10-auction__action { top: 20px; right: 12px; }.p10-choice { padding: 22px; }.p10-choice h2 { font-size: 26px; }.p10-choice p { max-width: 80%; }.p10-choice__art { right: -100px; opacity: .6; }.p10-choice--buy .p10-choice__art { right: -110px; }.p10-offer .offer__content { padding-inline: 22px; }.p10-offer .offer__content h2 { font-size: 34px; }
+  .p10-choice__actions .button { min-height: 56px; padding-block: 8px; white-space: normal; }
+  .p10-choice__actions .button .icon { flex: 0 0 19px; }
 }
 @media (prefers-reduced-motion: reduce) { .p10-partners .partners__track { animation: none; }.p10-partners .partners__group[aria-hidden] { display: none; } }

@@ -46,8 +46,11 @@ const process = [
 
 function renderConsultation(): string {
   const field = (name: string, label: string, type: string, placeholder: string, autocomplete: string) => `<label class="p10-request-field"><span>${label}</span><input name="${name}" type="${type}" placeholder="${placeholder}" autocomplete="${autocomplete}" maxlength="${name === 'phone' ? 30 : 180}" required aria-describedby="request-status"></label>`;
+  // Inline mask properties resolve relative assets against the document. A URL
+  // passed through var() in the bundled stylesheet would resolve under /assets/.
+  const masks = `url('${image('391-1130', '82855.svg')}'), url('${image('391-1130', 'cf828.svg')}')`;
   return `<section class="p10-consultation" id="request" aria-labelledby="p10-request-title">
-    <div class="p10-consultation__art" aria-hidden="true" data-parallax><div style="--p10-mask-a: url('${image('391-1130', '82855.svg')}'); --p10-mask-b: url('${image('391-1130', 'cf828.svg')}'); background-image: url('${image('391-1130', '518d7.webp')}')"></div></div>
+    <div class="p10-consultation__art" aria-hidden="true" data-parallax><div style="-webkit-mask-image: ${masks}; mask-image: ${masks}; background-image: url('${image('391-1130', '518d7.webp')}')"></div></div>
     <div class="p10-consultation__copy">
       <div class="p10-consultation__heading"><p>Индивидуальные условия</p><h2 id="p10-request-title" data-text-reveal>Оставьте заявку<br> на консультацию</h2></div>
       <div class="p10-consultation__benefits">
@@ -95,14 +98,14 @@ function ecosystemButton(text: string, href: string): string {
 
 function renderPage10Ecosystem(): string {
   return `<section class="p10-section p10-ecosystem" id="ecosystem" aria-labelledby="p10-ecosystem-title" data-node-id="391:1222">
-    <div class="p10-ecosystem__pattern" aria-hidden="true" style="--p10-pattern-mask: url('${image('391-1222', '6edb2.svg')}')"><img src="${image('391-1222', 'c4bec.svg')}" alt="" loading="lazy"></div>
+    <div class="p10-ecosystem__pattern" aria-hidden="true" style="-webkit-mask-image: url('${image('391-1222', '6edb2.svg')}'); mask-image: url('${image('391-1222', '6edb2.svg')}')"><img src="${image('391-1222', 'c4bec.svg')}" alt="" loading="eager" fetchpriority="low"></div>
     <div class="p10-ecosystem__dots" data-dots data-dots-color="#9fffe3" data-dots-opacity="0.015" data-dots-end-opacity="0.06" data-dots-spacing="17"></div>
     <div class="container">
       <h2 class="p10-section__title" id="p10-ecosystem-title" data-text-reveal>Экосистема DEBTPRICE</h2>
       <p class="p10-section__intro">Инструменты для рынка долговых активов</p>
       <div class="p10-ecosystem__grid" data-stagger>
         <article class="p10-ecosystem-card p10-ecosystem-card--media p10-ecosystem-card--wide">
-          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', 'dfffd.webp')}" alt="" loading="lazy" decoding="async"></div>
+          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', 'dfffd.webp')}" alt="" loading="eager" fetchpriority="low" decoding="async"></div>
           <div class="p10-ecosystem-card__inner">
             <div class="p10-ecosystem-card__brand" data-p10-brand-fit><img src="${image('391-1222', '5901e.svg')}" alt="Рынок Взыскания" loading="lazy" decoding="async"></div>
             <h3>Медиа<br> «Рынок Взыскания»</h3><p>Будьте в курсе всех новостей и событий рынка. Аналитика, судебная практика и интервью с ключевыми игроками долгового рынка.</p>
@@ -110,7 +113,7 @@ function renderPage10Ecosystem(): string {
           </div>
         </article>
         <article class="p10-ecosystem-card p10-ecosystem-card--forums p10-ecosystem-card--wide">
-          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', 'eec1a.webp')}" alt="" loading="lazy" decoding="async"></div>
+          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', 'eec1a.webp')}" alt="" loading="eager" fetchpriority="low" decoding="async"></div>
           <div class="p10-ecosystem-card__inner">
             <div class="p10-ecosystem-card__brand"><span class="p10-ecosystem-card__forums-logo" data-p10-brand-fit><img src="${asset('page10/logos/debttech-dolgtalk.svg')}" alt="DEBT TECH / DOLG TALK" loading="lazy" decoding="async"></span></div>
             <h3>Форумы DEBT TECH<br> и DOLG TALK</h3><p>Находите партнеров и клиентов на наших офлайн-мероприятиях. Здесь встречаются лидеры рынка: банки, МФО, ПКО, вендоры, инвесторы и электронные торговые площадки.</p>
@@ -118,7 +121,7 @@ function renderPage10Ecosystem(): string {
           </div>
         </article>
         <article class="p10-ecosystem-card p10-ecosystem-card--auction">
-          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', '574b7.webp')}" alt="" loading="lazy" decoding="async"></div>
+          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', '574b7.webp')}" alt="" loading="eager" fetchpriority="low" decoding="async"></div>
           <div class="p10-ecosystem-card__inner">
             <div class="p10-ecosystem-card__brand"><img src="${asset('page10/logos/debtprice.svg')}" alt="DEBTPRICE Аукцион" loading="lazy" decoding="async"></div>
             <h3>Аукцион<br> долговых активов</h3><p>Инструменты для рынка<br> долговых активов</p>
@@ -126,7 +129,7 @@ function renderPage10Ecosystem(): string {
           </div>
         </article>
         <article class="p10-ecosystem-card p10-ecosystem-card--navigator">
-          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', '38615.webp')}" alt="" loading="lazy" decoding="async"></div>
+          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', '38615.webp')}" alt="" loading="eager" fetchpriority="low" decoding="async"></div>
           <div class="p10-ecosystem-card__inner">
             <div class="p10-ecosystem-card__brand"><img class="p10-ecosystem-card__navigator-logo" src="${asset('page10/logos/navigator.svg')}" alt="DEBT TECH Навигатор" loading="lazy" decoding="async"></div>
             <h3>Навигатор<br> решений</h3><p>Подберите инструменты для работы с портфелем. Каталог продуктовых решений для работы с долгом по категориям.</p>
@@ -134,7 +137,7 @@ function renderPage10Ecosystem(): string {
           </div>
         </article>
         <article class="p10-ecosystem-card p10-ecosystem-card--rating">
-          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', 'eb4ac.webp')}" alt="" loading="lazy" decoding="async"></div>
+          <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', 'eb4ac.webp')}" alt="" loading="eager" fetchpriority="low" decoding="async"></div>
           <div class="p10-ecosystem-card__inner">
             <div class="p10-ecosystem-card__brand"><img src="${image('391-1222', '07f83.svg')}" alt="ПКО-300" loading="lazy" decoding="async"></div>
             <h3>Рейтинг<br> коллекторских<br> агентств</h3><p>Выбирайте надежных партнеров на рынке. Рейтинг коллекторских агентств по отчетности ФНС помогает сравнить агентства и выбрать контрагента для продажи портфеля или агента для взыскания.</p>
