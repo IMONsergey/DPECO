@@ -1,0 +1,21 @@
+{
+  "observedAt": "2026-11-11T16:42:44+00:00",
+  "previewUrl": "https://debtprice-lab.imon.world/review-20261111-07ad85602973/",
+  "status": "earlier-candidate-reviewed",
+  "notPublicationEvidence": true,
+  "screenshot": {
+    "path": "screenshots/candidate-no-navigation.png",
+    "sha256": "4bf0bd09c750e604610043a06c3b6185c8ff7fd75c2db1633416cf47e31c0acb",
+    "bytes": 136311
+  },
+  "observations": [
+    "Живой Chrome: обе темы, шапка, форма, экосистема, футер и длинные описания карточек просмотрены.",
+    "CTA возможностей сохраняет hover-отклик; нажатие оставило тот же URL.",
+    "Однократный transient сбой загрузки SVG исчез после обычного reload; соответствующие SVG возвращали200и совпадали сpublic."
+  ],
+  "limits": [
+    "Это прежний no-navigation кандидат; последниеCSSисправления еще ожидают новую сборку.",
+    "Снимок не подтверждает публикацию наdebtprice.imon.world и не заменяет финальную матрицу63кейса.",
+    "НативныйSafari не проверен."
+  ]
+}
