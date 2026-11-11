@@ -1,57 +1,16 @@
-import { renderCapabilities } from './components/capabilities';
 import { filterLots, lots } from './data/lots';
 import { articles, renderJournalPage, renderSearchResults, searchSitePages } from './journal';
 import { renderInfoPage } from './pages/info';
 import { renderMarketPage } from './pages/market';
 import { isDarkRoute, routeNames, type Route } from './routes';
-import { renderEcosystem, renderFormats, renderJournalPreview, renderLotsSection, renderPartners, renderProcess, renderRequestForm, renderTrustBadges } from './sections';
+import { renderRequestForm } from './sections';
+import { renderPage10Home } from './page10';
 import { renderFooter, renderHeader } from './shell';
-import { asset, icon, rubles } from './ui';
+import { icon, rubles } from './ui';
 
-function homePage(): string {
-  return `
-    <div class="intro">
-      <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero__dots" data-dots data-dots-color="#9de6dc" data-dots-opacity="0.15" data-dots-end-opacity="0.005" data-dots-spacing="19"></div>
-        <div class="hero__glow" aria-hidden="true"></div>
-        <div class="hero__globe" id="hero-globe" aria-hidden="true"></div>
-        <div class="container hero__inner">
-          <h1 id="hero-title" data-text-reveal>DEBTPRICE —<br>Крупнейшая платформа<br class="hero__line-break"> для продажи и покупки<br class="hero__line-break"> долговых активов</h1>
-          <div class="hero__stats" data-stagger>
-            <a class="stat stat--trading" href="#lots" data-scroll="lots">
-              <span class="stat__value" data-auction-countdown>Расписание</span>
-              <span class="stat__bottom"><span data-auction-label>Торги</span><span class="stat__arrow">${icon('arrow-up-right')}</span></span>
-              <span class="stat__hint" data-auction-hint>Даты и условия торгов</span>
-            </a>
-            <div class="stat stat--members"><span class="stat__value">2100<span class="stat__plus">+</span></span><span class="stat__bottom">участников<br>рынка</span></div>
-          </div>
-          <div class="hero__actions" data-reveal>
-            <a class="button button--primary" href="#request" data-scroll="request"><span>Продать долг</span>${icon('arrow-up-right')}</a>
-            <a class="button button--white" href="#/buyers"><span>Купить долговые активы</span>${icon('arrow-right')}</a>
-          </div>
-          ${renderTrustBadges()}
-          <a class="hero__scroll icon-button" href="#lots" data-scroll="lots" aria-label="Перейти к лотам">${icon('arrow-down')}</a>
-        </div>
-      </section>
-      ${renderPartners()}
-    </div>
-    ${renderLotsSection()}
-    <section class="offer-section" aria-labelledby="offer-title"><div class="container"><div class="offer">
-      <div class="offer__dots" data-dots data-dots-color="#baffec" data-dots-opacity="0.22" data-dots-end-opacity="0.025" data-dots-spacing="17" data-dots-direction="right-to-left"></div>
-      <img class="offer__image" src="${asset('images/offer-panels.webp')}" alt="Стеклянные портфели DEBTPRICE" width="1023" height="597" loading="lazy" decoding="async">
-      <div class="offer__content"><h2 id="offer-title" data-text-reveal>Выберите подходящее <br>предложение</h2><p>Изучите биржу, чтобы посмотреть доступные лоты<br class="desktop-break"> и условия покупки.</p><a class="button button--white" href="#/buyers"><span>Выбрать предложение</span>${icon('arrow-right')}</a></div>
-    </div></div></section>
-    ${renderCapabilities()}
-    ${renderFormats()}
-    ${renderProcess('home')}
-    ${renderEcosystem()}
-    ${renderJournalPreview()}
-    ${renderRequestForm()}
-  `;
-}
 
 function bodyForRoute(route: Route): string {
-  if (!route.path) return homePage();
+  if (!route.path) return renderPage10Home();
   if (route.path === 'sellers/portfeli' || route.path === 'sellers/debitorka' || route.path === 'buyers') return renderMarketPage(route.path);
   if (route.path === 'about' || route.path === 'docs' || route.path === 'contacts') return renderInfoPage(route.path);
   if (route.path === 'journal') return renderJournalPage();

@@ -36,7 +36,7 @@ export function renderLotsSection(): string {
       </div><a class="button button--primary lots__account" href="${accountUrl}"><span>Перейти к торгам</span>${icon('login')}</a></div>
       <p class="sr-only" id="lots-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="lots__stage"><div class="lots__grid" id="lots-grid" role="tabpanel" aria-labelledby="filter-all" tabindex="0"></div></div>
-      <p class="lots__source">Данные площадки на 29 октября 2026. Текущий статус и условия — <a href="${accountUrl}">в личном кабинете ${icon('arrow-up-right')}</a>.</p>
+      <p class="lots__source">Данные на 10 ноября 2026. Текущий статус и условия — <a href="${accountUrl}">в личном кабинете ${icon('arrow-up-right')}</a>.</p>
     </div></section>`;
 }
 

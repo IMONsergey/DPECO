@@ -40,7 +40,7 @@ export function mountPageMotion(app: HTMLElement, restoring = false): () => void
     heading.classList.add('motion-heading');
     for (const node of texts) {
       const fragment = document.createDocumentFragment();
-      for (const token of node.data.split(/(\s+)/u)) {
+      for (const token of node.data.split(/([ \t\n\r]+)/u)) {
         if (!token) continue;
         if (/^\s+$/u.test(token)) { fragment.append(document.createTextNode(token)); continue; }
         // The i tag avoids broad h2 > span accent selectors. Its style is inherited.
@@ -161,7 +161,7 @@ export function mountPageMotion(app: HTMLElement, restoring = false): () => void
 
   // A few product illustrations move by only 16px over the whole viewport.
   // Event-driven updates stop entirely when the user stops scrolling.
-  const illustrations = [...main.querySelectorAll<HTMLElement>('.offer__image, .ecosystem__art img, .market-hero-visual > img, .info-hero__art > img')];
+  const illustrations = [...main.querySelectorAll<HTMLElement>('.offer__image, .ecosystem__art img, .market-hero-visual > img, .info-hero__art > img, [data-parallax]')];
   let scrollFrame = 0;
   const updateIllustrations = () => {
     scrollFrame = 0;

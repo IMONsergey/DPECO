@@ -1,0 +1,214 @@
+/* Semantic colors are shared by the current pages and the Page 10 composition. */
+:root {
+  --surface-raised: #fff;
+  --surface-hover: #edf1f0;
+  --line-strong: #bcc9c7;
+  --action: #007c77;
+  --action-hover: #006c67;
+  --on-action: #fff;
+  --control-bg: #172526;
+  --control-text: #fff;
+  --control-hover: #2e393a;
+  --accent-soft: #e5f5f1;
+  --on-accent: #123d35;
+  --shadow-color: #1725261f;
+  --error: #b23d35;
+  --selection-bg: #bcece2;
+  --selection-text: #15362f;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #0d191a;
+  --surface: #162729;
+  --surface-raised: #1d3032;
+  --surface-hover: #263d3f;
+  --ink: #eaf4f1;
+  --muted: #a9bdb9;
+  --line: #30494a;
+  --line-strong: #627d78;
+  --accent: #65d6c8;
+  --accent-dark: #72dfd0;
+  --hero: #064c4c;
+  --action: #65d6c8;
+  --action-hover: #85e6d9;
+  --on-action: #082923;
+  --control-bg: #d9eae4;
+  --control-text: #102b25;
+  --control-hover: #eff9f5;
+  --accent-soft: #173b36;
+  --on-accent: #b3f0e1;
+  --shadow-color: #0006;
+  --error: #ffada5;
+  --selection-bg: #266b60;
+  --selection-text: #f1fffa;
+  color: var(--ink);
+  background: var(--page);
+}
+
+::selection { color: var(--selection-text); background: var(--selection-bg); }
+
+/* Both icons occupy one slot; the visible icon describes the next action. */
+.theme-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--nav-border, var(--line));
+  border-radius: var(--radius-control, 6px);
+  color: inherit;
+  background: var(--nav-surface, var(--surface));
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 240ms ease, border-color 240ms ease;
+}
+.theme-toggle:hover { background: var(--nav-hover, var(--surface-hover)); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 4px; }
+.theme-toggle__sun, .theme-toggle__moon {
+  grid-area: 1 / 1;
+  display: block;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 280ms var(--ease, ease);
+}
+.theme-toggle__sun { opacity: 0; transform: rotate(-35deg) scale(.7); }
+.theme-toggle__moon { opacity: 1; transform: rotate(0) scale(1); }
+:root[data-theme='dark'] .theme-toggle__sun { opacity: 1; transform: rotate(0) scale(1); }
+:root[data-theme='dark'] .theme-toggle__moon { opacity: 0; transform: rotate(35deg) scale(.7); }
+.theme-toggle [data-theme-label] { pointer-events: none; }
+.theme-toggle--label { width: auto; grid-template-columns: 20px auto; gap: 10px; }
+.theme-toggle--label [data-theme-label] { grid-area: 1 / 2; }
+
+/* Filled controls have separate foreground tokens; --ink is text, not a fill. */
+:root[data-theme='dark'] .button--primary { color: var(--on-action); background: var(--action); }
+:root[data-theme='dark'] .button--primary:hover { background: var(--action-hover); }
+:root[data-theme='dark'] .button--dark { color: var(--control-text); background: var(--control-bg); }
+:root[data-theme='dark'] .button--dark:hover { background: var(--control-hover); }
+:root[data-theme='dark'] .button--white { color: var(--ink); background: var(--surface-raised); }
+:root[data-theme='dark'] .button--white:hover { background: var(--surface-hover); }
+:root[data-theme='dark'] .button--white::before { background: #b8e5d90c; }
+:root[data-theme='dark'] .icon-button { color: var(--ink); background: var(--surface-raised); }
+:root[data-theme='dark'] .icon-button:hover { color: var(--accent-dark); background: var(--surface-hover); }
+:root[data-theme='dark'] .skip-link { color: var(--ink); background: var(--surface-raised); }
+:root[data-theme='dark'] .header__register { box-shadow: inset 0 0 0 1px var(--line); }
+
+/* Preserve scroll-dependent header states, with a dark surface over page content. */
+:root[data-theme='dark'] .site-header::before {
+  background: linear-gradient(#064c4cf5, #064c4ce8 66%, #064c4c88 84%, transparent);
+}
+:root[data-theme='dark'] .site-header::after {
+  background: linear-gradient(#0d191af7, #0d191aed 66%, #0d191a90 84%, transparent);
+}
+:root[data-theme='dark'] .site-header.is-light,
+:root[data-theme='dark'] .site-header.menu-open {
+  --nav-border: #45605d;
+  --nav-surface: #1d3032e6;
+  --nav-hover: #294342;
+  --nav-active: #35564f;
+  color: var(--ink);
+}
+:root[data-theme='dark'] .site-header.is-light .header__brand img,
+:root[data-theme='dark'] .site-header.menu-open .header__brand img { filter: none; }
+:root[data-theme='dark'] .header__event { background: #091415; }
+:root[data-theme='dark'] .nav-panel { background: var(--surface-raised); border-color: var(--line); box-shadow: 0 24px 72px var(--shadow-color); }
+:root[data-theme='dark'] .nav-panel__icon { background: var(--accent-soft); }
+:root[data-theme='dark'] .nav-panel__link:hover,
+:root[data-theme='dark'] .nav-panel__link[aria-current='page'] { background: var(--surface-hover); }
+:root[data-theme='dark'] .header__mobile-menu { background: var(--page); }
+:root[data-theme='dark'] .header__search--mobile,
+:root[data-theme='dark'] .header__mobile-link { background: var(--surface-raised); }
+:root[data-theme='dark'] .header__mobile-product { background: var(--surface); }
+:root[data-theme='dark'] .header__mobile-product:hover,
+:root[data-theme='dark'] .header__mobile-link:hover,
+:root[data-theme='dark'] .header__mobile-link[aria-current='page'] { background: var(--surface-hover); border-color: var(--line-strong); }
+:root[data-theme='dark'] .site-footer { background: #091415; }
+
+/* Keep the original atmospheric layers and transitions; only their palette changes. */
+:root[data-theme='dark'] .intro::after {
+  background: linear-gradient(180deg, #0d191a00 0%, #0d191a20 24%, #0d191a80 48%, #0d191ae8 76%, var(--page) 100%);
+}
+:root[data-theme='dark'] .offer {
+  background: linear-gradient(108deg, #07554f, #096d63 72%, #08776c);
+}
+:root[data-theme='dark'] .stat__arrow { color: var(--on-action); background: var(--action); }
+:root[data-theme='dark'] .partners.partners--light,
+:root[data-theme='dark'] .request,
+:root[data-theme='dark'] .info-page { background: var(--page); }
+
+/* Original partner artwork stays on a neutral light plate; it is never inverted. */
+:root[data-theme='dark'] .partner,
+:root[data-theme='dark'] .partners--light .partner { color: #576865; background: #e9efed; border-color: #d5dfdb; }
+
+:root[data-theme='dark'] .lot-card { border-color: var(--line); }
+:root[data-theme='dark'] .lot-card:hover,
+:root[data-theme='dark'] .lot-card:focus-within { border-color: var(--line-strong); box-shadow: 0 12px 28px #0002; }
+:root[data-theme='dark'] .lot-card__mark { background: var(--control-bg); color: var(--control-text); }
+:root[data-theme='dark'] .lot-card__badge,
+:root[data-theme='dark'] .lot-card--individuals .lot-card__badge { background: var(--surface-hover); }
+:root[data-theme='dark'] .lot-card__details > div { background: var(--surface-raised); }
+:root[data-theme='dark'] .lot-card--sold .lot-card__details > div:last-child { background: var(--surface-hover); }
+:root[data-theme='dark'] .segmented { background: var(--surface); }
+:root[data-theme='dark'] .segmented button { background: var(--surface-raised); color: var(--ink); }
+:root[data-theme='dark'] .segmented button:hover { background: var(--surface-hover); }
+:root[data-theme='dark'] .segmented button[aria-selected='true'],
+:root[data-theme='dark'] .capability-new__tab[aria-selected='true'] { background: var(--control-bg); color: var(--control-text); }
+:root[data-theme='dark'] .tab-indicator { background: var(--control-bg); }
+:root[data-theme='dark'] .has-tab-indicator [role='tab'][aria-selected='true'] { color: var(--control-text); }
+:root[data-theme='dark'] .has-tab-indicator [role='tab']:not([aria-selected='true']) { color: var(--ink); }
+:root[data-theme='dark'] .capability-new__symbol { background: var(--surface-raised); }
+:root[data-theme='dark'] .capability-new__tab:not([aria-selected='true']):hover { background: var(--surface-hover); }
+:root[data-theme='dark'] .capability-new__card.is-active { box-shadow: 0 12px 32px #0002; }
+
+:root[data-theme='dark'] .format-tab { background: var(--page); }
+:root[data-theme='dark'] .format-tab[aria-selected='true'],
+:root[data-theme='dark'] .format-tab:not([aria-selected='true']):hover { background: var(--surface); }
+:root[data-theme='dark'] .format-offers > div,
+:root[data-theme='dark'] .format-listing { background: var(--surface-raised); box-shadow: 0 5px 15px #0002; }
+:root[data-theme='dark'] .format-listing > div { color: var(--on-action); background: var(--action); }
+:root[data-theme='dark'] .ecosystem-card:hover .ecosystem-card__arrow { color: var(--on-action); background: var(--action); border-color: var(--action); }
+
+/* Native form states retain the same contrast as the surrounding controls. */
+:root[data-theme='dark'] .request-field input,
+:root[data-theme='dark'] .request-field textarea,
+:root[data-theme='dark'] .share-input { background: var(--surface-raised); border-color: var(--line-strong); color: var(--ink); }
+:root[data-theme='dark'] .request-field input::placeholder,
+:root[data-theme='dark'] .request-field textarea::placeholder { color: var(--muted); }
+:root[data-theme='dark'] .request-field input:focus,
+:root[data-theme='dark'] .request-field textarea:focus { background: var(--surface-raised); border-color: var(--accent); }
+:root[data-theme='dark'] .request-field :is(input, textarea)[aria-invalid='true'],
+:root[data-theme='dark'] .request-field :is(input, textarea):user-invalid { background: var(--surface-raised); border-color: var(--error); outline-color: var(--error); }
+:root[data-theme='dark'] .request-field input:disabled,
+:root[data-theme='dark'] .request-field textarea:disabled { color: var(--muted); background: var(--surface); }
+:root[data-theme='dark'] .request-field input:-webkit-autofill { -webkit-text-fill-color: var(--ink); caret-color: var(--ink); box-shadow: inset 0 0 0 100px var(--surface-raised); }
+:root[data-theme='dark'] .request-field :is(input, textarea):not(:focus):not(:disabled):hover { border-color: #819c97; }
+:root[data-theme='dark'] .request__status { background: var(--surface-raised); }
+:root[data-theme='dark'] .request__status.is-error,
+:root[data-theme='dark'] .request__status[data-state='error'],
+:root[data-theme='dark'] .request__status[data-tone='error'] { color: var(--error); border-color: var(--error); }
+
+:root[data-theme='dark'] .dialog { background: var(--surface); border-color: var(--line-strong); box-shadow: 0 35px 100px #0008; }
+:root[data-theme='dark'] .dialog::backdrop { background: #04100dc2; }
+:root[data-theme='dark'] .dialog__close { background: var(--surface-raised); }
+:root[data-theme='dark'] .dialog__contact > a:hover { background: var(--surface-hover); }
+:root[data-theme='dark'] .toast { color: var(--control-text); background: var(--control-bg); box-shadow: 0 8px 40px #0006; }
+
+/* Existing market/info routes inherit the same palette. Artwork stays untouched. */
+:root[data-theme='dark'] .market-icon-tile { background: var(--surface-raised); }
+:root[data-theme='dark'] .market-comparison-card--sale,
+:root[data-theme='dark'] .market-eligibility-card,
+:root[data-theme='dark'] .market-model { background: var(--surface-raised); }
+:root[data-theme='dark'] .info-document:hover .info-document__arrow { background: var(--surface-raised); }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle, .theme-toggle__sun, .theme-toggle__moon { transition: none; }
+}
+
+@media (forced-colors: active) {
+  .theme-toggle { border: 1px solid ButtonText; color: ButtonText; background: ButtonFace; }
+}

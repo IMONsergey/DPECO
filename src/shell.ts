@@ -1,9 +1,6 @@
 import './shell.css';
 import { accountUrl, asset, escapeHtml, icon, registerUrl, telegramUrl, type IconName } from './ui';
 import { ecosystem } from './sections';
-import { nextAuctionAt } from './data/lots';
-
-const eventEndsAt = Date.parse('2026-11-14T00:00:00+03:00');
 const phone = '+7 915 972 41 01';
 const email = 'v@debtprice.market';
 
@@ -39,16 +36,8 @@ function siteSearch(id: string, mobile = false): string {
   return `<form class="header__search${mobile ? ' header__search--mobile' : ''}" role="search" data-site-search><label class="sr-only" for="${id}">Поиск по сайту DEBTPRICE</label><input id="${id}" name="q" type="search" maxlength="120" placeholder="Найти на сайте" autocomplete="off" enterkeyhint="search"><button type="submit" aria-label="Найти на сайте">${icon('search')}</button></form>`;
 }
 
-function initialCountdown(): string {
-  const now = Date.now();
-  const next = nextAuctionAt(now);
-  if (!next) return 'На площадке';
-  const remaining = Math.max(0, Math.floor((next - now) / 1000));
-  const days = Math.floor(remaining / 86400);
-  const hours = String(Math.floor(remaining / 3600) % 24).padStart(2, '0');
-  const minutes = String(Math.floor(remaining / 60) % 60).padStart(2, '0');
-  const seconds = String(remaining % 60).padStart(2, '0');
-  return `${days ? `${days} д ` : ''}${hours}:${minutes}:${seconds}`;
+function themeToggle(mobile = false): string {
+  return `<button type="button" class="theme-toggle${mobile ? ' p10-mobile-theme' : ''}" data-theme-toggle aria-label="Включить темную тему"><svg class="theme-toggle__sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg><svg class="theme-toggle__moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg></button>`;
 }
 
 function renderMobileMenu(): string {
@@ -65,28 +54,26 @@ function renderMobileMenu(): string {
 }
 
 export function renderHeader(light: boolean): string {
-  const showEvent = Date.now() < eventEndsAt;
-  return `<header class="site-header${light ? ' is-light' : ''}${showEvent ? ' has-event' : ''}" id="site-header">
-    ${showEvent ? `<div class="header__event"><a class="header__event-link" href="https://debt-tech.ru/" target="_blank" rel="noopener noreferrer"><strong>DEBT TECH 2026</strong><span>13 ноября <span class="header__event-divider">·</span> Москва</span><span class="header__event-cta"><span>Участвовать</span>${icon('arrow-up-right')}</span><span class="sr-only"> — сайт конференции, новая вкладка</span></a></div>` : ''}
+  return `<header class="site-header p10-header${light ? ' is-light' : ''}" id="site-header">
     <div class="container header__content">
       <div class="header__top">
-        <a class="header__brand" href="#/" aria-label="DEBTPRICE — на главную"><img src="${asset('brand/debtprice.svg')}" alt="DEBTPRICE" width="160" height="37"><span class="header__brand-description">Аукцион<br>долговых активов</span></a>
-        <div class="header__contacts"><a class="header__phone" href="tel:+79159724101">${icon('phone')}<span>${phone}</span></a><a class="header__email" href="mailto:${email}">${icon('mail')}<span>${email}</span></a><a class="header__telegram" href="${telegramUrl}" target="_blank" rel="noopener noreferrer" aria-label="Лоты DEBTPRICE в Telegram, новая вкладка">${icon('telegram')}</a></div>
-        <a class="header__auction" href="${accountUrl}" data-auction-link>${icon('clock')}<span class="header__auction-label">Торги</span><span data-auction-countdown>${initialCountdown()}</span></a>
-        <div class="header__actions"><a class="button button--primary header__request" href="#/request"><span class="header__request-full">Оставить заявку</span><span class="header__request-short">Заявка</span>${icon('arrow-right')}</a><a class="header__nav-control header__account" href="${accountUrl}"><span>Войти</span>${icon('login')}</a><a class="button button--white header__register" href="${registerUrl}"><span>Регистрация</span>${icon('arrow-up-right')}</a></div>
+        <a class="header__brand" href="#/" aria-label="DEBTPRICE: на главную"><span class="p10-brand-mark"><img src="${asset('page10/391-828/7d89e.svg')}" alt="DEBTPRICE"></span><span class="header__brand-description">Аукцион<br>долговых активов</span></a>
+        <div class="header__contacts"><a class="header__phone" href="tel:+79159724101">${icon('phone')}<span>${phone}</span></a><a class="header__email" href="mailto:${email}">${icon('mail')}<span>${email}</span></a><a class="header__telegram" href="${telegramUrl}" target="_blank" rel="noopener noreferrer">${icon('telegram')}<span>Telegram</span><span class="sr-only">, в новой вкладке</span></a></div>
+        <div class="header__actions"><a class="header__nav-control header__account" href="${accountUrl}">Войти на площадку</a><a class="button button--white header__register" href="${registerUrl}">Регистрация на ЭТП ${icon('login')}</a></div>
+        ${themeToggle(true)}
         <button class="header__menu" type="button" data-mobile-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Открыть меню">${icon('menu', 'header__menu-open-icon')}${icon('close', 'header__menu-close-icon')}</button>
       </div>
       <div class="header__bottom">
-        ${dropdown('ecosystem', 'Экосистема', ecosystemPanel(), 'header__ecosystem', 'grid')}
-        ${siteSearch('header-search')}
         <nav class="header__nav" aria-label="Главная навигация">
           ${dropdown('sellers', 'Продавцам', navigationPanel(sellerLinks))}
           <a class="header__nav-control header__nav-link" href="#/buyers">Покупателям</a>
           ${dropdown('invest', 'Инвестору', navigationPanel(investorLinks))}
-          <a class="header__nav-control header__nav-link header__receivables" href="#/sellers/debitorka">Дебиторская задолженность</a>
           <a class="header__nav-control header__nav-link" href="#/about">О проекте</a>
           <a class="header__nav-control header__nav-link" href="#/contacts">Контакты</a>
         </nav>
+        ${dropdown('ecosystem', 'Экосистема DEBTPRICE', ecosystemPanel(), 'header__ecosystem')}
+        <div class="nav-dropdown p10-search" data-nav-id="search"><button class="header__nav-control" type="button" data-nav-toggle="search" aria-expanded="false" aria-controls="nav-panel-search">Поиск ${icon('search')}</button><div class="nav-panel" id="nav-panel-search" inert aria-hidden="true">${siteSearch('header-search')}</div></div>
+        ${themeToggle()}
       </div>
     </div>
     ${renderMobileMenu()}
@@ -94,15 +81,16 @@ export function renderHeader(light: boolean): string {
 }
 
 export function renderFooter(): string {
-  const year = new Date().getFullYear();
-  return `<footer class="site-footer"><div class="container">
-    <div class="footer__top"><a class="footer__brand" href="#/" aria-label="DEBTPRICE — на главную"><img src="${asset('brand/debtprice.svg')}" alt="DEBTPRICE" width="196" height="46"><span>Платформа и экосистема<br>долговых активов</span></a><a class="button button--white footer__request" href="#/request">Оставить заявку ${icon('arrow-right')}</a></div>
-    <div class="footer__columns">
-      <nav class="footer__column" aria-labelledby="footer-platform-title"><h2 id="footer-platform-title">Площадка</h2><a href="#/sellers/portfeli">Портфели физических лиц</a><a href="#/sellers/debitorka">Дебиторская задолженность</a><a href="#/buyers">Покупателям</a><a href="${accountUrl}">Личный кабинет ${icon('arrow-up-right')}</a><a href="${registerUrl}">Регистрация ${icon('arrow-up-right')}</a></nav>
-      <nav class="footer__column" aria-labelledby="footer-information-title"><h2 id="footer-information-title">Информация</h2><a href="#/about">О проекте</a><a href="#/journal">Частые вопросы</a><a href="#/docs">Документы и реквизиты</a><a href="#/contacts">Контакты</a><a href="#/request">Оставить заявку</a></nav>
-      <nav class="footer__column footer__column--ecosystem" aria-labelledby="footer-ecosystem-title"><h2 id="footer-ecosystem-title">Экосистема</h2><div class="footer__ecosystem-links">${ecosystem.map((item) => `<a href="${item.href}"${externalAttributes(item.href)}>${escapeHtml(item.name)}${icon('arrow-up-right')}<span class="sr-only"> — в новой вкладке</span></a>`).join('')}</div></nav>
-      <div class="footer__column footer__column--contacts"><h2>Контакты</h2><a class="footer__phone" href="tel:+79159724101">${phone}</a><a class="footer__email" href="mailto:${email}">${email}</a><a class="footer__telegram" href="${telegramUrl}" target="_blank" rel="noopener noreferrer">${icon('telegram')}Лоты в Telegram ${icon('arrow-up-right')}<span class="sr-only"> — в новой вкладке</span></a><p class="footer__contacts-note">Обсудим ваш актив и условия работы с площадкой.</p></div>
+  return `<footer class="p10-footer" data-node-id="391:1384"><div class="container">
+    <div class="p10-footer__main">
+      <div class="p10-footer__brand"><a class="p10-footer__brand-link" href="#/" aria-label="DEBTPRICE: на главную"><img src="${asset('brand/debtprice.svg')}" alt="DEBTPRICE" width="158" height="37"></a><h2>Аукцион долговых активов</h2><p>продавайте и покупайте<br>по цене рынка</p><small>ООО «ДЕБТПРАЙС»<br>Оператор электронной торговой площадки DEBTPRICE</small></div>
+      <div><div class="p10-footer__navigation">
+        <nav aria-labelledby="footer-platform-title"><h2 id="footer-platform-title">Платформа</h2><a href="#/sellers/portfeli">Продавцам</a><a href="#/buyers">Покупателям</a><a href="#/contacts">Инвестору</a></nav>
+        <nav aria-labelledby="footer-information-title"><h2 id="footer-information-title">Информация</h2><a href="#/docs">Документы</a><a href="https://rvzrus.ru/blog" target="_blank" rel="noopener noreferrer">Журнал</a><a href="#/docs">Реквизиты компании</a></nav>
+        <nav aria-labelledby="footer-contact-title"><h2 id="footer-contact-title">Связь</h2><a href="#/contacts">Контакты</a><a href="${registerUrl}">Регистрация на ЭТП</a><a href="${accountUrl}">Личный кабинет</a></nav>
+      </div><div class="p10-footer__contacts"><a href="tel:+79159724101">${icon('phone')}+7 915 972-41-01</a><a href="mailto:${email}">${icon('mail')}${email}</a></div></div>
     </div>
-    <div class="footer__legal"><div class="footer__company"><span>© ${year} ООО «ДЕБТПРАЙС»</span><div class="footer__company-details"><span>ИНН 7608021127</span><span>ОГРН 1147608001221</span></div></div><a class="footer__privacy" href="#/docs">Политика обработки персональных данных ${icon('arrow-up-right')}</a></div>
+    <p class="p10-footer__legal">Информация на сайте носит справочный характер, не является публичной офертой (ст. 437 ГК РФ) и индивидуальной инвестиционной рекомендацией. Условия сделки определяются документацией торгов и договором уступки права требования. Персональные данные обрабатываются в соответствии с Политикой обработки персональных данных.</p>
+    <div class="p10-footer__bottom"><span>© ${new Date().getFullYear()} DEBTPRICE</span><span>Все права защищены</span><a href="https://my.debtprice.market/Privacy_policy.pdf" target="_blank" rel="noopener noreferrer">Политика конфиденциальности</a></div>
   </div></footer>`;
 }

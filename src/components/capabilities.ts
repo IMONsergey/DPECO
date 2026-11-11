@@ -1,4 +1,4 @@
-import { asset, escapeHtml, icon, type IconName } from '../ui';
+import { asset, escapeHtml } from '../ui';
 import './capabilities.css';
 
 type Audience = 'seller' | 'buyer';
@@ -10,7 +10,7 @@ interface Capability {
   image: string;
   imageWidth: number;
   imageHeight: number;
-  icon: IconName;
+  icon: string;
   description: Record<Audience, string>;
   sellerHref: string;
 }
@@ -19,10 +19,10 @@ const items: readonly Capability[] = [
   {
     id: 'credit',
     title: ['Кредитные', 'портфели'],
-    image: 'credit-portfolios.webp',
+    image: 'aaf44.webp',
     imageWidth: 570,
     imageHeight: 488,
-    icon: 'briefcase',
+    icon: '993bf.svg',
     description: {
       seller: 'Залоговые и беззалоговые: авто, ипотека, потребительские',
       buyer: 'От банков, МФО и страховых компаний — с полным пакетом документов',
@@ -32,10 +32,10 @@ const items: readonly Capability[] = [
   {
     id: 'factoring',
     title: ['Факторинговые', 'портфели'],
-    image: 'factoring-portfolios.webp',
+    image: '1bd63.webp',
     imageWidth: 858,
     imageHeight: 734,
-    icon: 'folders',
+    icon: 'c8634.svg',
     description: {
       seller: 'Уступленная дебиторка по договорам факторинга',
       buyer: 'Права требования, уступленные факторинговыми компаниями',
@@ -45,10 +45,10 @@ const items: readonly Capability[] = [
   {
     id: 'receivables',
     title: ['Дебиторская', 'задолженность'],
-    image: 'receivables.webp',
+    image: 'd598a.webp',
     imageWidth: 570,
     imageHeight: 488,
-    icon: 'coins',
+    icon: 'fe610.svg',
     description: {
       seller: 'Долги юридических лиц — досудебные и просуженные',
       buyer: 'Корпоративных клиентов — с заключением площадки по каждому лоту',
@@ -58,13 +58,26 @@ const items: readonly Capability[] = [
   {
     id: 'claims',
     title: ['Права', 'требования'],
-    image: 'claims.webp',
+    image: '41153.webp',
     imageWidth: 570,
     imageHeight: 488,
-    icon: 'users',
+    icon: '0a8ef.svg',
     description: {
       seller: 'По гражданско-правовым договорам и возмещение имущественного вреда',
       buyer: 'По гражданско-правовым договорам и возмещению вреда',
+    },
+    sellerHref: '#/sellers/portfeli',
+  },
+  {
+    id: 'other',
+    title: ['Прочие права', 'требования'],
+    image: 'acf5f.webp',
+    imageWidth: 1254,
+    imageHeight: 1254,
+    icon: '0b785.svg',
+    description: {
+      seller: 'Другие виды прав требования. Обсудим актив и подберем подходящий формат сделки.',
+      buyer: 'Права требования по другим видам обязательств. Изучите состав и условия актива.',
     },
     sellerHref: '#/sellers/portfeli',
   },
@@ -98,11 +111,11 @@ function card(item: Capability, index: number): string {
   return `
     <article class="capability-new__card${expanded ? ' is-active' : ''}" data-capability-new-card="${item.id}">
         <div class="capability-new__media">
-          <img class="capability-new__image" src="${asset(`images/${item.image}`)}" alt="" width="${item.imageWidth}" height="${item.imageHeight}" loading="lazy" decoding="async">
+          <img class="capability-new__image" src="${asset(`page10/391-1045/${item.image}`)}" alt="" width="${item.imageWidth}" height="${item.imageHeight}" loading="lazy" decoding="async">
           <span class="capability-new__number" aria-hidden="true">0${index + 1}</span>
+          <span class="capability-new__symbol" aria-hidden="true"><img src="${asset(`page10/391-1045/${item.icon}`)}" alt="" loading="lazy"></span>
         </div>
         <div class="capability-new__content">
-          <span class="capability-new__symbol" aria-hidden="true">${icon(item.icon)}</span>
           <h3 class="capability-new__title" id="${titleId}"><button type="button" class="capability-new__expand" data-capability-new-expand="${item.id}" aria-expanded="${expanded}" aria-controls="${bodyId}">${item.title.map((line) => `<span>${escapeHtml(line)}</span>`).join(' ')}</button></h3>
           <div class="capability-new__body" id="${bodyId}">
             <div class="capability-new__body-inner">
@@ -110,7 +123,7 @@ function card(item: Capability, index: number): string {
                 ${measuringLines([item.description.seller, item.description.buyer])}
                 <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
               </div>
-              <a class="button button--primary capability-new__cta" href="${item.sellerHref}" data-capability-new-link="${item.id}" aria-describedby="${descriptionId}"><span>Смотреть подробнее</span>${icon('arrow-right')}</a>
+              <a class="button button--primary capability-new__cta" href="${item.sellerHref}" data-capability-new-link="${item.id}" aria-describedby="${descriptionId}"><span>Смотреть подробнее</span><img src="${asset('page10/391-1045/ed8c1.svg')}" alt="" width="16" height="16"></a>
             </div>
           </div>
         </div>
@@ -119,12 +132,12 @@ function card(item: Capability, index: number): string {
 
 export function renderCapabilities(): string {
   return `
-    <section class="capabilities section capability-new" id="capabilities" aria-labelledby="capabilities-title" data-capability-new-role="seller">
+    <section class="capabilities section capability-new p10-capabilities" id="capabilities" aria-labelledby="capabilities-title" data-capability-new-role="seller" data-node-id="391:1045">
       <div class="capability-new__dots" data-dots data-dots-color="#0ba69e" data-dots-opacity="0.015" data-dots-end-opacity="0.17" data-dots-spacing="20"></div>
       <div class="container capability-new__inner">
         <h2 class="section-title capability-new__heading" id="capabilities-title" data-text-reveal><span>Возможности</span> платформы</h2>
         <div class="capability-new__toolbar">
-          <p>Какие долговые активы можно<br class="capability-new__desktop-break"> продать и купить на бирже</p>
+          <p>Какие долговые активы можно продать и купить на ЭТП</p>
           <div class="capability-new__tabs" role="tablist" aria-label="Для кого подобрать возможности">
             <button type="button" class="capability-new__tab" id="capability-new-seller" role="tab" aria-selected="true" aria-controls="capability-new-panel" data-capability-new-audience="seller">Продавцу</button>
             <button type="button" class="capability-new__tab" id="capability-new-buyer" role="tab" aria-selected="false" aria-controls="capability-new-panel" tabindex="-1" data-capability-new-audience="buyer">Покупателю</button>
@@ -132,20 +145,6 @@ export function renderCapabilities(): string {
         </div>
         <div id="capability-new-panel" class="capability-new__panel" role="tabpanel" aria-labelledby="capability-new-seller">
           <div class="capability-new__grid" data-capability-new-active="factoring">${items.map(card).join('')}</div>
-          <a class="capability-new__extra" href="${additional.seller.href}" data-capability-new-extra>
-            <span class="capability-new__extra-symbol">${icon('folders')}</span>
-            <span class="capability-new__extra-copy">
-              <span class="capability-new__extra-title-frame">
-                ${measuringLines([additional.seller.title, additional.buyer.title])}
-                <span class="capability-new__extra-title" data-capability-new-extra-title>${additional.seller.title}</span>
-              </span>
-              <span class="capability-new__extra-description-frame">
-                ${measuringLines([additional.seller.description, additional.buyer.description])}
-                <span class="capability-new__extra-description" data-capability-new-extra-description>${additional.seller.description}</span>
-              </span>
-            </span>
-            <span class="capability-new__extra-arrow" aria-hidden="true">${icon('arrow-right')}</span>
-          </a>
         </div>
         <p class="sr-only" aria-live="polite" aria-atomic="true" data-capability-new-announcement></p>
       </div>
@@ -161,7 +160,7 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   const abort = new AbortController();
   const { signal } = abort;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const compactLayout = matchMedia('(max-width: 1199px)');
+  const compactLayout = matchMedia('(max-width: 1279px)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const animations = new Map<HTMLElement, Animation>();
   const tabs = [...section.querySelectorAll<HTMLButtonElement>('[data-capability-new-audience]')];

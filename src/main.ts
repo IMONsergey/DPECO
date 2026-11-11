@@ -1,6 +1,6 @@
 import './styles.css';
 import { mountCapabilities } from './components/capabilities';
-import { filterLots, lots, nextAuctionAt, type LotCategory } from './data/lots';
+import { archivedLots, filterLots, lots, nextAuctionAt, type LotCategory } from './data/lots';
 import { initDotField, initGlobe } from './effects';
 import { mountRequestForms } from './forms';
 import { mountAccordions, mountTabs } from './interactions';
@@ -12,6 +12,9 @@ import { pageTitle, renderPage } from './page';
 import { cancelRouteTransition, mountPageMotion, transitionRoute } from './page-motion';
 import { parseRoute, type Route } from './routes';
 import { accountUrl, escapeHtml, icon, registerUrl, rubles } from './ui';
+import { mountHomeAuctions } from './page10';
+import { mountPage10Sections } from './page10-sections';
+import { mountTheme } from './theme';
 
 const root = document.querySelector<HTMLElement>('#app');
 if (!root) throw new Error('Page root is missing.');
@@ -19,7 +22,7 @@ const app: HTMLElement = root;
 let destroyRoute: (() => void) | undefined;
 let currentRoute: Route = parseRoute(location.hash);
 let navigationFrame = 0;
-type ViewState = { y: number; category: 'all' | LotCategory; journalCategory: string; focusHref?: string };
+type ViewState = { y: number; category: 'all' | LotCategory; journalCategory: string; schedulePeriod?: string; focusHref?: string };
 const viewStates = new Map<number, ViewState>();
 let nextEntry = Date.now();
 let currentEntry = ++nextEntry;
@@ -33,7 +36,7 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
   const cleanups: (() => void)[] = [];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const nav = mountNavigation(app, route.path);
-  cleanups.push(nav.destroy, mountCapabilities(app), mountTabs(app), mountAccordions(app));
+  cleanups.push(nav.destroy, mountTheme(app), mountHomeAuctions(app, saved?.category, saved?.schedulePeriod), mountPage10Sections(app), mountCapabilities(app), mountTabs(app), mountAccordions(app));
   const dialog = app.querySelector<HTMLDialogElement>('#detail-dialog')!;
   const dialogContent = app.querySelector<HTMLElement>('#dialog-content')!;
   const toast = app.querySelector<HTMLElement>('#toast')!;
@@ -102,12 +105,12 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
     closeTimeout = window.setTimeout(() => dialog.close(), 200);
   }
   function openLot(id: string): void {
-    const lot = lots.find((item) => item.id === id);
+    const lot = [...lots, ...archivedLots].find((item) => item.id === id);
     if (!lot) return;
     showDialog(`<h2 id="dialog-title">${escapeHtml(lot.name)}</h2>
       <dl class="dialog__details"><div><dt>Вид актива</dt><dd>${lot.category === 'receivables' ? 'Дебиторская задолженность' : 'Портфель физических лиц'}</dd></div><div><dt>Количество кейсов</dt><dd>${lot.cases.toLocaleString('ru-RU')}</dd></div><div><dt>${lot.statusLabel}</dt><dd>${lot.status}</dd></div><div><dt>${lot.dateLabel}</dt><dd>${lot.date}${lot.startsAt ? ' МСК' : ''}</dd></div>${lot.startingPrice ? `<div><dt>Начальная цена</dt><dd>${rubles(lot.startingPrice)}</dd></div>` : ''}</dl>
       <p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p>
-      <p class="dialog__text">Данные площадки на 29 октября 2026. Текущий статус, документы и условия участия доступны в личном кабинете DEBTPRICE.</p>
+      <p class="dialog__text">Данные на ${lots.includes(lot) ? '10 ноября' : '29 октября'} 2026. Текущий статус, документы и условия участия доступны в личном кабинете DEBTPRICE.</p>
       <div class="dialog__actions"><a class="button button--primary" href="${accountUrl}">Перейти к торгам ${icon('login')}</a><a class="button button--dark" href="${registerUrl}">Регистрация ${icon('arrow-right')}</a></div>`);
   }
   function shareLot(id: string): void {
@@ -118,7 +121,7 @@ function mountRoute(route: Route, saved?: ViewState): () => void {
     const text = `${lot.name}\nОбщая сумма: ${rubles(lot.debt)}${lot.startingPrice ? `\nНачальная цена: ${rubles(lot.startingPrice)}` : ''}\n${lot.dateLabel}: ${lot.date}`;
     const telegram = `https://t.me/share/url?url=${encodeURIComponent(url.href)}&text=${encodeURIComponent(text)}`;
     const email = `mailto:?subject=${encodeURIComponent(lot.name)}&body=${encodeURIComponent(`${text}\n\n${url.href}`)}`;
-    showDialog(`<h2 id="dialog-title">Поделиться лотом</h2><p class="dialog__text">${escapeHtml(lot.name)}</p><p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p><p class="dialog__text">${lot.dateLabel}: ${lot.date}. Данные на 29 октября 2026.</p><label class="sr-only" for="share-link">Ссылка на лот</label><input id="share-link" class="share-input" readonly value="${escapeHtml(url.href)}"><div class="dialog__actions"><button class="button button--primary" type="button" data-copy-lot-link>Скопировать ссылку ${icon('document')}</button><a class="button button--dark" href="${escapeHtml(telegram)}" target="_blank" rel="noopener noreferrer">Telegram ${icon('telegram')}</a><a class="text-link" href="${escapeHtml(email)}">Отправить по почте ${icon('mail')}</a></div>`);
+    showDialog(`<h2 id="dialog-title">Поделиться лотом</h2><p class="dialog__text">${escapeHtml(lot.name)}</p><p class="dialog__amount"><small>Общая сумма задолженности</small>${rubles(lot.debt)}</p><p class="dialog__text">${lot.dateLabel}: ${lot.date}. Данные на 10 ноября 2026.</p><label class="sr-only" for="share-link">Ссылка на лот</label><input id="share-link" class="share-input" readonly value="${escapeHtml(url.href)}"><div class="dialog__actions"><button class="button button--primary" type="button" data-copy-lot-link>Скопировать ссылку ${icon('document')}</button><a class="button button--dark" href="${escapeHtml(telegram)}" target="_blank" rel="noopener noreferrer">Telegram ${icon('telegram')}</a><a class="text-link" href="${escapeHtml(email)}">Отправить по почте ${icon('mail')}</a></div>`);
   }
 
   const formatLayout = matchMedia('(max-width: 1199px)');
@@ -309,6 +312,7 @@ function saveCurrentView(): void {
     y: window.scrollY,
     category: selectedCategory === 'receivables' || selectedCategory === 'individuals' ? selectedCategory : 'all',
     journalCategory: app.querySelector<HTMLButtonElement>('[data-journal-filter][aria-selected="true"]')?.dataset.journalFilter ?? 'all',
+    schedulePeriod: app.querySelector<HTMLButtonElement>('[data-schedule-period][aria-selected="true"]')?.dataset.schedulePeriod,
     focusHref: focus,
   });
 }

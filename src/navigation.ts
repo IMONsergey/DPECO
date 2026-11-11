@@ -52,6 +52,7 @@ export function mountNavigation(app: HTMLElement, currentPath: string): { close:
       const open = !dropdown.classList.contains('is-open');
       closeDropdowns(dropdown);
       setDropdown(dropdown, open);
+      if (open) dropdown.querySelector<HTMLInputElement>('.nav-panel input[type="search"]')?.focus({ preventScroll: true });
     }
     if (target.closest('a')) close();
   }, { signal });
@@ -61,7 +62,7 @@ export function mountNavigation(app: HTMLElement, currentPath: string): { close:
     const dropdown = target?.closest<HTMLElement>('.nav-dropdown');
     if (!dropdown) return;
     const trigger = dropdown.querySelector<HTMLButtonElement>('[data-nav-toggle]');
-    const links = [...dropdown.querySelectorAll<HTMLElement>('.nav-panel a, .nav-panel button')];
+    const links = [...dropdown.querySelectorAll<HTMLElement>('.nav-panel a, .nav-panel button, .nav-panel input, .nav-panel select, .nav-panel textarea')];
     const index = links.indexOf(document.activeElement as HTMLElement);
     if (event.key === 'Escape') {
       event.preventDefault();
@@ -70,11 +71,14 @@ export function mountNavigation(app: HTMLElement, currentPath: string): { close:
       trigger?.focus({ preventScroll: true });
       return;
     }
+    // Keep caret movement, selection and native field controls intact.
+    if (target?.matches('input, textarea, select, [contenteditable="true"]')) return;
     let next = -1;
     if (target === trigger && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
       closeDropdowns(dropdown);
       setDropdown(dropdown, true);
-      next = event.key === 'ArrowDown' ? 0 : links.length - 1;
+      const search = dropdown.querySelector<HTMLInputElement>('.nav-panel input[type="search"]');
+      next = search ? links.indexOf(search) : event.key === 'ArrowDown' ? 0 : links.length - 1;
     } else if (index >= 0) {
       if (event.key === 'ArrowDown') next = (index + 1) % links.length;
       else if (event.key === 'ArrowUp') next = (index - 1 + links.length) % links.length;
