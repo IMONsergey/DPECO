@@ -20,7 +20,7 @@ import stat
 import sys
 import uuid
 
-PROJECT = Path('/home/sergey/Projects/DPECO-review-20261111')
+PROJECT = Path('/home/sergey/Projects/DPECO-publish-20261111')
 CURRENT = Path('/srv/debtprice/current')
 RELEASE = Path('/srv/debtprice/releases/20261111-K_Fm4vOk')
 RESULTS = 'qa/homepage/results'
