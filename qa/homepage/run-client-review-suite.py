@@ -30,11 +30,11 @@ for script in scripts:
     task = {'script': script, 'scriptSha256': digest(project / 'qa/homepage' / script), 'startedAt': datetime.now(timezone.utc).isoformat()}
     print(json.dumps({'suite': 'start', **task}), flush=True)
     try:
-        run = subprocess.run(['/opt/imon-runtime/node/bin/node', str(project / 'qa/homepage' / script)], env={**os.environ, 'QA_PHASE': 'client-review', 'QA_BROWSERS': 'chromium,firefox,webkit'}, timeout=1200)
+        run = subprocess.run(['/opt/imon-runtime/node/bin/node', str(project / 'qa/homepage' / script)], env={**os.environ, 'QA_PHASE': 'client-review', 'QA_BROWSERS': 'chromium,firefox,webkit'}, timeout=1800)
         task['exitCode'] = run.returncode
     except subprocess.TimeoutExpired:
         task['exitCode'] = 124
-        task['error'] = 'Timed out after 1200 seconds'
+        task['error'] = 'Timed out after 1800 seconds'
     task['finishedAt'] = datetime.now(timezone.utc).isoformat()
     task['reports'] = []
     for p in sorted(set(results.glob('*/report.json')) - before):

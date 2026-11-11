@@ -283,7 +283,7 @@ body.has-menu { overflow: hidden; }
 .site-header.p10-header .p10-search .header__search { box-shadow: 0 12px 32px var(--shadow-color, #17252626); }
 .site-header.p10-header .header__search input { height: 40px; padding-inline: 13px 8px; border-radius: 5px 0 0 5px; }
 .site-header.p10-header .header__search button { width: 40px; height: 40px; border-radius: 0 5px 5px 0; }
-.site-header.p10-header .header__search input:focus, .site-header.p10-header .header__search input:focus-visible { outline: none; box-shadow: none; }
+.site-header.p10-header .header__search input:focus, .site-header.p10-header .header__search input:focus-visible { outline: 0; box-shadow: none; }
 .site-header.p10-header .header__search:focus-within { border-color: var(--muted); outline: 2px solid var(--muted); outline-offset: 3px; }
 .site-header.p10-header .header__search button:hover { background: var(--surface-hover, #edf1f0); }
 .site-header.p10-header .header__search button:focus-visible { outline: 2px solid var(--muted); outline-offset: -5px; }

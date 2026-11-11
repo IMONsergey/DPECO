@@ -120,8 +120,9 @@
 [data-theme='dark'] .p10-choice--sell p { color: var(--muted); }
 .p10-choice__art { position: absolute; z-index: 0; right: -53px; top: -34px; width: 324px; height: 324px; object-fit: contain; }
 .p10-choice--buy .p10-choice__art { width: 344px; height: 344px; top: -116px; right: -65px; }
-.p10-choice__actions { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; margin-top: 32px; }
-.p10-choice__actions .button { flex: 1; min-width: 0; justify-content: space-between; font-size: 15px; padding-inline: 20px; gap: 8px; }
+.p10-choice__actions { position: relative; z-index: 1; display: flex; align-items: stretch; gap: 12px; margin-top: 32px; }
+.p10-choice__actions .button { flex: 1; min-width: 0; justify-content: space-between; font-size: 15px; padding-inline: 20px; gap: 8px; white-space: normal; text-align: left; }
+.p10-choice__actions .button .icon { flex: 0 0 20px; }
 .p10-choice--buy .p10-choice__actions { margin-top: 6px; }.p10-choice--buy .p10-choice__actions .button { flex: 0 1 292px; }
 .p10-choice--sell .button--white { border: 1px solid #d9e6e5; }
 

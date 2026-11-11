@@ -87,14 +87,30 @@ async function open(page, { theme='light', hash='' } = {}) {
 async function revealPage(page) {
   // Trigger the actual scroll observers, including the bottom sections. Do not
   // add reveal classes or change application styles to manufacture screenshots.
+  // Await images while they are in view: filtering only `complete` images at the
+  // end silently omitted lazy illustrations from full-page captures.
+  const readyImages=async()=>{
+    await until(()=>page.evaluate(()=>[...document.images].filter(img=>{
+      const r=img.getBoundingClientRect();
+      return r.width>0 && r.height>0 && r.bottom>0 && r.top<innerHeight && r.right>0 && r.left<innerWidth;
+    }).filter(img=>!img.complete || !img.naturalWidth).map(img=>({src:img.currentSrc || img.src,complete:img.complete,width:img.naturalWidth}))),pending=>pending.length===0,'Visible images did not finish loading');
+    await page.evaluate(async()=>{
+      const visible=[...document.images].filter(img=>{
+        const r=img.getBoundingClientRect();
+        return r.width>0 && r.height>0 && r.bottom>0 && r.top<innerHeight && r.right>0 && r.left<innerWidth;
+      });
+      await Promise.all(visible.map(img=>img.decode()));
+    });
+  };
   const geometry = await page.evaluate(() => ({ height:document.documentElement.scrollHeight, step:Math.max(200, Math.floor(innerHeight * .7)) }));
   for (let y=0; y<geometry.height; y+=geometry.step) {
     await page.evaluate(top => window.scrollTo({ top, behavior:'instant' }), y);
     await frames(page);
     await delay(35);
+    await readyImages();
   }
   await page.evaluate(() => window.scrollTo({ top:0, behavior:'instant' }));
-  await page.evaluate(async () => { await Promise.all([...document.images].filter(img => img.complete).map(img => img.decode().catch(() => {}))); });
+  await readyImages();
   await delay(1100);
   await frames(page);
 }
@@ -128,7 +144,7 @@ async function hoverChanges(page, locator) {
   await locator.hover();
   await delay(350);
   const after=await styleSnapshot(locator);
-  assert.notDeepEqual(after, before, 'The control has no observable hover feedback');
+  assert.notDeepEqual(after, before, `The control has no observable hover feedback: ${normalize(await locator.innerText())}`);
   return { text:normalize(await locator.innerText()), before, after };
 }
 async function tabEvidence(page, selector) {
@@ -513,8 +529,9 @@ const cases = [
       const samples=await samplesPromise;
       const start=samples[0].width,end=samples.at(-1).width;
       const intermediate=samples.filter(x=>x.width>Math.min(start,end)+2 && x.width<Math.max(start,end)-2);
-      assert.ok(end>start+2,'Hover did not expand the targeted card');
-      assert.ok(intermediate.length>0,'Card jumped between widths without an intermediate transition');
+      const transitionEvidence=JSON.stringify({targetId,start,end,samples});
+      assert.ok(end>start+2,`Hover did not expand the targeted card: ${transitionEvidence}`);
+      assert.ok(intermediate.length>0,`Card jumped between widths without an intermediate transition: ${transitionEvidence}`);
       await page.locator('[data-capability-new-audience="buyer"]').click();
       const expand=page.locator('[data-capability-new-expand="credit"]');
       await expand.focus(); await expand.press('Enter');
@@ -749,17 +766,37 @@ const cases = [
   }))),
 ];
 
+// State the physical input profile of each disposable headless Firefox, as in
+// Tailwind's Playwright configuration. Desktop = fine mouse + hover (2|4),
+// mobile = coarse touch (1). This configures browser input, not application CSS
+// or matchMedia, and never modifies an owner's browser/profile.
+// https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/playwright.config.ts
+// https://github.com/microsoft/playwright/issues/7769#issuecomment-966098074
+// https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-firefox-user-prefs
+const firefoxInputPrefs=touch=>({'ui.primaryPointerCapabilities':touch?1:6,'ui.allPointerCapabilities':touch?1:6});
+async function inputEvidence(page) {
+  return page.evaluate(()=>{
+    const queries=['(hover: hover)','(hover: none)','(any-hover: hover)','(pointer: fine)','(any-pointer: fine)','(pointer: coarse)','(any-pointer: coarse)','(pointer: none)'];
+    return {media:Object.fromEntries(queries.map(query=>[query,matchMedia(query).matches])),maxTouchPoints:navigator.maxTouchPoints};
+  });
+}
+
 try {
   for(const engine of engines) {
     assert.ok(pw[engine],`Unknown browser: ${engine}`);
-    const browser=await pw[engine].launch({headless:true});
+    const browser=await pw[engine].launch({headless:true,...(engine==='firefox'?{firefoxUserPrefs:firefoxInputPrefs(false)}:{})});
+    let mobileBrowser=null;
     report.browsers.push({name:engine,version:browser.version()});
     try {
       for(const test of cases) {
         if(only && !only.includes(test.name)) continue;
         const item={browser:engine,name:test.name,status:'pass',startedAt:new Date().toISOString()};
         const touch=Boolean(test.viewport && test.viewport.width<1200);
-        const context=await browser.newContext({viewport:test.viewport || {width:1440,height:1000},colorScheme:test.theme || 'light',locale:'ru-RU',timezoneId:'Europe/Moscow',reducedMotion:'no-preference',hasTouch:touch,...(engine!=='firefox'?{isMobile:touch}:{})});
+        item.inputProfile=touch?'mobile-coarse-touch':'desktop-fine-mouse';
+        if(engine==='firefox') item.firefoxUserPrefs=firefoxInputPrefs(touch);
+        if(engine==='firefox' && touch && !mobileBrowser) mobileBrowser=await pw.firefox.launch({headless:true,firefoxUserPrefs:firefoxInputPrefs(true)});
+        const activeBrowser=engine==='firefox' && touch?mobileBrowser:browser;
+        const context=await activeBrowser.newContext({viewport:test.viewport || {width:1440,height:1000},colorScheme:test.theme || 'light',locale:'ru-RU',timezoneId:'Europe/Moscow',reducedMotion:'no-preference',hasTouch:touch,...(engine!=='firefox'?{isMobile:touch}:{})});
         let primaryPage=null;
         await context.route('**/*',route=>{
           const request=route.request();
@@ -783,10 +820,21 @@ try {
           });
         });
         const page=await context.newPage();
-        // Start before the next real snapshot auction, with time advancing.
-        // setFixedTime would incorrectly freeze the clocks this suite checks.
-        await page.clock.install({time:new Date('2026-11-11T06:30:00Z')});
-        try { item.details=await test.run(page,engine); }
+        // Keep a stable snapshot date while preserving native rAF, performance
+        // and CSS animation timing. A paired WebKit diagnostic found that the
+        // full fake clock interfered with grid interpolation measurements.
+        // Only the live-clock case needs an advancing mocked Date.
+        // https://playwright.dev/docs/clock#test-with-predefined-time
+        const clockTime=new Date('2026-11-11T06:30:00Z');
+        item.clockMode=test.name==='live-moscow-clock-and-auction-countdown'?'advancing-clock':'fixed-date-native-timers';
+        if(item.clockMode==='advancing-clock') await page.clock.install({time:clockTime});
+        else await page.clock.setFixedTime(clockTime);
+        try {
+          item.input=await inputEvidence(page);
+          assert.equal(item.input.media[touch?'(pointer: coarse)':'(pointer: fine)'],true,`${item.inputProfile}: browser has the wrong pointer capability`);
+          assert.equal(item.input.media[touch?'(hover: none)':'(hover: hover)'],true,`${item.inputProfile}: browser has the wrong hover capability`);
+          item.details=await test.run(page,engine);
+        }
         catch(error) {
           item.status='fail'; item.error=String(error.stack || error);
           try { item.screenshot=await screenshot(page,engine,`FAIL-${test.name}`); } catch {}
@@ -795,7 +843,7 @@ try {
         report.checks.push(item); await save();
         console.log(JSON.stringify({browser:engine,name:test.name,status:item.status,error:item.error?.split('\n')[0]}));
       }
-    } finally { await browser.close(); }
+    } finally { await mobileBrowser?.close(); await browser.close(); }
   }
 } finally { await new Promise(resolve=>server.close(resolve)); }
 report.sourceUnchanged=JSON.stringify(sourceBefore)===JSON.stringify(await manifest(path.join(project,'src'),name=>/\.(ts|css)$/.test(name))) && sourceHtmlBefore===digest(await fs.readFile(path.join(project,'index.html')));
