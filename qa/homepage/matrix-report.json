@@ -1,0 +1,3540 @@
+{
+  "startedAt": "2026-11-11T08:08:14.622Z",
+  "scope": "DEBTPRICE homepage only",
+  "project": "/home/sergey/Projects/DPECO-home",
+  "output": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z",
+  "checks": [
+    {
+      "browser": "chromium",
+      "name": "desktop-1440-light-structure-assets",
+      "status": "pass",
+      "durationMs": 8838,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "bodyWidth": 1425,
+        "brokenImages": [],
+        "deferredMarqueeImages": [],
+        "imageSourceURLs": [
+          "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+          "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+          "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+          "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+          "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+        ],
+        "oldLinks": [],
+        "headings": [
+          "Продайте и купите долговые обязательства на DEBTPRICE",
+          "Расписание торгов",
+          "Продать долг",
+          "Купить портфель на торгах",
+          "Наши партнеры",
+          "Выберите подходящеепредложение",
+          "Возможности платформы",
+          "Форматы торгов",
+          "Как это работает",
+          "Оставьте заявку на консультацию",
+          "Экосистема DEBTPRICE",
+          "Полезные материалы"
+        ],
+        "fonts": [
+          {
+            "font": "500 52px \"TikTok Sans\"",
+            "loaded": true
+          },
+          {
+            "font": "400 18px Manrope",
+            "loaded": true
+          }
+        ],
+        "deferredMarqueeAssetsHttp200": 0,
+        "allImageSourceAssetsHttp200": 69
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "theme-toggle-reload-and-dark-layout",
+      "status": "pass",
+      "durationMs": 9869,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "bodyWidth": 1425,
+        "brokenImages": [],
+        "deferredMarqueeImages": [],
+        "imageSourceURLs": [
+          "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+          "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+          "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+          "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+          "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+        ],
+        "oldLinks": [],
+        "headings": [
+          "Продайте и купите долговые обязательства на DEBTPRICE",
+          "Расписание торгов",
+          "Продать долг",
+          "Купить портфель на торгах",
+          "Наши партнеры",
+          "Выберите подходящеепредложение",
+          "Возможности платформы",
+          "Форматы торгов",
+          "Как это работает",
+          "Оставьте заявку на консультацию",
+          "Экосистема DEBTPRICE",
+          "Полезные материалы"
+        ],
+        "fonts": [
+          {
+            "font": "500 52px \"TikTok Sans\"",
+            "loaded": true
+          },
+          {
+            "font": "400 18px Manrope",
+            "loaded": true
+          }
+        ],
+        "deferredMarqueeAssetsHttp200": 0,
+        "allImageSourceAssetsHttp200": 69
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "seller-navigation-keyboard-request-context-logo-top",
+      "status": "pass",
+      "durationMs": 3690,
+      "evidence": {
+        "requestKind": "receivables",
+        "hashAfterLogo": "#top"
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "schedule-periods-types-keyboard-and-lot-dialog",
+      "status": "pass",
+      "durationMs": 4039,
+      "evidence": {
+        "fixedDate": "2026-11-11T06:30:00Z",
+        "upcoming": 6,
+        "previousMonth": 8,
+        "previousReceivables": 2,
+        "dialog": "Займер"
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "four-format-dialogs-and-keyboard",
+      "status": "pass",
+      "durationMs": 3430,
+      "evidence": {
+        "formats": 4,
+        "keyboard": [
+          "ArrowDown",
+          "End",
+          "Escape"
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "capabilities-audience-cta-updates-and-context",
+      "status": "pass",
+      "durationMs": 2299,
+      "evidence": {
+        "buyerLinks": [
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          }
+        ],
+        "sellerLinks": [
+          {
+            "href": "#request",
+            "requestKind": "portfolio",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "receivables",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "back-restores-manual-scroll-and-closes-format-dialog",
+      "status": "fail",
+      "durationMs": 6687,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at file:///home/sergey/Projects/DPECO-home/qa/homepage/check-homepage.mjs:383:14\n    at async check (file:///home/sergey/Projects/DPECO-home/qa/homepage/check-homepage.mjs:98:22)\n    at async file:///home/sergey/Projects/DPECO-home/qa/homepage/check-homepage.mjs:356:5"
+    },
+    {
+      "browser": "chromium",
+      "name": "search-section-lot-empty-and-dialog-navigation",
+      "status": "pass",
+      "durationMs": 4587,
+      "evidence": {
+        "section": "#formats",
+        "lot": "zaimer-20261111",
+        "emptyState": true
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "documents-six-official-links",
+      "status": "pass",
+      "durationMs": 2371,
+      "evidence": {
+        "links": [
+          {
+            "title": "PDFРеквизиты ООО «ДЕБТПРАЙС»Открыть в новой вкладке",
+            "href": "https://my.debtprice.market/DEBTPRICE_details.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFДоговор использования портала DEBTPRICEОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/oferta_register_since-2025-01-01.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFПолитика обработки персональных данныхОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/Privacy_policy.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFСогласие на обработку персональных данныхОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/Personal_data_consent.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "XLSXТиповой реестр задолженностиОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/DEBTPRICE_debt_list_BLANK.xlsx",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFВыписка из реестра участников «Сколково»Открыть в новой вкладке",
+            "href": "https://my.debtprice.market/SKOLKOVO-register_DEBTRPICE-2024-11-27.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          }
+        ],
+        "networkCheck": "Link targets inspected; no files submitted or external pages opened."
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "form-validation-and-reviewed-draft-no-transmission",
+      "status": "pass",
+      "durationMs": 4106,
+      "evidence": {
+        "invalidEmpty": true,
+        "invalidPhone": true,
+        "draftPrepared": true,
+        "optionalMarketingUnchecked": true,
+        "draftInvalidatedAfterEdit": true,
+        "mailtoClicked": false,
+        "writes": 0
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "legacy-links-keep-homepage",
+      "status": "pass",
+      "durationMs": 4317,
+      "evidence": {
+        "buyers": "#lots",
+        "sellers": "#request",
+        "homepagePreserved": true
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "addressed-dialogs-survive-reload-with-history-state",
+      "status": "pass",
+      "durationMs": 12761,
+      "evidence": [
+        {
+          "hash": "#documents",
+          "view": "documents",
+          "reopened": true,
+          "historyStatePresent": true
+        },
+        {
+          "hash": "#/search?q=%D0%97%D0%B0%D0%B9%D0%BC%D0%B5%D1%80",
+          "view": "search",
+          "reopened": true,
+          "historyStatePresent": true
+        },
+        {
+          "hash": "#lot-zaimer-20261111",
+          "view": "lot",
+          "reopened": true,
+          "historyStatePresent": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "name": "expired-snapshot-does-not-present-upcoming-lots",
+      "status": "pass",
+      "durationMs": 2235,
+      "evidence": {
+        "fixedDate": "2026-11-14T06:30:00Z",
+        "upcoming": 0
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "mobile-390-layout-menu-theme",
+      "status": "pass",
+      "durationMs": 19225,
+      "evidence": {
+        "light": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 4,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "dark": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 4,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "menuCloseOnNavigation": true
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "mobile-320-layout-menu-theme",
+      "status": "pass",
+      "durationMs": 20485,
+      "evidence": {
+        "light": {
+          "viewport": 320,
+          "scrollWidth": 320,
+          "bodyWidth": 320,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 5,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "dark": {
+          "viewport": 320,
+          "scrollWidth": 320,
+          "bodyWidth": 320,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 4,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "menuCloseOnNavigation": true
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "reduced-motion-keeps-content-and-controls",
+      "status": "pass",
+      "durationMs": 4969,
+      "evidence": {
+        "state": {
+          "viewport": 1440,
+          "scrollWidth": 1425,
+          "bodyWidth": 1425,
+          "brokenImages": [],
+          "deferredMarqueeImages": [],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 0,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "motionState": {
+          "reduced": true,
+          "marquee": "none",
+          "hiddenHero": "1"
+        }
+      }
+    },
+    {
+      "browser": "chromium",
+      "name": "runtime-integrity-no-errors-or-network-writes",
+      "status": "pass",
+      "durationMs": 1,
+      "evidence": {
+        "pageerrors": [],
+        "httpErrors": [],
+        "crashes": [],
+        "writes": []
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "desktop-1440-light-structure-assets",
+      "status": "pass",
+      "durationMs": 6528,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "bodyWidth": 1440,
+        "brokenImages": [],
+        "deferredMarqueeImages": [
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+        ],
+        "imageSourceURLs": [
+          "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+          "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+          "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+          "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+          "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+        ],
+        "oldLinks": [],
+        "headings": [
+          "Продайте и купите долговые обязательства на DEBTPRICE",
+          "Расписание торгов",
+          "Продать долг",
+          "Купить портфель на торгах",
+          "Наши партнеры",
+          "Выберите подходящеепредложение",
+          "Возможности платформы",
+          "Форматы торгов",
+          "Как это работает",
+          "Оставьте заявку на консультацию",
+          "Экосистема DEBTPRICE",
+          "Полезные материалы"
+        ],
+        "fonts": [
+          {
+            "font": "500 52px \"TikTok Sans\"",
+            "loaded": true
+          },
+          {
+            "font": "400 18px Manrope",
+            "loaded": true
+          }
+        ],
+        "deferredMarqueeAssetsHttp200": 8,
+        "allImageSourceAssetsHttp200": 69
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "theme-toggle-reload-and-dark-layout",
+      "status": "pass",
+      "durationMs": 7250,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "bodyWidth": 1440,
+        "brokenImages": [],
+        "deferredMarqueeImages": [
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+        ],
+        "imageSourceURLs": [
+          "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+          "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+          "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+          "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+          "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+        ],
+        "oldLinks": [],
+        "headings": [
+          "Продайте и купите долговые обязательства на DEBTPRICE",
+          "Расписание торгов",
+          "Продать долг",
+          "Купить портфель на торгах",
+          "Наши партнеры",
+          "Выберите подходящеепредложение",
+          "Возможности платформы",
+          "Форматы торгов",
+          "Как это работает",
+          "Оставьте заявку на консультацию",
+          "Экосистема DEBTPRICE",
+          "Полезные материалы"
+        ],
+        "fonts": [
+          {
+            "font": "500 52px \"TikTok Sans\"",
+            "loaded": true
+          },
+          {
+            "font": "400 18px Manrope",
+            "loaded": true
+          }
+        ],
+        "deferredMarqueeAssetsHttp200": 8,
+        "allImageSourceAssetsHttp200": 69
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "seller-navigation-keyboard-request-context-logo-top",
+      "status": "pass",
+      "durationMs": 4654,
+      "evidence": {
+        "requestKind": "receivables",
+        "hashAfterLogo": "#top"
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "schedule-periods-types-keyboard-and-lot-dialog",
+      "status": "pass",
+      "durationMs": 4635,
+      "evidence": {
+        "fixedDate": "2026-11-11T06:30:00Z",
+        "upcoming": 6,
+        "previousMonth": 8,
+        "previousReceivables": 2,
+        "dialog": "Займер"
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "four-format-dialogs-and-keyboard",
+      "status": "pass",
+      "durationMs": 4406,
+      "evidence": {
+        "formats": 4,
+        "keyboard": [
+          "ArrowDown",
+          "End",
+          "Escape"
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "capabilities-audience-cta-updates-and-context",
+      "status": "pass",
+      "durationMs": 7295,
+      "evidence": {
+        "buyerLinks": [
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          }
+        ],
+        "sellerLinks": [
+          {
+            "href": "#request",
+            "requestKind": "portfolio",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "receivables",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "back-restores-manual-scroll-and-closes-format-dialog",
+      "status": "pass",
+      "durationMs": 5334,
+      "evidence": {
+        "manualScrollBefore": 2805,
+        "restoredScroll": 2805,
+        "exactScrollDrift": 0,
+        "sourceBefore": {
+          "x": 321,
+          "y": 792.933349609375,
+          "width": 294,
+          "height": 52
+        },
+        "sourceAfter": {
+          "x": 321,
+          "y": 792.933349609375,
+          "width": 294,
+          "height": 52
+        },
+        "sourceFocusRestored": true,
+        "formatClosedOnBack": true
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "search-section-lot-empty-and-dialog-navigation",
+      "status": "pass",
+      "durationMs": 5597,
+      "evidence": {
+        "section": "#formats",
+        "lot": "zaimer-20261111",
+        "emptyState": true
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "documents-six-official-links",
+      "status": "pass",
+      "durationMs": 2535,
+      "evidence": {
+        "links": [
+          {
+            "title": "PDFРеквизиты ООО «ДЕБТПРАЙС»Открыть в новой вкладке",
+            "href": "https://my.debtprice.market/DEBTPRICE_details.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFДоговор использования портала DEBTPRICEОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/oferta_register_since-2025-01-01.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFПолитика обработки персональных данныхОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/Privacy_policy.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFСогласие на обработку персональных данныхОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/Personal_data_consent.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "XLSXТиповой реестр задолженностиОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/DEBTPRICE_debt_list_BLANK.xlsx",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFВыписка из реестра участников «Сколково»Открыть в новой вкладке",
+            "href": "https://my.debtprice.market/SKOLKOVO-register_DEBTRPICE-2024-11-27.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          }
+        ],
+        "networkCheck": "Link targets inspected; no files submitted or external pages opened."
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "form-validation-and-reviewed-draft-no-transmission",
+      "status": "pass",
+      "durationMs": 3797,
+      "evidence": {
+        "invalidEmpty": true,
+        "invalidPhone": true,
+        "draftPrepared": true,
+        "optionalMarketingUnchecked": true,
+        "draftInvalidatedAfterEdit": true,
+        "mailtoClicked": false,
+        "writes": 0
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "legacy-links-keep-homepage",
+      "status": "pass",
+      "durationMs": 4420,
+      "evidence": {
+        "buyers": "#lots",
+        "sellers": "#request",
+        "homepagePreserved": true
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "addressed-dialogs-survive-reload-with-history-state",
+      "status": "pass",
+      "durationMs": 12375,
+      "evidence": [
+        {
+          "hash": "#documents",
+          "view": "documents",
+          "reopened": true,
+          "historyStatePresent": false
+        },
+        {
+          "hash": "#/search?q=%D0%97%D0%B0%D0%B9%D0%BC%D0%B5%D1%80",
+          "view": "search",
+          "reopened": true,
+          "historyStatePresent": false
+        },
+        {
+          "hash": "#lot-zaimer-20261111",
+          "view": "lot",
+          "reopened": true,
+          "historyStatePresent": false
+        }
+      ]
+    },
+    {
+      "browser": "firefox",
+      "name": "expired-snapshot-does-not-present-upcoming-lots",
+      "status": "pass",
+      "durationMs": 2195,
+      "evidence": {
+        "fixedDate": "2026-11-14T06:30:00Z",
+        "upcoming": 0
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "mobile-390-layout-menu-theme",
+      "status": "pass",
+      "durationMs": 11473,
+      "evidence": {
+        "light": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "dark": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "menuCloseOnNavigation": true
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "mobile-320-layout-menu-theme",
+      "status": "pass",
+      "durationMs": 11647,
+      "evidence": {
+        "light": {
+          "viewport": 320,
+          "scrollWidth": 320,
+          "bodyWidth": 320,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "dark": {
+          "viewport": 320,
+          "scrollWidth": 320,
+          "bodyWidth": 320,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "menuCloseOnNavigation": true
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "reduced-motion-keeps-content-and-controls",
+      "status": "pass",
+      "durationMs": 4339,
+      "evidence": {
+        "state": {
+          "viewport": 1440,
+          "scrollWidth": 1440,
+          "bodyWidth": 1440,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "motionState": {
+          "reduced": true,
+          "marquee": "none",
+          "hiddenHero": "1"
+        }
+      }
+    },
+    {
+      "browser": "firefox",
+      "name": "runtime-integrity-no-errors-or-network-writes",
+      "status": "pass",
+      "durationMs": 0,
+      "evidence": {
+        "pageerrors": [],
+        "httpErrors": [],
+        "crashes": [],
+        "writes": []
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "desktop-1440-light-structure-assets",
+      "status": "pass",
+      "durationMs": 10940,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "bodyWidth": 1440,
+        "brokenImages": [],
+        "deferredMarqueeImages": [],
+        "imageSourceURLs": [
+          "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+          "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+          "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+          "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+          "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+        ],
+        "oldLinks": [],
+        "headings": [
+          "Продайте и купите долговые обязательства на DEBTPRICE",
+          "Расписание торгов",
+          "Продать долг",
+          "Купить портфель на торгах",
+          "Наши партнеры",
+          "Выберите подходящеепредложение",
+          "Возможности платформы",
+          "Форматы торгов",
+          "Как это работает",
+          "Оставьте заявку на консультацию",
+          "Экосистема DEBTPRICE",
+          "Полезные материалы"
+        ],
+        "fonts": [
+          {
+            "font": "500 52px \"TikTok Sans\"",
+            "loaded": true
+          },
+          {
+            "font": "400 18px Manrope",
+            "loaded": true
+          }
+        ],
+        "deferredMarqueeAssetsHttp200": 0,
+        "allImageSourceAssetsHttp200": 69
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "theme-toggle-reload-and-dark-layout",
+      "status": "pass",
+      "durationMs": 11789,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "bodyWidth": 1440,
+        "brokenImages": [],
+        "deferredMarqueeImages": [],
+        "imageSourceURLs": [
+          "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+          "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+          "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+          "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+          "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+          "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+          "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+          "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+          "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+          "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+          "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+          "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+          "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+          "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+        ],
+        "oldLinks": [],
+        "headings": [
+          "Продайте и купите долговые обязательства на DEBTPRICE",
+          "Расписание торгов",
+          "Продать долг",
+          "Купить портфель на торгах",
+          "Наши партнеры",
+          "Выберите подходящеепредложение",
+          "Возможности платформы",
+          "Форматы торгов",
+          "Как это работает",
+          "Оставьте заявку на консультацию",
+          "Экосистема DEBTPRICE",
+          "Полезные материалы"
+        ],
+        "fonts": [
+          {
+            "font": "500 52px \"TikTok Sans\"",
+            "loaded": true
+          },
+          {
+            "font": "400 18px Manrope",
+            "loaded": true
+          }
+        ],
+        "deferredMarqueeAssetsHttp200": 0,
+        "allImageSourceAssetsHttp200": 69
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "seller-navigation-keyboard-request-context-logo-top",
+      "status": "pass",
+      "durationMs": 7894,
+      "evidence": {
+        "requestKind": "receivables",
+        "hashAfterLogo": "#top"
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "schedule-periods-types-keyboard-and-lot-dialog",
+      "status": "pass",
+      "durationMs": 7215,
+      "evidence": {
+        "fixedDate": "2026-11-11T06:30:00Z",
+        "upcoming": 6,
+        "previousMonth": 8,
+        "previousReceivables": 2,
+        "dialog": "Займер"
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "four-format-dialogs-and-keyboard",
+      "status": "pass",
+      "durationMs": 10274,
+      "evidence": {
+        "formats": 4,
+        "keyboard": [
+          "ArrowDown",
+          "End",
+          "Escape"
+        ]
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "capabilities-audience-cta-updates-and-context",
+      "status": "pass",
+      "durationMs": 5128,
+      "evidence": {
+        "buyerLinks": [
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          },
+          {
+            "href": "#lots",
+            "requestKind": null,
+            "label": "Посмотреть лоты"
+          }
+        ],
+        "sellerLinks": [
+          {
+            "href": "#request",
+            "requestKind": "portfolio",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "receivables",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          },
+          {
+            "href": "#request",
+            "requestKind": "general",
+            "label": "Обсудить продажу"
+          }
+        ]
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "back-restores-manual-scroll-and-closes-format-dialog",
+      "status": "pass",
+      "durationMs": 12302,
+      "evidence": {
+        "manualScrollBefore": 2804,
+        "restoredScroll": 2804,
+        "exactScrollDrift": 0,
+        "sourceBefore": {
+          "x": 321,
+          "y": 793,
+          "width": 293.984375,
+          "height": 52
+        },
+        "sourceAfter": {
+          "x": 321,
+          "y": 793,
+          "width": 293.984375,
+          "height": 52
+        },
+        "sourceFocusRestored": true,
+        "formatClosedOnBack": true
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "search-section-lot-empty-and-dialog-navigation",
+      "status": "pass",
+      "durationMs": 13216,
+      "evidence": {
+        "section": "#formats",
+        "lot": "zaimer-20261111",
+        "emptyState": true
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "documents-six-official-links",
+      "status": "pass",
+      "durationMs": 5191,
+      "evidence": {
+        "links": [
+          {
+            "title": "PDFРеквизиты ООО «ДЕБТПРАЙС»Открыть в новой вкладке",
+            "href": "https://my.debtprice.market/DEBTPRICE_details.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFДоговор использования портала DEBTPRICEОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/oferta_register_since-2025-01-01.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFПолитика обработки персональных данныхОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/Privacy_policy.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFСогласие на обработку персональных данныхОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/Personal_data_consent.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "XLSXТиповой реестр задолженностиОткрыть в новой вкладке",
+            "href": "https://my.debtprice.market/DEBTPRICE_debt_list_BLANK.xlsx",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          {
+            "title": "PDFВыписка из реестра участников «Сколково»Открыть в новой вкладке",
+            "href": "https://my.debtprice.market/SKOLKOVO-register_DEBTRPICE-2024-11-27.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          }
+        ],
+        "networkCheck": "Link targets inspected; no files submitted or external pages opened."
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "form-validation-and-reviewed-draft-no-transmission",
+      "status": "pass",
+      "durationMs": 7197,
+      "evidence": {
+        "invalidEmpty": true,
+        "invalidPhone": true,
+        "draftPrepared": true,
+        "optionalMarketingUnchecked": true,
+        "draftInvalidatedAfterEdit": true,
+        "mailtoClicked": false,
+        "writes": 0
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "legacy-links-keep-homepage",
+      "status": "pass",
+      "durationMs": 5615,
+      "evidence": {
+        "buyers": "#lots",
+        "sellers": "#request",
+        "homepagePreserved": true
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "addressed-dialogs-survive-reload-with-history-state",
+      "status": "pass",
+      "durationMs": 19169,
+      "evidence": [
+        {
+          "hash": "#documents",
+          "view": "documents",
+          "reopened": true,
+          "historyStatePresent": true
+        },
+        {
+          "hash": "#/search?q=%D0%97%D0%B0%D0%B9%D0%BC%D0%B5%D1%80",
+          "view": "search",
+          "reopened": true,
+          "historyStatePresent": true
+        },
+        {
+          "hash": "#lot-zaimer-20261111",
+          "view": "lot",
+          "reopened": true,
+          "historyStatePresent": true
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "name": "expired-snapshot-does-not-present-upcoming-lots",
+      "status": "pass",
+      "durationMs": 5191,
+      "evidence": {
+        "fixedDate": "2026-11-14T06:30:00Z",
+        "upcoming": 0
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "mobile-390-layout-menu-theme",
+      "status": "pass",
+      "durationMs": 20872,
+      "evidence": {
+        "light": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "dark": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "menuCloseOnNavigation": true
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "mobile-320-layout-menu-theme",
+      "status": "pass",
+      "durationMs": 20213,
+      "evidence": {
+        "light": {
+          "viewport": 320,
+          "scrollWidth": 320,
+          "bodyWidth": 320,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "dark": {
+          "viewport": 320,
+          "scrollWidth": 320,
+          "bodyWidth": 320,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "menuCloseOnNavigation": true
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "reduced-motion-keeps-content-and-controls",
+      "status": "pass",
+      "durationMs": 6548,
+      "evidence": {
+        "state": {
+          "viewport": 1440,
+          "scrollWidth": 1440,
+          "bodyWidth": 1440,
+          "brokenImages": [],
+          "deferredMarqueeImages": [
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg"
+          ],
+          "imageSourceURLs": [
+            "http://127.0.0.1:34273/assets/page10/391-828/7d89e.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/skolkovo.svg",
+            "http://127.0.0.1:34273/assets/page10/logos/nsfr.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/5e347.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/369a0.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/74142.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/80561.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/1cd11.svg",
+            "http://127.0.0.1:34273/assets/page10/391-828/353c2.svg",
+            "http://127.0.0.1:34273/assets/page10/391-884/c5234.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/8c5f4.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/7769d.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/d14ca.png",
+            "http://127.0.0.1:34273/assets/page10/391-884/17ff6.png",
+            "http://127.0.0.1:34273/assets/page10/391-935/af699.webp",
+            "http://127.0.0.1:34273/assets/page10/391-935/7c7e9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/b6f7c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4d80f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/d7d49.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/25cfa.webp",
+            "http://127.0.0.1:34273/assets/partners/express-collection.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/9cc9c.webp",
+            "http://127.0.0.1:34273/assets/page10/391-948/4e813.svg",
+            "http://127.0.0.1:34273/assets/page10/391-948/trust.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1023/fb0b6.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1023/34072.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/aaf44.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/993bf.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/1bd63.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/c8634.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/d598a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/fe610.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/41153.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0a8ef.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1045/acf5f.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1045/0b785.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a0398.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/45c30.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/8498a.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1102/a4c25.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/5dc4b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9afe9.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/c9766.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ebdf1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/9d996.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1130/cf83e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/0a1f1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/e5bb7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/d857b.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1130/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/c4bec.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/dfffd.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/5901e.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/ed8c1.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eec1a.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debttech-dolgtalk.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/574b7.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/debtprice.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/38615.webp",
+            "http://127.0.0.1:34273/assets/page10/logos/navigator.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1222/eb4ac.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1222/07f83.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/40e71.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/f35d5.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/39fd7.svg",
+            "http://127.0.0.1:34273/assets/page10/391-1352/7ffd1.webp",
+            "http://127.0.0.1:34273/assets/page10/391-1352/01c0c.webp",
+            "http://127.0.0.1:34273/assets/brand/debtprice.svg"
+          ],
+          "oldLinks": [],
+          "headings": [
+            "Продайте и купите долговые обязательства на DEBTPRICE",
+            "Расписание торгов",
+            "Продать долг",
+            "Купить портфель на торгах",
+            "Наши партнеры",
+            "Выберите подходящеепредложение",
+            "Возможности платформы",
+            "Форматы торгов",
+            "Как это работает",
+            "Оставьте заявку на консультацию",
+            "Экосистема DEBTPRICE",
+            "Полезные материалы"
+          ],
+          "fonts": [
+            {
+              "font": "500 52px \"TikTok Sans\"",
+              "loaded": true
+            },
+            {
+              "font": "400 18px Manrope",
+              "loaded": true
+            }
+          ],
+          "deferredMarqueeAssetsHttp200": 8,
+          "allImageSourceAssetsHttp200": 69
+        },
+        "motionState": {
+          "reduced": true,
+          "marquee": "none",
+          "hiddenHero": "1"
+        }
+      }
+    },
+    {
+      "browser": "webkit",
+      "name": "runtime-integrity-no-errors-or-network-writes",
+      "status": "pass",
+      "durationMs": 0,
+      "evidence": {
+        "pageerrors": [],
+        "httpErrors": [],
+        "crashes": [],
+        "writes": []
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "browser": "chromium",
+      "name": "desktop-1440-light",
+      "file": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z/chromium-desktop-1440-light.png",
+      "fullPage": true
+    },
+    {
+      "browser": "chromium",
+      "name": "desktop-1440-dark",
+      "file": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z/chromium-desktop-1440-dark.png",
+      "fullPage": true
+    },
+    {
+      "browser": "chromium",
+      "name": "failure-7",
+      "file": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z/chromium-failure-7.png",
+      "fullPage": false
+    },
+    {
+      "browser": "chromium",
+      "name": "mobile-390-hero",
+      "file": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z/chromium-mobile-390-hero.png",
+      "fullPage": false
+    },
+    {
+      "browser": "chromium",
+      "name": "mobile-390-ecosystem",
+      "file": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z/chromium-mobile-390-ecosystem.png",
+      "fullPage": false
+    },
+    {
+      "browser": "chromium",
+      "name": "mobile-320-hero",
+      "file": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z/chromium-mobile-320-hero.png",
+      "fullPage": false
+    },
+    {
+      "browser": "chromium",
+      "name": "mobile-320-request",
+      "file": "/home/sergey/Projects/DPECO-home/qa/homepage/results/2026-11-11T08-08-14-621Z/chromium-mobile-320-request.png",
+      "fullPage": false
+    }
+  ],
+  "browsers": [
+    {
+      "engine": "chromium",
+      "version": "145.0.7632.6",
+      "nativeSafari": false
+    },
+    {
+      "engine": "firefox",
+      "version": "146.0.1",
+      "nativeSafari": false
+    },
+    {
+      "engine": "webkit",
+      "version": "26.0",
+      "nativeSafari": false
+    }
+  ],
+  "safety": "Fresh headless contexts; non-GET/HEAD requests are blocked; no mailto click or message transmission.",
+  "scheduleFixture": "Schedule interactions use fixed Date 2026-11-11T06:30:00Z; visual screenshots use the real current time.",
+  "source": [
+    {
+      "file": "src/components/capabilities.css",
+      "bytes": 12831,
+      "sha256": "2449d3e578162891002193220d0c8f2ce2b3c09cea2deb2e49fa45ab9c646a8f"
+    },
+    {
+      "file": "src/components/capabilities.ts",
+      "bytes": 16655,
+      "sha256": "fb08475c34e663b73801a3e22b7b62d730f6c3c8ed15050b2ffa948419dbdb8d"
+    },
+    {
+      "file": "src/data/lots.ts",
+      "bytes": 7685,
+      "sha256": "3b90614969289ca873b9a2e638a811edbccc1458ced3723b30839aea82c805ab"
+    },
+    {
+      "file": "src/effects/dot-field-engine.ts",
+      "bytes": 16014,
+      "sha256": "b31bdc53592aec1c8e7cd5c87cdf8b2332a9647e5c21a962edb9d6781f0b743a"
+    },
+    {
+      "file": "src/effects/effects.css",
+      "bytes": 1840,
+      "sha256": "de0e0329b568492599468a74d1ec49b7277dcf7887ad406ce511d20ebd4296c6"
+    },
+    {
+      "file": "src/effects/globe-engine.ts",
+      "bytes": 23441,
+      "sha256": "e308be7acd044d61ad302f4423d621d0e0c0fd5de675268b025115706dfc143e"
+    },
+    {
+      "file": "src/effects/index.ts",
+      "bytes": 4964,
+      "sha256": "07b77fe6ddd766f5663ec33ae6cdf0dbdb32996c9ffbfe881716fa5a103048f8"
+    },
+    {
+      "file": "src/effects/land-data.ts",
+      "bytes": 2256,
+      "sha256": "93d50af19c6b22cfd74d82aaf58299110eb9642f68892e470d206e8530704ce8"
+    },
+    {
+      "file": "src/forms.ts",
+      "bytes": 5327,
+      "sha256": "50bbe70c3b63a3bc73e5a88d66b9ac27dc3fda67f09afd52da56579c083f2ef7"
+    },
+    {
+      "file": "src/home-overlays.css",
+      "bytes": 1730,
+      "sha256": "1949fbd6f9616fdba81cc020cfcf3e36783eebb8892c4258929e72e03c300ad7"
+    },
+    {
+      "file": "src/home-overlays.ts",
+      "bytes": 5467,
+      "sha256": "4f823a1cd8202f4074063ac2f13e2f7556519acc8d80ad15f64ed7dec4f8a2b6"
+    },
+    {
+      "file": "src/interactions.ts",
+      "bytes": 3408,
+      "sha256": "bf11e49e5680a19be5eecaaf028c96a880b2cab9614cc9fb0feb20d0c177eb11"
+    },
+    {
+      "file": "src/journal.css",
+      "bytes": 12880,
+      "sha256": "27fb0e3c1fa4eb8deacd16b41107de8fb40de5507b4bddaccdb6c96242e6c947"
+    },
+    {
+      "file": "src/journal.ts",
+      "bytes": 19028,
+      "sha256": "f26e7efdcea97a225b337a7f976453be50bcb79eac3cab25fe86fc55b78e3538"
+    },
+    {
+      "file": "src/lot-cards.ts",
+      "bytes": 2123,
+      "sha256": "791e3857d1d11afa4cf6be642dd867fffacb277903ab898f0202ba1d0c73c7ea"
+    },
+    {
+      "file": "src/main.ts",
+      "bytes": 14907,
+      "sha256": "e1e2846957a3badaba3250f8587138bbd56eb85f7d3b961d4febddf45cdf7f4a"
+    },
+    {
+      "file": "src/motion.ts",
+      "bytes": 4321,
+      "sha256": "f86ac19cb67508e9f6b16fbd15bf7f4b8bb521f13589e646412fba6212465073"
+    },
+    {
+      "file": "src/navigation.ts",
+      "bytes": 6098,
+      "sha256": "b56dc427eb886819e63a5b97a3671ea406e7b0ce95db3e427a2bd7173247ea96"
+    },
+    {
+      "file": "src/page-motion.css",
+      "bytes": 4556,
+      "sha256": "74f6aa863f1ec374f1612dbec206aa5d8928fd915a71a6b4c9c490b59184c524"
+    },
+    {
+      "file": "src/page-motion.ts",
+      "bytes": 10878,
+      "sha256": "0d04ca9d6264d8a3ae5e2884735b329d5f1f1c06eac750c9db3777f358d905a4"
+    },
+    {
+      "file": "src/page.ts",
+      "bytes": 784,
+      "sha256": "a9ac33e287a4ba4060addae256bbcffe6f7665644f7e7ceb5c0ce4bb02b9723d"
+    },
+    {
+      "file": "src/page10-sections.css",
+      "bytes": 30647,
+      "sha256": "577d3f77ebd4703685dff4ff9315b170b35e32df743b69d5279b48eef6399fb6"
+    },
+    {
+      "file": "src/page10-sections.ts",
+      "bytes": 22247,
+      "sha256": "595d2cbf564abe01292d8165ea3290328a8c7bf48ddad3ed5b928d6109fbc725"
+    },
+    {
+      "file": "src/page10.css",
+      "bytes": 31598,
+      "sha256": "247907764a53d67d130544ce203a55cd6bbf065fdcc05d59a433719c169feeb7"
+    },
+    {
+      "file": "src/page10.ts",
+      "bytes": 19875,
+      "sha256": "dfd585c87883a21d8567efd2589d4cd68df589b5caa95d889b9b6be37311cd9e"
+    },
+    {
+      "file": "src/pages/info.css",
+      "bytes": 22240,
+      "sha256": "684ccc4d3b35e424d70e2061b6fca60fb2150b6694c71bb6201701aada3c181c"
+    },
+    {
+      "file": "src/pages/info.ts",
+      "bytes": 19170,
+      "sha256": "bfea25486bc56bd7c583ea7cfc73810bd016843bbefec67d325bd8b2d3609cbe"
+    },
+    {
+      "file": "src/pages/market.css",
+      "bytes": 22245,
+      "sha256": "bb72085e7d6f3dd1f924854a0e2b0581621ce3873a29522c11b85ce93053f745"
+    },
+    {
+      "file": "src/pages/market.ts",
+      "bytes": 27886,
+      "sha256": "905dd0d8d021f980e55cafeb6ee8eaea15bc6908631256fd24f44517e093fc4e"
+    },
+    {
+      "file": "src/routes.ts",
+      "bytes": 1392,
+      "sha256": "4263521437e1ec92ed768f942d71ece56e0a986225f6e2894352c7bd76fc7259"
+    },
+    {
+      "file": "src/sections.css",
+      "bytes": 29491,
+      "sha256": "7d75f215dd4bb668c5a945239bde932f5d5bf9a954acdb0d7fd39a7a7a874a11"
+    },
+    {
+      "file": "src/sections.ts",
+      "bytes": 20390,
+      "sha256": "e56b5824db8ce4c524f4dcf3cc036f338866fa0b749ae4fd338a1d73e43f14e9"
+    },
+    {
+      "file": "src/shell.css",
+      "bytes": 21454,
+      "sha256": "ab9178eaaa8b90a3e1f17b287f15dc279c7dd60d3b8f4d557ba640affd0cc699"
+    },
+    {
+      "file": "src/shell.ts",
+      "bytes": 12059,
+      "sha256": "445075bac5b0d85129fd3cf3ed250738c38fb4bd1d3ac9e93cb1825b3db682ad"
+    },
+    {
+      "file": "src/styles.css",
+      "bytes": 25032,
+      "sha256": "3fdca349102fe84b6a197a892e99116b7dab8b00f96b1c7ac489960253380a94"
+    },
+    {
+      "file": "src/theme.css",
+      "bytes": 11608,
+      "sha256": "7bc5006af7733ad15642cd71c084be84901b34dd8e23f3a9c382b1b68975077e"
+    },
+    {
+      "file": "src/theme.ts",
+      "bytes": 3664,
+      "sha256": "0336319a8698d0b3622abcefb66c29addefb6e1930d17bd98c17d590e56e25e4"
+    },
+    {
+      "file": "src/ui.ts",
+      "bytes": 3335,
+      "sha256": "9deab2d7e067f35e677ada79d9beb3f601d179bd23b247d370268e402db6bfcc"
+    }
+  ],
+  "build": [
+    {
+      "file": "dist/assets/index-K_Fm4vOk.js",
+      "bytes": 125153,
+      "sha256": "22594cc8ae0f9d58e2dd83452548a1a30b6e730c283ba6e15e0b3c2e4c7feab6"
+    },
+    {
+      "file": "dist/assets/style-_Pw1yUOh.css",
+      "bytes": 158582,
+      "sha256": "2ded2eea4f9111db83d91d2d23c1eafafd0a011248778b0e1f8a7d0b6cbac098"
+    },
+    {
+      "file": "dist/index.html",
+      "bytes": 1998,
+      "sha256": "e9f0b821074e82b446705379166fec01196155f2064baa4fa60b73382720156f"
+    }
+  ],
+  "script": {
+    "file": "qa/homepage/check-homepage.mjs",
+    "bytes": 34326,
+    "sha256": "42f8976a7f52c35636e0177edac0b74740f1f2c581badf2aa50022c7f57ecb19"
+  },
+  "gitHead": "ac484523568bb2ee9834ae1f693ad0fccba7d206",
+  "changedFiles": [
+    "M .gitignore",
+    " M README.md",
+    "?? CHECKPOINT.md",
+    "?? qa/homepage/"
+  ],
+  "baseURL": "http://127.0.0.1:34273",
+  "updatedAt": "2026-11-11T08:14:46.521Z",
+  "passed": 50,
+  "failed": 1,
+  "finishedAt": "2026-11-11T08:14:46.520Z",
+  "status": "fail"
+}

@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "task_id": "dpeco-homepage-subdomain-20261111",
+  "scope": "Продолжение зависшего этапа: актуальная главная Page10, сохраненные эффекты и темная тема, только одна страница, публикация на debtprice.imon.world; унаследованная браузерная приемка.",
+  "outcome": "partial",
+  "application_commit": "ac484523568bb2ee9834ae1f693ad0fccba7d206",
+  "requirement_changes": [
+    {
+      "id": "P10-CONTENT",
+      "previous_text": "Переверстать главную под актуальный контент и состав Figma Page 10, сохранив существующие вторичные маршруты.",
+      "reason": "Последнее прямое поручение пользователя: только главная, дополнительные страницы не нужны."
+    },
+    {
+      "id": "P10-BUILD-DELIVERY",
+      "previous_text": "Успешно собрать актуальное приложение и проверить публикацию нужной версии на существующем GitHub Pages preview.",
+      "reason": "Последнее прямое поручение пользователя: опубликовать результат на поддомене."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "P10-CONTENT",
+      "text": "Сохранить состав и визуальную систему актуальной Figma Page10; оставить только главную, перевести активные ссылки и прежние входящие адреса к ее разделам/диалогам или официальным внешним сервисам.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-RESPONSIVE",
+      "text": "Проверить композицию, кириллические переносы, изображения, кнопки и отсутствие непреднамеренных перекрытий на десктопных и мобильных размерах.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-THEME",
+      "text": "Реализовать светлую и темную темы и проверить читаемость тематических поверхностей, текста, логотипов и контролов.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-EFFECTS-INTEGRATION",
+      "text": "Сохранить подключение существующих анимаций и визуальных эффектов в обновленную главную и корректную очистку ресурсов.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-ASSETS",
+      "text": "Использовать правильные оригинальные локальные изображения и логотипы, сохранить качество оптимизированной графики и подключить Manrope с лицензией.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-CONTENT-LIMITS",
+      "text": "Показывать датированный срез торгов и честное поведение формы без ложного заявления о живом API, подключенной CRM или отправленной заявке.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-BUILD-DELIVERY",
+      "text": "Успешно собрать актуальную главную и подтвердить публикацию правильной версии по HTTPS на debtprice.imon.world.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-CONSULTATION-MASK",
+      "text": "Перепроверить финальную измененную композицию масок консультации на опубликованном кандидате.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-LIVE",
+      "text": "Завершить полный живой интерактивный прогон навигации, клавиатуры, темы, фильтров, каруселей, модальных окон, формы и сохраненных эффектов.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-SAFARI",
+      "text": "Выполнить финальную приемку компоновки и существенных взаимодействий в реальном Safari.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-PRODUCTION-BOUNDARY",
+      "text": "Публиковать главную на отдельном поддомене, без изменения боевого debtprice.market.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-HANDOFF",
+      "text": "Сохранить проверяемую проектную сдачу с версиями, источниками, фактическим покрытием и явным разделением pass и blocked.",
+      "required": true,
+      "allow_na": false
+    }
+  ],
+  "checks": [
+    {
+      "requirement_id": "P10-CONTENT",
+      "status": "pass",
+      "method": "Повторный Figma-аудит всех11 секций, проверка одиночного renderPage, live/readback и совместимости входящих адресов.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "figma-source-review.md",
+          "sha256": "829478cf74eb694af8250ed842f12780c4337d749c7961bdc7ed49320297b1e3"
+        },
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        },
+        {
+          "path": "matrix-report.json",
+          "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-RESPONSIVE",
+      "status": "pass",
+      "method": "Полные визуальные просмотры light/dark1440 и мобильных390/320; DOM-проверки переполнения, ресурсов и кириллицы.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        },
+        {
+          "path": "matrix-report.json",
+          "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-THEME",
+      "status": "pass",
+      "method": "Реальное переключение и reload в трех движках, мобильные состояния и визуальный просмотр обеих тем.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        },
+        {
+          "path": "matrix-report.json",
+          "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-EFFECTS-INTEGRATION",
+      "status": "pass",
+      "method": "Независимая проверка source/lifecycle, просмотр глобуса и секций, reduced-motion и runtime integrity в трех движках.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        },
+        {
+          "path": "matrix-report.json",
+          "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-ASSETS",
+      "status": "pass",
+      "method": "Свежая сверка Figma; исходные public/assets не менялись. В браузерах проверены загрузка всех image sources, видимые изображения и локальные шрифты.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "figma-source-review.md",
+          "sha256": "829478cf74eb694af8250ed842f12780c4337d749c7961bdc7ed49320297b1e3"
+        },
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        },
+        {
+          "path": "matrix-report.json",
+          "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-CONTENT-LIMITS",
+      "status": "pass",
+      "method": "Проверены датированный снимок, истекшее расписание, валидация и реальный предпросмотр письма; сетевые записи при QA отсутствуют.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "matrix-report.json",
+          "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+        },
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-BUILD-DELIVERY",
+      "status": "pass",
+      "method": "TypeScript/Vite build succeeded; внешний HTTPS readback и точные SHA HTML/JS/CSS, HTTP redirect и неизвестный путь404.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "delivery.json",
+          "sha256": "9833a2be9f449e7ea35fb1eac31d36a929e0fffb1cbe4cbdbd60f5925d84af43"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-CONSULTATION-MASK",
+      "status": "pass",
+      "method": "Root просмотрел консультацию на финальных1440 light/dark и mobile320: мягкая дуга, правильные края и отсутствие перекрытия формы.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        },
+        {
+          "path": "screenshots/chromium-desktop-1440-light.png",
+          "sha256": "ea76bf6eb194c5e0f3fa7615705f93dd234c65be31d065740b8da078383fa3ff"
+        },
+        {
+          "path": "screenshots/chromium-desktop-1440-dark.png",
+          "sha256": "46612b36fbe7afe59508396224d37cf45b0feabc2c5a7dd5a15eba1274bf4655"
+        },
+        {
+          "path": "screenshots/chromium-mobile-320-request.png",
+          "sha256": "99acab5c16ad5a7d162871b3264ce00acf32668fa74c23f1d78f177c230035e7"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-LIVE",
+      "status": "pass",
+      "method": "17 групп ×3 движка. Основная матрица50PASS/1timingFAIL дополнена адресной проверкой6PASS/0FAIL. По browser+name все51группы подтверждены; исходные результаты сохранены.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "matrix-report.json",
+          "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+        },
+        {
+          "path": "back-recheck-report.json",
+          "sha256": "750013001bc959d8f9a95f376e91e97c15641369e1a6d1ab8200ddf7dbf7ceae"
+        },
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-SAFARI",
+      "status": "blocked",
+      "method": "Проверено фактическое подключение Browser: Chrome; Playwright WebKit отдельно, не подмена Safari.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        }
+      ],
+      "reason": "Нативный Safari не подключен к доступному инструменту браузера; реальный Safari-прогон отсутствует."
+    },
+    {
+      "requirement_id": "P10-PRODUCTION-BOUNDARY",
+      "status": "pass",
+      "method": "Проверены выделенный домен и выпуск, неизвестные HTTP-пути, сохраненная доступность прежней галереи; production не изменялся.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "delivery.json",
+          "sha256": "9833a2be9f449e7ea35fb1eac31d36a929e0fffb1cbe4cbdbd60f5925d84af43"
+        },
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-HANDOFF",
+      "status": "pass",
+      "method": "Сохранены текущая ведомость, исходные результаты,6скриншотов, SHA, точная версия и следующий шаг; историческая приемка сохранена.",
+      "observed_at": "2026-11-11T08:32:27.778027+00:00",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+        },
+        {
+          "path": "delivery.json",
+          "sha256": "9833a2be9f449e7ea35fb1eac31d36a929e0fffb1cbe4cbdbd60f5925d84af43"
+        },
+        {
+          "path": "../../CHECKPOINT.md",
+          "sha256": "12987bbee6ffc70ac1b4263f8eddf59adc7b3f68343e030eb3791761e4a29522"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "../../CHECKPOINT.md",
+      "sha256": "12987bbee6ffc70ac1b4263f8eddf59adc7b3f68343e030eb3791761e4a29522"
+    },
+    {
+      "path": "../../README.md",
+      "sha256": "649b6a748743b3477958748856f5d3e27ffd9b64e79162e1978bca522b9ab925"
+    },
+    {
+      "path": "check-homepage.mjs",
+      "sha256": "b667f7cbc363fd860c91d18cc047268e31966a0f0a9ccd2d1afb45e8bee2f2a3"
+    },
+    {
+      "path": "figma-source-review.md",
+      "sha256": "829478cf74eb694af8250ed842f12780c4337d749c7961bdc7ed49320297b1e3"
+    },
+    {
+      "path": "review.md",
+      "sha256": "c8efee7a91a01c4ae943b4988fbded2aac5b7601432d6c84ff9a6550be8e08d1"
+    },
+    {
+      "path": "matrix-report.json",
+      "sha256": "456bb491dfb7653e6e606cce3c82d281aff81f5ea76756a51b3c192a21aca55d"
+    },
+    {
+      "path": "back-recheck-report.json",
+      "sha256": "750013001bc959d8f9a95f376e91e97c15641369e1a6d1ab8200ddf7dbf7ceae"
+    },
+    {
+      "path": "delivery.json",
+      "sha256": "9833a2be9f449e7ea35fb1eac31d36a929e0fffb1cbe4cbdbd60f5925d84af43"
+    },
+    {
+      "path": "screenshots/chromium-desktop-1440-dark.png",
+      "sha256": "46612b36fbe7afe59508396224d37cf45b0feabc2c5a7dd5a15eba1274bf4655"
+    },
+    {
+      "path": "screenshots/chromium-desktop-1440-light.png",
+      "sha256": "ea76bf6eb194c5e0f3fa7615705f93dd234c65be31d065740b8da078383fa3ff"
+    },
+    {
+      "path": "screenshots/chromium-mobile-320-hero.png",
+      "sha256": "1574208fcc66236bafd0535d5275d0daa1fd9718728d307dba899d7ac5a7b201"
+    },
+    {
+      "path": "screenshots/chromium-mobile-320-request.png",
+      "sha256": "99acab5c16ad5a7d162871b3264ce00acf32668fa74c23f1d78f177c230035e7"
+    },
+    {
+      "path": "screenshots/chromium-mobile-390-ecosystem.png",
+      "sha256": "f8e3caa4385373e0f5d84817b46891cce7ecde8dfa428555c65d85b6f1717516"
+    },
+    {
+      "path": "screenshots/chromium-mobile-390-hero.png",
+      "sha256": "52ec75c94af41f2b75a2626d61bedfc9f35fad77b688bdfc21499a2ce0974f55"
+    }
+  ],
+  "delivery": {
+    "status": "verified",
+    "method": "Подтверждено соответствие опубликованных байтов принятой сборке.",
+    "evidence": [
+      {
+        "path": "delivery.json",
+        "sha256": "9833a2be9f449e7ea35fb1eac31d36a929e0fffb1cbe4cbdbd60f5925d84af43"
+      }
+    ]
+  },
+  "blockers": [
+    "P10-SAFARI: доступный Browser подключен к Chrome, завершенного прогона нативного Safari нет."
+  ],
+  "next_step": "Проверить опубликованную версию в нативном Safari: светлую/темную темы, мобильное меню, fixed UI, маски, форму, диалоги и Back. После фактических доказательств обновить P10-SAFARI и общий outcome; WebKit не считать Safari."
+}
