@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "task_id": "dpeco-page10-dark-theme-2026-11-11",
+  "recorded_at": "2026-11-11T07:16:00+00:00",
+  "outcome": "partial",
+  "classification": "SOURCE_FACT",
+  "scope": "Переверстка главной DPECO под Figma Page 10, сохранение существующих эффектов и вторичных маршрутов, адаптивная светлая и темная темы. Публикация на существующем GitHub Pages preview.",
+  "application": {
+    "repository": "https://github.com/IMONsergey/DPECO",
+    "preview_url": "https://imonsergey.github.io/DPECO/",
+    "requested_route": "https://imonsergey.github.io/DPECO/#/?section=ecosystem",
+    "commit": "461a96f10159abf3b729e2c5124126354474b629",
+    "commit_url": "https://github.com/IMONsergey/DPECO/commit/461a96f10159abf3b729e2c5124126354474b629",
+    "previous_visual_checkpoint": "65961b5",
+    "change_after_previous_checkpoint": "Только композиция и размеры декоративных масок блока консультации.",
+    "production_domain": "https://debtprice.market/",
+    "production_domain_modified": false,
+    "architecture": "Vite, TypeScript, CSS; сохранены hash-маршруты."
+  },
+  "design_source": {
+    "url": "https://www.figma.com/design/s1OW0lfbe6GaUqhrKlHDrK/?node-id=391-827",
+    "file_key": "s1OW0lfbe6GaUqhrKlHDrK",
+    "page_name": "Page 10",
+    "page_id": "391:826",
+    "main_frame_id": "391:827",
+    "reference_dimensions": [
+      1440,
+      8441
+    ],
+    "authority": "USER_DECISION: актуальный визуальный эталон из поручения от 11.11.2026."
+  },
+  "build_and_delivery": {
+    "status": "pass",
+    "reported_by": "root implementation and deployment review",
+    "method": "TypeScript check, production build, GitHub Actions readback and published HTML readback.",
+    "commands": [
+      {
+        "command": "npm run typecheck",
+        "status": "pass"
+      },
+      {
+        "command": "npm run build",
+        "expands_to": "tsc --noEmit && vite build",
+        "status": "pass"
+      }
+    ],
+    "github_actions": {
+      "url": "https://github.com/IMONsergey/DPECO/actions/runs/42977895721",
+      "run_id": 42977895721,
+      "commit": "461a96f10159abf3b729e2c5124126354474b629",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "published_html": {
+      "url": "https://imonsergey.github.io/DPECO/",
+      "status": "pass",
+      "css_bundle": "style-xL77OcdW.css",
+      "javascript_bundle": "index-DJp7-E0L.js",
+      "evidence_type": "Readback of the published HTML, reported in the deployment review."
+    },
+    "changed_source": {
+      "path": "src/page10-sections.css",
+      "sha256": "577d3f77ebd4703685dff4ff9315b170b35e32df743b69d5279b48eef6399fb6",
+      "source_url": "https://github.com/IMONsergey/DPECO/blob/461a96f10159abf3b729e2c5124126354474b629/src/page10-sections.css"
+    }
+  },
+  "implementation_review": {
+    "status": "pass",
+    "method": "Review of source, design contexts, rendered content and route integration; this is not a live interaction certification.",
+    "homepage_sections": [
+      "Header",
+      "Hero and next auction",
+      "Auction schedule",
+      "Sell and buy choices",
+      "Partners",
+      "Offer",
+      "Capabilities",
+      "Auction formats",
+      "Process",
+      "Consultation",
+      "Ecosystem",
+      "Articles",
+      "Footer"
+    ],
+    "changes": [
+      "Updated Page 10 content and responsive layout",
+      "Persistent light/dark theme implementation",
+      "Original Figma artwork and complete brand exports",
+      "Local Manrope variable font",
+      "Dated auction snapshot with Moscow timestamps",
+      "Honest email-draft consultation flow"
+    ],
+    "existing_effects_retained_in_code": [
+      "WebGL globe",
+      "Pointer dot field",
+      "Partner marquee",
+      "Word reveals",
+      "Tab indicators",
+      "Capability transitions",
+      "Chart explanations",
+      "Route transitions"
+    ],
+    "reviewed_logic": [
+      "Theme state and persistence code",
+      "Keyboard tab-group code",
+      "Dropdown search code",
+      "Date boundaries and elapsed-auction handling",
+      "Effect lifecycle cleanup"
+    ],
+    "preserved_secondary_routes": true,
+    "live_motion_and_interaction_status": "blocked",
+    "qualification": "Code integration and static renders do not prove all animations, keyboard paths or interaction transitions in a live browser."
+  },
+  "visual_review": {
+    "status": "pass",
+    "method": "Full-page inspection of real published-page captures, comparison with Figma, correction of observed defects and targeted repeat captures.",
+    "coverage": [
+      {
+        "width": 1440,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "extent": "full page",
+        "status": "pass"
+      },
+      {
+        "width": 390,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "extent": "full page",
+        "status": "pass"
+      },
+      {
+        "width": 320,
+        "themes": [
+          "light"
+        ],
+        "extent": "full page",
+        "status": "pass"
+      },
+      {
+        "width": 1024,
+        "themes": [
+          "light"
+        ],
+        "extent": "full page",
+        "status": "pass"
+      }
+    ],
+    "repeat_coverage_after_fixes": [
+      {
+        "checkpoint": "65961b5",
+        "width": 320,
+        "themes": [
+          "dark"
+        ],
+        "status": "pass",
+        "focus": [
+          "Schedule period tabs",
+          "Long CTA text and arrow",
+          "Dark sell card",
+          "Nearby overlaps"
+        ]
+      },
+      {
+        "checkpoint": "65961b5",
+        "width": 1024,
+        "themes": [
+          "light"
+        ],
+        "status": "pass"
+      },
+      {
+        "checkpoint": "65961b5",
+        "width": 1440,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "status": "pass",
+        "focus": [
+          "Partner logo mapping, size and tone",
+          "Previously reported visual defects"
+        ]
+      }
+    ],
+    "resolved_findings": [
+      {
+        "finding": "Narrow schedule period text extended beyond its background",
+        "status": "pass",
+        "repeat_capture": "verified-dark320-sheet-0.png"
+      },
+      {
+        "finding": "Long debit-receivables CTA compressed its arrow",
+        "status": "pass",
+        "repeat_capture": "verified-dark320-sheet-1.png",
+        "result": "Text wraps to two lines and the arrow remains visible."
+      },
+      {
+        "finding": "Dark sell-card readability",
+        "status": "pass",
+        "repeat_capture": "verified-dark320-sheet-1.png"
+      },
+      {
+        "finding": "SKM card used the Trust image",
+        "status": "pass",
+        "repeat_capture": "verified-light1440-2.png",
+        "result": "Correct SKM>>> artwork."
+      },
+      {
+        "finding": "SKM and Trust SVGs stretched by flex alignment",
+        "status": "pass",
+        "repeat_capture": "verified-light1440-2.png",
+        "result": "SKM approximately 99 x 21 px; Trust SVG 51 x 50 px; partner cards approximately 152 px high."
+      },
+      {
+        "finding": "PKB artwork proportions",
+        "status": "pass",
+        "repeat_capture": "verified-light1440-2.png",
+        "result": "95 x 36 px."
+      },
+      {
+        "finding": "Observed wrapping, contrast, logo, background and arrow defects",
+        "status": "pass",
+        "result": "Corrected and rechecked in the recorded coverage."
+      }
+    ],
+    "final_consultation_mask": {
+      "status": "pass",
+      "commit": "461a96f10159abf3b729e2c5124126354474b629",
+      "url": "https://imonsergey.github.io/DPECO/?theme=light",
+      "http_status": 200,
+      "capture_dimensions": [
+        1440,
+        8410
+      ],
+      "capture_bytes": 4380514,
+      "capture_sha256": "aa5b58c4faf617157f6f6f30091a01ef0e4142e72e02e97ed5caef5a9f33a945",
+      "capture_service": "Firecrawl",
+      "scrape_id": "01a1c975-35aa-727c-a9fb-581d504745f3",
+      "reviewers": [
+        "root",
+        "project_requirements"
+      ],
+      "finding": "The hard right edge disappeared. The soft arc, edges and contrast match the Figma reference; no overlap with form content was observed.",
+      "review_extent": "Final consultation mask composition and adjacent content.",
+      "pending": false
+    },
+    "version_qualification": "The broad visual matrix was completed before the last mask-only patch. The final application commit received the targeted consultation-mask repeat above. No claim is made that every viewport was recaptured after the last patch.",
+    "interaction_qualification": "Static screenshots cannot certify swipes, menus, theme-button state transitions, form errors, email-draft opening or animation timing."
+  },
+  "assets": {
+    "status": "pass",
+    "public_directory": "public/assets/page10",
+    "file_count": 75,
+    "total_bytes": 12270035,
+    "source_policy": "Original Figma assets and exact whole-logo exports; no generated or redrawn brand replacements.",
+    "referenced_files_exist": true,
+    "webp_conversion": {
+      "method": "Lossless WebP; decoded RGBA equality checked against original PNG/JPEG files.",
+      "converted_files": 41,
+      "equal_rgba_files": 41,
+      "smaller_companions": 34,
+      "qualification": "Only beneficial referenced replacements were retained in the runtime asset set; unused originals and exports were archived outside the repository."
+    },
+    "manrope": {
+      "status": "pass",
+      "path": "public/assets/fonts/manrope-variable.woff2",
+      "bytes": 53892,
+      "sha256": "30b83738add8c9edd9e3450b98036a9a8fb5668d0cbd4eb0ce5fe6761197f21f",
+      "source_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf",
+      "license_path": "public/assets/fonts/Manrope-OFL.txt",
+      "license_sha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b",
+      "source_record_path": "public/assets/fonts/Manrope-SOURCE.md",
+      "weights": [
+        200,
+        800
+      ],
+      "glyphs": 742,
+      "coverage": [
+        "Cyrillic",
+        "Latin"
+      ],
+      "verification": "WOFF2 decompression preserved cmap, glyph order, outlines, horizontal metrics, variation data and axes."
+    }
+  },
+  "content_and_integration_limits": {
+    "auction_data": {
+      "status": "pass",
+      "snapshot_date": "2026-11-10",
+      "live_api_connected": false,
+      "displayed_as_dated_snapshot": true,
+      "authoritative_portal": "https://debtprice.market/",
+      "timezone": "Europe/Moscow",
+      "qualification": "Displayed rows are a dated content snapshot, not a claim of live auction status."
+    },
+    "consultation": {
+      "status": "pass",
+      "behavior": "Client validation and preparation of an email draft in the existing mail flow.",
+      "crm_integration": false,
+      "sent_confirmation": false,
+      "data_sent_during_qa": false,
+      "required_processing_consent_separate_from_optional_marketing": true,
+      "qualification": "The interface does not claim that a request was sent. Actual live form and mail-client interaction remains part of the blocked interactive run."
+    },
+    "source_fidelity_vs_business_verification": "Visual/content fidelity to the supplied design does not independently verify business claims, memberships, legal wording or production integrations.",
+    "production_readiness_claimed": false
+  },
+  "blocked_checks": [
+    {
+      "id": "live_interactions",
+      "status": "blocked",
+      "reason": "After reload, the available CUA browser returned 'upstream connect timeout', preventing completion of the full live interactive run.",
+      "classification": "BLOCKER: browser/tool transport failure",
+      "site_error": false,
+      "bot_challenge": false,
+      "required_scenarios": [
+        "Navigation and secondary-route transitions",
+        "Header menus, dropdowns, search and keyboard focus",
+        "Theme toggle, persistence and system-theme behavior",
+        "Schedule period and portfolio filters",
+        "Capability tabs and swipe behavior",
+        "Format dialogs and close paths",
+        "Form validation, consent states and email-draft opening",
+        "Actual animation and reduced-motion behavior"
+      ],
+      "next_step": "Restore a working authorized live-browser session and run the listed scenarios on the current published commit."
+    },
+    {
+      "id": "safari",
+      "status": "blocked",
+      "reason": "No completed live Safari session was available for final acceptance.",
+      "qualification": "Chromium-based captures and static review do not substitute for Safari behavior verification.",
+      "next_step": "Run the same relevant layout and interaction scenarios in actual Safari, including masks, fixed UI, theme state and form behavior."
+    }
+  ],
+  "acceptance_policy": "All requirements remain in scope. Passed build, HTTP 200 and screenshot checks do not close blocked live-interaction or Safari criteria.",
+  "next_step": "Complete the live interactive browser run and Safari acceptance on the published candidate. Repair and recheck any new defect, then update this report and the hashed acceptance receipt.",
+  "report_privacy": "Contains public source and CI URLs, repository-relative paths and evidence fingerprints only; excludes internal server paths and signed capture URLs."
+}

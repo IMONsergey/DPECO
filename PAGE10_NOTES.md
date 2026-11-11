@@ -1,18 +1,57 @@
 # DPECO: Figma Page 10
 
-Source: https://www.figma.com/design/s1OW0lfbe6GaUqhrKlHDrK/?node-id=391-827
-Page: 391:826. Main frame: 391:827.
+## Статус сдачи
 
-## Scope
-Homepage sections, shared header/footer, responsive layouts and persistent light/dark theme. Existing secondary routes and effect modules remain integrated. Original WebGL globe, pointer dot field, partner motion, word reveals, tab indicators, capability transitions, chart explanations and route transitions remain active.
+**Частично принято (partial).** Переверстка, темная тема, техническая сборка и визуальная приемка выполнены. Полный живой интерактивный прогон и Safari остаются **blocked**. Успешная сборка, HTTP 200 и скриншоты не заменяют эти проверки.
 
-## Content and integrations
-Auction rows are a dated snapshot from the supplied design (10 November 2026), with a separate earlier archive. Countdown uses Moscow timestamps and excludes elapsed auctions. The trading portal remains authoritative.
-The consultation form validates fields and prepares an email draft using the existing flow. It is not a Bitrix24 integration and does not claim the request has been sent. Marketing consent is separate and optional.
+- Приложение: [GitHub Pages](https://imonsergey.github.io/DPECO/).
+- Итоговый коммит приложения: [`461a96f10159abf3b729e2c5124126354474b629`](https://github.com/IMONsergey/DPECO/commit/461a96f10159abf3b729e2c5124126354474b629).
+- [GitHub Actions run 42977895721](https://github.com/IMONsergey/DPECO/actions/runs/42977895721): completed / success.
+- Эталон: [Figma Page 10](https://www.figma.com/design/s1OW0lfbe6GaUqhrKlHDrK/?node-id=391-827), страница `391:826`, главный фрейм `391:827`, 1440 × 8441.
+- Подробные факты и покрытие: [verification.json](qa/page10/verification.json). Ведомость с SHA256 доказательств: [acceptance.json](qa/page10/acceptance.json).
 
-## Assets
-Original Figma graphics and whole vector logos are local. Large raster replacements are lossless WebP; decoded RGBA was checked against originals. Unused exports were removed. Page 10 assets: 73 files, 12,256,614 bytes. Manrope variable font is local, with its OFL license.
+## Что изменено
 
-## Validation checkpoint
-TypeScript and production build pass. Independent code review verified date edge cases, theme state, keyboard tab groups, dropdown search and lifecycle cleanup. All referenced assets exist.
-Public browser acceptance is in progress; this checkpoint does not certify visual acceptance.
+Главная переверстана под актуальный контент Page 10: первый экран, ближайшие торги, расписание, продажа и покупка, партнеры, предложение, возможности платформы, форматы, процесс, консультация, экосистема, статьи и footer. Обновлены общие header/footer, адаптивная сетка и светлая/темная тема.
+
+Существующие вторичные hash-маршруты сохранены. В коде остаются WebGL-глобус, поле точек, движение партнеров, появление слов, индикаторы вкладок, переходы возможностей, объяснения графиков и переходы маршрутов. Интеграция и очистка ресурсов проверены по коду; полный фактический прогон анимаций включен в незакрытую интерактивную приемку.
+
+## Что подтверждено
+
+| Проверка | Статус и границы |
+| --- | --- |
+| TypeScript и production build | PASS: `npm run typecheck`; `npm run build` выполняет `tsc --noEmit && vite build`. |
+| Публикация | PASS: CI успешен; readback опубликованного HTML содержит CSS `style-xL77OcdW.css` и JS `index-DJp7-E0L.js`. |
+| Полные визуальные просмотры | PASS: light/dark при 1440 и 390 px; light при 320 и 1024 px. |
+| Повторная приемка после исправлений `65961b5` | PASS: dark 320, light 1024, light/dark 1440. Исправлены найденные переносы, контраст, логотипы, фоны и стрелки. |
+| Финальная маска консультации | PASS на `461a96f10159abf3b729e2c5124126354474b629`: правый жесткий край исчез, мягкая дуга и контраст соответствуют Figma, перекрытий содержимого нет. Подтверждено основным и независимым проверяющими. |
+| Контент и логика по коду | Проверены границы дат, состояние темы, клавиатурные группы вкладок, поиск dropdown и lifecycle cleanup. Это не сертификат живого взаимодействия. |
+
+После `65961b5` менялись только композиция и размеры декоративных масок консультации. Широкая визуальная матрица относится к предшествующему проверенному состоянию; для финального коммита повторно проверена измененная область. Все viewport заново после последнего патча не заявляются.
+
+Финальный опубликованный снимок light: 1440 × 8410, 4 380 514 байт, HTTP 200. SHA256: `aa5b58c4faf617157f6f6f30091a01ef0e4142e72e02e97ed5caef5a9f33a945`. Подписанные адреса снимков и внутренние серверные пути в репозиторий не включены.
+
+## Ассеты и шрифты
+
+Использованы локальные оригинальные изображения Figma и целые экспортированные логотипы. В `public/assets/page10` **75 файлов, 12 270 035 байт**. Для lossless WebP проверено совпадение декодированного RGBA с оригиналами; неиспользуемые экспорты вынесены из runtime-набора.
+
+Manrope variable размещен локально вместе с отдельной OFL-лицензией и записью источника: `manrope-variable.woff2`, `Manrope-OFL.txt`, `Manrope-SOURCE.md` в `public/assets/fonts`. Существующая лицензия другого шрифта не заменялась.
+
+## Контент и интеграции
+
+Расписание содержит явно датированный срез **10.11.2026**, а не подключенный live API. Отсчет использует московское время и исключает истекшие старты. Авторитетным источником актуальных условий остается торговая площадка.
+
+Форма консультации проверяет поля и **подготавливает письмо** через существующий mail-flow. CRM не подключена; интерфейс не утверждает, что заявка отправлена. Обязательное согласие на обработку данных отделено от необязательного рекламного согласия. Тестовая отправка данных не выполнялась.
+
+Соответствие макету не является самостоятельным подтверждением бизнес-утверждений, статусов, юридических текстов или готовности интеграций к запуску. Боевой [debtprice.market](https://debtprice.market/) не изменялся.
+
+## Что остается blocked
+
+1. **Полный живой интерактивный прогон.** После reload доступный CUA-браузер возвращал `upstream connect timeout`. Это сбой транспорта браузерного инструмента, а не установленная ошибка сайта или bot challenge. Не подтверждены весь набор кликов, клавиатурных сценариев, переходов состояния темы, фильтров, каруселей, модальных окон, ошибок формы и открытия почтового черновика.
+2. **Safari.** Финального живого прогона в Safari нет. Статические снимки и проверки в другом движке его не заменяют.
+
+Следующий шаг: восстановить рабочую разрешенную браузерную сессию, выполнить полный интерактивный прогон текущего коммита и отдельную приемку Safari, исправить обнаруженные проблемы и обновить отчеты с новыми доказательствами. До этого итог остается `partial`.
+
+## Приемочная ведомость
+
+`qa/page10/acceptance.json` использует схему версии 1 навыка «Результат IMON». Каждый критерий сохранен; `blocked` не заменен на `not_applicable`. Проверка ведомости подтверждает структуру, наличие файлов и SHA256; она не заменяет визуальную или браузерную приемку. Для корректно описанного незавершенного результата ожидается код выхода **2**.

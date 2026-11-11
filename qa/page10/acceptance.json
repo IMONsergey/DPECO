@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "task_id": "dpeco-page10-dark-theme-2026-11-11",
+  "scope": "Переверстка главной DPECO по Figma Page 10, сохранение анимаций и визуальных эффектов, темная тема, адаптивная и браузерная приемка, публикация на существующем GitHub Pages preview. Боевой debtprice.market не входит в область изменений.",
+  "outcome": "partial",
+  "application_commit": "461a96f10159abf3b729e2c5124126354474b629",
+  "requirements": [
+    {
+      "id": "P10-CONTENT",
+      "text": "Переверстать главную под актуальный контент и состав Figma Page 10, сохранив существующие вторичные маршруты.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-RESPONSIVE",
+      "text": "Проверить композицию, кириллические переносы, изображения, кнопки и отсутствие непреднамеренных перекрытий на десктопных и мобильных размерах.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-THEME",
+      "text": "Реализовать светлую и темную темы и проверить читаемость тематических поверхностей, текста, логотипов и контролов.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-EFFECTS-INTEGRATION",
+      "text": "Сохранить подключение существующих анимаций и визуальных эффектов в обновленную главную и корректную очистку ресурсов.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-ASSETS",
+      "text": "Использовать правильные оригинальные локальные изображения и логотипы, сохранить качество оптимизированной графики и подключить Manrope с лицензией.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-CONTENT-LIMITS",
+      "text": "Показывать датированный срез торгов и честное поведение формы без ложного заявления о живом API, подключенной CRM или отправленной заявке.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-BUILD-DELIVERY",
+      "text": "Успешно собрать актуальное приложение и проверить публикацию нужной версии на существующем GitHub Pages preview.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-CONSULTATION-MASK",
+      "text": "Перепроверить финальную измененную композицию масок консультации на опубликованном кандидате.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-LIVE",
+      "text": "Завершить полный живой интерактивный прогон навигации, клавиатуры, темы, фильтров, каруселей, модальных окон, формы и сохраненных эффектов.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-SAFARI",
+      "text": "Выполнить финальную приемку компоновки и существенных взаимодействий в реальном Safari.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-PRODUCTION-BOUNDARY",
+      "text": "Сохранить границы поручения: обновить DPECO preview без изменения боевого debtprice.market.",
+      "required": true,
+      "allow_na": false
+    },
+    {
+      "id": "P10-HANDOFF",
+      "text": "Сохранить проверяемую проектную сдачу с версиями, источниками, фактическим покрытием и явным разделением pass и blocked.",
+      "required": true,
+      "allow_na": false
+    }
+  ],
+  "checks": [
+    {
+      "requirement_id": "P10-CONTENT",
+      "status": "pass",
+      "method": "Сопоставление высокодетального Figma-контекста, исходников и полных опубликованных рендеров; проверка состава секций и интеграции маршрутов.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "implementation_review"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-RESPONSIVE",
+      "status": "pass",
+      "method": "Полные просмотры light/dark 1440 и 390 px, light 320 и 1024 px; после исправлений повторены dark 320, light 1024, light/dark 1440. Покрытие и версия каждого этапа зафиксированы в отчете.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "visual_review"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-THEME",
+      "status": "pass",
+      "method": "Исходники состояния темы и persistence проверены отдельно от визуальных просмотров обеих тем. Фактические переключения и сохранение состояния в живом браузере остаются в P10-LIVE.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "visual_review; implementation_review.reviewed_logic"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-EFFECTS-INTEGRATION",
+      "status": "pass",
+      "method": "Проверены исходные модули эффектов, вызовы и lifecycle cleanup. Эта проверка подтверждает интеграцию по коду; визуальное исполнение всех эффектов и reduced-motion входит в P10-LIVE.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "implementation_review"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-ASSETS",
+      "status": "pass",
+      "method": "Проверены 75 локальных Page 10 файлов общим размером 12 270 035 байт и существование используемых ссылок. Lossless-конвертации сравнены по декодированному RGBA; логотипы сверены с Figma и повторными рендерами; Manrope и OFL проверены по файлам и хешам.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "assets"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-CONTENT-LIMITS",
+      "status": "pass",
+      "method": "Просмотр подписей и формы, проверка кода дат/московской зоны и mail-draft flow. Обязательное и добровольное согласия разделены. Реальная отправка данных не проводилась.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "content_and_integration_limits"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-BUILD-DELIVERY",
+      "status": "pass",
+      "method": "TypeScript и production build PASS; Actions run 42977895721 completed/success для 461a96f10159abf3b729e2c5124126354474b629; readback опубликованного HTML подтвердил CSS style-xL77OcdW.css и JS index-DJp7-E0L.js.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "build_and_delivery"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-CONSULTATION-MASK",
+      "status": "pass",
+      "method": "Основной и независимый reviewers просмотрели финальный capture 1440 x 8410, HTTP 200, SHA256 aa5b58c4faf617157f6f6f30091a01ef0e4142e72e02e97ed5caef5a9f33a945. Мягкая дуга соответствует Figma; жестких краев и перекрытий содержимого нет.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "visual_review.final_consultation_mask"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-LIVE",
+      "status": "blocked",
+      "method": "Попытка продолжить CUA-сессию после reload; статические captures и код не использованы как замена фактическим взаимодействиям.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "blocked_checks.live_interactions"
+        }
+      ],
+      "reason": "CUA после reload вернул upstream connect timeout. Это блокер транспорта браузерного инструмента, а не установленная ошибка сайта или bot challenge. Полный живой прогон не завершен."
+    },
+    {
+      "requirement_id": "P10-SAFARI",
+      "status": "blocked",
+      "method": "Проверено фактическое покрытие: завершенной живой Safari-сессии нет; captures из другого движка не засчитаны как Safari.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "blocked_checks.safari"
+        }
+      ],
+      "reason": "Живой Safari-прогон недоступен в завершенном наборе проверок. Маски, тема, fixed UI, навигация и форма в Safari остаются неподтвержденными."
+    },
+    {
+      "requirement_id": "P10-PRODUCTION-BOUNDARY",
+      "status": "pass",
+      "method": "Проверены адрес доставки и перечень выполненных операций; публикация относится к GitHub Pages, боевой домен не изменялся.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "application; content_and_integration_limits.production_readiness_claimed"
+        }
+      ]
+    },
+    {
+      "requirement_id": "P10-HANDOFF",
+      "status": "pass",
+      "method": "Записаны и перечитаны PAGE10_NOTES.md и verification.json; acceptance.json связывает обязательные критерии с SHA256 этих локальных отчетов. Внутренние серверные пути и подписанные capture URLs не включены.",
+      "observed_at": "2026-11-11T07:16:00+00:00",
+      "evidence": [
+        {
+          "path": "verification.json",
+          "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+          "section": "acceptance_policy; report_privacy"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "../../PAGE10_NOTES.md",
+      "sha256": "59391b2cd527d702b65745c651e3404bd2182ac8d3670ce95d932e9fd3412340"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b"
+    }
+  ],
+  "receipt_artifact_note": "The receipt does not include its own SHA256 to avoid a circular fingerprint; its file is validated directly by check_completion.py.",
+  "delivery": {
+    "status": "verified",
+    "method": "GitHub Pages application delivery verified by CI and published HTML readback; handoff report files saved in the project working tree for repository integration.",
+    "evidence": [
+      {
+        "path": "verification.json",
+        "sha256": "c050b1536e915368ca19728d42881503aa10ff9723953c32409754d6c89de49b",
+        "section": "build_and_delivery"
+      },
+      {
+        "path": "../../PAGE10_NOTES.md",
+        "sha256": "59391b2cd527d702b65745c651e3404bd2182ac8d3670ce95d932e9fd3412340"
+      }
+    ]
+  },
+  "blockers": [
+    "Full live interaction acceptance is blocked: CUA reload returns upstream connect timeout. This is a browser/tool transport blocker, not an established site failure or bot challenge.",
+    "Safari acceptance is blocked: no completed live Safari run is available; static captures from another engine do not satisfy this criterion."
+  ],
+  "next_step": "Restore an authorized live-browser session and complete P10-LIVE on commit 461a96f10159abf3b729e2c5124126354474b629, then run P10-SAFARI in actual Safari. Fix and recheck any new issue, save observed evidence, update verification.json and recompute all receipt fingerprints. Keep outcome partial until both required checks pass."
+}
