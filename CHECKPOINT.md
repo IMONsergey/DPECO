@@ -1,5 +1,16 @@
 # DEBTPRICE: правки по документу 11 ноября 2026
 
+## Точное продолжение итоговой проверки и публикации
+
+- Чистая серверная копия: `/home/sergey/Projects/DPECO-publish-20261111`.
+- Действующее единственное задание: `20261111T161617-2c7338bf56`, `bash qa/homepage/build-and-verify.sh`, timeout2700s. На 16:30 UTC еще queued; слот занят другим заданием. Не ставить дубли и не отменять чужие процессы.
+- Статус и лог: `/home/sergey/.local/state/imon-jobs/20261111T161617-2c7338bf56/{status.json,output.log}`.
+- После старта: принять новые `qa/homepage/results/preview.json`, `client-review-suite-*.json` и соответствующий `*/report.json`. Требуется 63 PASS / 0 FAIL, пустые runtimeErrors/networkWrites/assetErrors/popups/navigationAttempts и неизменность исходников/сборки.
+- Просмотреть новые Chromium full1280light/dark: переносы двух CTA продажи и все иллюстрации форматов/шагов; проверить320/390. Старые снимки не выдавать за новую сборку.
+- Публикация уже прямо разрешена пользователем. После успешной приемки: `python3 qa/homepage/publish-server.py` (read-only dry-run), затем `python3 qa/homepage/publish-server.py --publish`.
+- Публичный readback: `python3 qa/homepage/verify-published.py`; затем открыть `https://debtprice.imon.world/` в живом браузере, убедиться в новой сборке и отсутствии переходов, сохранить screenshot и точную версию. На момент записи публикация еще НЕ выполнена.
+- Нативный Safari не подключен. Его приемку нельзя подменять Playwright WebKit. Боевой `debtprice.market` не входит в поручение.
+
 ## Изолированная публикация после расхождения исходников
 
 Job `20261111T161054-c9b3c504be` отменен до запуска 16:14 UTC: после успешной сверки пяти перенесенных файлов серверная рабочая копия получила сторонние изменения `capabilities.css`, `capabilities.ts`, `page10-sections.css`, `page10.css`. Текущие агенты их не выполняли. Изменения сохраняются отдельно и не перезаписываются. Проверенный коммит исправлений — `a5039d9c871982549dda8421c6914678c12bfded`, tree `575478869beb47d12f1d542f807ebfad7ddfa6bf`.
