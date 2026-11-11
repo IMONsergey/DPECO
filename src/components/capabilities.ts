@@ -89,16 +89,14 @@ const items: readonly Capability[] = [
   },
 ];
 
-const additional: Record<Audience, { title: string; description: string; href: string }> = {
+const additional: Record<Audience, { title: string; description: string }> = {
   seller: {
     title: 'Портфели любого объёма',
     description: 'От одного договора',
-    href: '#request',
   },
   buyer: {
     title: 'Долги перед сервисами',
     description: 'Каршеринг и операторы услуг',
-    href: '#lots',
   },
 };
 
@@ -108,12 +106,6 @@ const actionLabels: Record<Audience, string> = {
 };
 
 const mounts = new WeakMap<HTMLElement, Cleanup>();
-
-function destination(item: Capability, audience: Audience): string {
-  return audience === 'buyer'
-    ? `#lots?${new URLSearchParams({ category: item.buyerCategory, period: 'upcoming' })}`
-    : `#request?${new URLSearchParams({ kind: item.requestKind, interest: item.title.join(' ') })}`;
-}
 
 /** Hidden measuring lines reserve the larger of both texts without truncating either. */
 function measuringLines(values: readonly string[]): string {
@@ -140,7 +132,7 @@ function card(item: Capability, index: number): string {
                 ${measuringLines([item.description.seller, item.description.buyer])}
                 <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
               </div>
-              <a class="button button--primary capability-new__cta" href="${escapeHtml(destination(item, 'seller'))}" data-request-kind="${item.requestKind}" data-request-interest="${escapeHtml(item.title.join(' '))}" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span>${icon('arrow-right')}</a>
+              <a class="button button--primary capability-new__cta" role="link" aria-disabled="true" tabindex="-1" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span>${icon('arrow-right')}</a>
             </div>
           </div>
         </div>
@@ -248,7 +240,7 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
       if (trigger) {
         trigger.setAttribute('aria-expanded', String(expanded));
         trigger.tabIndex = compactLayout.matches ? -1 : 0;
-        // Small screens show the complete card; its only action is the destination link.
+        // Small screens show the complete card without requiring expansion.
         if (compactLayout.matches) trigger.setAttribute('aria-disabled', 'true');
         else trigger.removeAttribute('aria-disabled');
       }
@@ -375,18 +367,6 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     items.forEach((item) => {
       const link = section.querySelector<HTMLAnchorElement>(`[data-capability-new-link="${item.id}"]`);
       if (link) {
-        link.href = destination(item, next);
-        if (next === 'seller') {
-          link.dataset.requestKind = item.requestKind;
-          link.dataset.requestInterest = item.title.join(' ');
-          delete link.dataset.lotsCategory;
-          delete link.dataset.lotsPeriod;
-        } else {
-          delete link.dataset.requestKind;
-          delete link.dataset.requestInterest;
-          link.dataset.lotsCategory = item.buyerCategory;
-          link.dataset.lotsPeriod = 'upcoming';
-        }
         link.setAttribute('aria-label', `${actionLabels[next]}: ${item.title.join(' ')}`);
         replaceText(link.querySelector<HTMLElement>('span'), actionLabels[next]);
       }
@@ -394,16 +374,6 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     });
 
     if (extra) {
-      extra.href = additional[next].href;
-      if (next === 'seller') {
-        extra.dataset.requestKind = 'portfolio';
-        delete extra.dataset.lotsCategory;
-        delete extra.dataset.lotsPeriod;
-      } else {
-        delete extra.dataset.requestKind;
-        extra.dataset.lotsCategory = 'all';
-        extra.dataset.lotsPeriod = 'upcoming';
-      }
       extra.setAttribute('aria-label', `${actionLabels[next]}: ${additional[next].title}`);
     }
     replaceText(section.querySelector<HTMLElement>('[data-capability-new-extra-title]'), additional[next].title);

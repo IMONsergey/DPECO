@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="form-action 'none'" />
     <script>
       (() => {
         let saved = null;
@@ -25,7 +26,7 @@
   </head>
   <body>
     <div id="app"></div>
-    <noscript><main style="padding:40px;font-family:Arial,sans-serif"><h1>DEBTPRICE</h1><p>Платформа для продажи и покупки долговых активов.</p><p>Для просмотра лотов и интерактивных элементов включите JavaScript.</p><a href="https://my.debtprice.market/site/login">Войти в кабинет</a></main></noscript>
+    <noscript><main style="padding:40px;font-family:Arial,sans-serif"><h1>DEBTPRICE</h1><p>Платформа для продажи и покупки долговых активов.</p><p>Для просмотра главной страницы и интерактивных элементов включите JavaScript.</p></main></noscript>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

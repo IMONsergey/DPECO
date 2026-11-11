@@ -11,13 +11,6 @@ function requestedTheme(): Theme | null {
   return value === 'light' || value === 'dark' ? value : null;
 }
 
-function updateThemeUrl(theme: Theme): void {
-  const url = new URL(location.href);
-  if (!url.searchParams.has('theme')) return;
-  url.searchParams.set('theme', theme);
-  history.replaceState(history.state, '', url.href);
-}
-
 function storedTheme(): Theme | null {
   try {
     const value = localStorage.getItem(storageKey);
@@ -27,14 +20,14 @@ function storedTheme(): Theme | null {
   }
 }
 
-/** Rebind after rendering a route; the preference belongs to the whole site. */
+/** Apply the theme on the homepage without changing its address. */
 export function mountTheme(root: HTMLElement): () => void {
   mounts.get(root)?.();
   const abort = new AbortController();
   const { signal } = abort;
   const system = matchMedia('(prefers-color-scheme: dark)');
   // A direct theme link is an initial preview choice, never an implicit storage write.
-  // Keep later manual/storage changes across route mounts, even if storage is blocked.
+  // Keep later manual/storage changes across mounts, even if storage is blocked.
   if (sessionPreference === undefined) sessionPreference = requestedTheme() ?? storedTheme();
   let preference = sessionPreference;
   let disposed = false;
@@ -66,7 +59,6 @@ export function mountTheme(root: HTMLElement): () => void {
     preference = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     sessionPreference = preference;
     try { localStorage.setItem(storageKey, preference); } catch { /* The selected theme still works for this visit. */ }
-    updateThemeUrl(preference);
     apply();
   }, { signal });
 

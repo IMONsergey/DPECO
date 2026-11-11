@@ -7,8 +7,9 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 
-// Acceptance of the 11 November client document. These are disposable test
-// browsers, never the owner's session. No form submission or external writes.
+// Acceptance of the 11 November client document and the later instruction:
+// one homepage, with no navigation, separate screens or external handoffs.
+// These are disposable test browsers, never the owner's session.
 const require = createRequire(import.meta.url);
 const pw = require('/home/sergey/.local/share/imon-toolkit/node/node_modules/playwright');
 const project = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -32,11 +33,13 @@ async function manifest(directory, accept, prefix = '') {
   return Object.fromEntries(Object.entries(result).sort(([a], [b]) => a.localeCompare(b)));
 }
 const sourceBefore = await manifest(path.join(project, 'src'), name => /\.(ts|css)$/.test(name));
+const sourceHtmlBefore = digest(await fs.readFile(path.join(project,'index.html')));
 const buildBefore = await manifest(dist, name => name === 'index.html' || /\.(js|css)$/.test(name));
 const report = {
   phase, startedAt:new Date().toISOString(), sourceDocument:'https://docs.google.com/document/d/1hH3xng6E4rAf-Cfeqz9VMI788a7nFbq_0TAJrdfv444',
   output:out, project, scriptSha256:digest(await fs.readFile(fileURLToPath(import.meta.url))),
-  source:sourceBefore, build:buildBefore, checks:[], screenshots:[], browsers:[], runtimeErrors:[], networkWrites:[], assetErrors:[],
+  source:sourceBefore, sourceHtml:sourceHtmlBefore, build:buildBefore, checks:[], screenshots:[], browsers:[], runtimeErrors:[], networkWrites:[], assetErrors:[], popups:[], navigationAttempts:[],
+  scopeChange:'The later user instruction supersedes former outgoing-link, router, modal and history-navigation expectations. Their earlier raw reports remain historical evidence, not current acceptance gates.',
   safety:'Fresh isolated contexts; loopback dist; non-GET/HEAD requests blocked; no outgoing form, mail or CRM submission.',
   visualReview:'Screenshots require human/root review for typography, composition, logo appearance, hover quality and animation smoothness. A numeric pass is not full visual acceptance.',
 };
@@ -56,6 +59,7 @@ const server = http.createServer(async (req, res) => {
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const base = `http://127.0.0.1:${server.address().port}/`;
 report.baseURL = base;
+const authorizedNavigations = new WeakSet();
 
 async function until(read, accept, message, timeout = 8000) {
   const deadline = Date.now() + timeout;
@@ -71,10 +75,14 @@ async function frames(page) {
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 }
 async function open(page, { theme='light', hash='' } = {}) {
-  await page.goto(`${base}?theme=${theme}${hash}`, { waitUntil:'load' });
-  await page.evaluate(() => document.fonts.ready);
-  await until(() => page.locator('html').getAttribute('data-theme'), value => value === theme, 'Theme did not apply');
-  await frames(page);
+  authorizedNavigations.add(page);
+  try {
+    await page.goto(`${base}?theme=${theme}${hash}`, { waitUntil:'load' });
+    await page.evaluate(() => document.fonts.ready);
+    await until(() => page.locator('html').getAttribute('data-theme'), value => value === theme, 'Theme did not apply');
+    await frames(page);
+    assert.equal(page.url(),new URL(`${base}?theme=${theme}${hash}`).href,'Loading the homepage rewrote its address');
+  } finally { authorizedNavigations.delete(page); }
 }
 async function revealPage(page) {
   // Trigger the actual scroll observers, including the bottom sections. Do not
@@ -276,6 +284,85 @@ async function clippedContent(page) {
   });
 }
 
+async function navigationState(page) {
+  const state=await page.evaluate(()=>({url:location.href,historyLength:history.length,scrollY,dialogs:document.querySelectorAll('dialog, [role="dialog"]').length,homepages:document.querySelectorAll('main .p10-home').length}));
+  return {...state,pages:page.context().pages().length};
+}
+function assertSamePage(before,after,{scroll=false}={}) {
+  assert.equal(after.url,before.url,'A control changed the URL');
+  assert.equal(after.historyLength,before.historyLength,'A control added a history entry');
+  assert.equal(after.pages,before.pages,'A control opened another tab/window');
+  assert.equal(after.dialogs,0,'A separate dialog screen appeared');
+  assert.equal(after.homepages,1,'The homepage was replaced');
+  if(scroll) assert.ok(Math.abs(after.scrollY-before.scrollY)<=2,`An inert control scrolled the document: ${before.scrollY} -> ${after.scrollY}`);
+}
+async function assertHomepageIsolated(page) {
+  const evidence=await page.evaluate(()=>{
+    const describe=el=>({tag:el.tagName,text:(el.textContent || '').replace(/\s+/gu,' ').trim().slice(0,90),href:el.getAttribute('href'),target:el.getAttribute('target'),download:el.getAttribute('download')});
+    const links=[...document.querySelectorAll('#app a')];
+    const routeButtons=[...document.querySelectorAll('.p10-format, .p10-auction__seller, .p10-auction__action button')];
+    const policies=[...document.querySelectorAll('meta[http-equiv]')].filter(el=>el.httpEquiv.toLowerCase()==='content-security-policy').map(el=>el.content);
+    return {
+      forbidden:[...document.querySelectorAll('#app a[href], #app area[href], #app [target], #app [download], #app form[action], #app [formaction], #app [formtarget]')].map(describe),
+      links:links.length,
+      incorrectLinks:links.filter(el=>el.getAttribute('aria-disabled')!=='true' || el.getAttribute('role')!=='link' || el.tabIndex!==(el.closest('[data-ecosystem-item]') ? 0 : -1)).map(describe),
+      routeButtons:routeButtons.length,
+      activeRouteButtons:routeButtons.filter(el=>el.getAttribute('aria-disabled')!=='true' || el.tabIndex!==-1).map(describe),
+      oldRouteTriggers:document.querySelectorAll('[data-open-documents], [data-open-lot], [data-p10-format-open]').length,
+      dialogs:document.querySelectorAll('dialog, [role="dialog"]').length,
+      homepages:document.querySelectorAll('main .p10-home').length,
+      refreshMeta:[...document.querySelectorAll('meta[http-equiv]')].some(el=>el.httpEquiv.toLowerCase()==='refresh'),
+      policies,
+    };
+  });
+  assert.equal(evidence.homepages,1,'Expected one rendered homepage');
+  assert.ok(evidence.links>=30,'Navigation audit did not find the expected visible and mobile content');
+  assert.deepEqual(evidence.forbidden,[],'A browser-followable destination remains in the page');
+  assert.deepEqual(evidence.incorrectLinks,[],'An inert link has incorrect disabled/focus semantics');
+  assert.ok(evidence.routeButtons>=4,'Expected the four format cards to remain in the page');
+  assert.deepEqual(evidence.activeRouteButtons,[],'A route button remains active');
+  assert.equal(evidence.oldRouteTriggers,0,'A former route trigger remains attached');
+  assert.equal(evidence.dialogs,0,'Secondary dialog screens remain in the DOM');
+  assert.equal(evidence.refreshMeta,false,'A meta refresh can navigate the page');
+  assert.ok(evidence.policies.some(policy=>policy.split(';').some(rule=>/^\s*form-action\s+'none'\s*$/i.test(rule))),'Native form navigation is not blocked by CSP');
+  assert.equal(page.context().pages().length,1,'An unexpected tab/window exists');
+  return evidence;
+}
+async function inertActivation(page,locator,modes=['click','ctrl-click','middle-click','Enter']) {
+  assert.equal(await locator.getAttribute('aria-disabled'),'true','Former navigation control is not marked disabled');
+  if(await locator.evaluate(el=>el.tagName==='A')) assert.equal(await locator.getAttribute('href'),null,'Former link still has href');
+  const observations=[];
+  for(const mode of modes) {
+    await locator.scrollIntoViewIfNeeded();
+    await locator.hover();
+    await delay(600);
+    await frames(page);
+    if(mode==='Enter') {
+      await locator.focus();
+      assert.equal(await locator.evaluate(el=>document.activeElement===el),true,'Cannot test Enter on the intended control');
+      await frames(page);
+    }
+    const point=await locator.evaluate(el=>{
+      const r=el.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2,top=document.elementFromPoint(x,y);
+      return {x,y,hit:top===el || el.contains(top),interceptor:top?.className};
+    });
+    assert.equal(point.hit,true,`Inert-control test would click an obstruction: ${JSON.stringify(point)}`);
+    const before=await navigationState(page);
+    if(mode==='Enter') await page.keyboard.press('Enter');
+    else if(mode==='ctrl-click') {
+      await page.keyboard.down('Control');
+      try { await page.mouse.click(point.x,point.y); }
+      finally { await page.keyboard.up('Control'); }
+    } else await page.mouse.click(point.x,point.y,{button:mode==='middle-click'?'middle':'left'});
+    await delay(220);
+    await frames(page);
+    const after=await navigationState(page);
+    assertSamePage(before,after,{scroll:true});
+    observations.push({mode,url:after.url,historyLength:after.historyLength,scrollDrift:after.scrollY-before.scrollY,pages:after.pages});
+  }
+  return observations;
+}
+
 const tooltipText = {
   DEBTPRICE:'Торговая площадка долговых активов. Продавайте и покупайте по цене рынка.',
   'Рынок Взыскания':'Новости и тренды долгового рынка, аналитика, судебная практика и интервью с ключевыми игроками.',
@@ -437,10 +524,9 @@ const cases = [
       await delay(150);
       const hit=await link.evaluate(el=>{const r=el.getBoundingClientRect(),top=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {hit:top===el||el.contains(top),interceptor:top?.className,text:el.textContent.trim()};});
       assert.equal(hit.hit,true,`CTA is covered by another element: ${JSON.stringify(hit)}`);
-      await link.click();
-      await until(()=>page.url(),url=>new URL(url).hash.startsWith('#lots?'),'Buyer CTA did not navigate');
-      assert.equal(await page.locator('#filter-individuals').getAttribute('aria-selected'),'true');
-      return {widthTransition:{targetId,start,end,intermediateFrames:intermediate.length,sampledFrames:samples.length},hit,destination:page.url()};
+      const activations=await inertActivation(page,link);
+      const isolation=await assertHomepageIsolated(page);
+      return {widthTransition:{targetId,start,end,intermediateFrames:intermediate.length,sampledFrames:samples.length},hit,activations,isolation};
     },
   },
   {
@@ -467,6 +553,108 @@ const cases = [
     },
   },
   {
+    name:'homepage-inert-links-and-controls',
+    async run(page) {
+      await open(page);
+      await revealPage(page);
+      const isolation=await assertHomepageIsolated(page), controls=[];
+      // Cover old hashes, account/registration, protocols, external media,
+      // document downloads and the former format/lot dialog triggers.
+      for(const selector of ['.header__brand','.header__actions .header__account','.header__actions .header__register','.header__phone','.header__email','.header__telegram','.hero__actions a','.p10-auction__seller','.p10-auction__action button','.p10-format','.p10-ecosystem-card--media .p10-ecosystem-card__button','.p10-article--featured','.p10-footer__bottom a']) {
+        if(selector==='.header__brand') await page.evaluate(()=>window.scrollTo({top:600,behavior:'instant'}));
+        controls.push({selector,activations:await inertActivation(page,page.locator(selector).first())});
+      }
+      await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+      for(const id of ['sellers','ecosystem']) {
+        await openDesktopMenu(page,id);
+        controls.push({selector:`#nav-panel-${id} a`,activations:await inertActivation(page,page.locator(`#nav-panel-${id} a`).first())});
+        await page.locator(`[data-nav-toggle="${id}"]`).press('Escape');
+      }
+      const skip=page.locator('[data-skip-content]');
+      await skip.focus();
+      const before=await navigationState(page);
+      await page.keyboard.press('Enter'); await frames(page);
+      assertSamePage(before,await navigationState(page),{scroll:true});
+      assert.equal(await page.locator('#main').evaluate(el=>document.activeElement===el),true,'Skip control did not focus the main content');
+      await assertHomepageIsolated(page);
+      return {isolation,controls,skip:'Focuses main without changing the address or scrolling'};
+    },
+  },
+  {
+    name:'dynamic-controls-search-and-local-draft-stay-on-homepage',
+    async run(page) {
+      await open(page);
+      const before=await navigationState(page), observations=[];
+      for(const theme of ['dark','light']) {
+        await page.locator('.header__bottom [data-theme-toggle]').click();
+        await until(()=>page.locator('html').getAttribute('data-theme'),value=>value===theme,'Theme toggle did not apply');
+        assertSamePage(before,await navigationState(page));
+        observations.push({theme,isolation:await assertHomepageIsolated(page)});
+      }
+      for(const [selector,attribute,value] of [['#filter-individuals','data-schedule-category','individuals'],['#filter-receivables','data-schedule-category','receivables'],['#period-previous','data-schedule-period','previous'],['#filter-all','data-schedule-category','all'],['#period-upcoming','data-schedule-period','upcoming']]) {
+        await page.locator(selector).click();
+        await until(()=>page.locator('#p10-schedule-results').getAttribute(attribute),actual=>actual===value,`Schedule did not apply ${selector}`);
+        await frames(page);
+        assertSamePage(before,await navigationState(page));
+        observations.push({selector,isolation:await assertHomepageIsolated(page)});
+      }
+      for(const audience of ['buyer','seller']) {
+        const tab=page.locator(`[data-capability-new-audience="${audience}"]`);
+        await tab.click();
+        await until(()=>tab.getAttribute('aria-selected'),value=>value==='true','Audience did not change');
+        await settledTabEvidence(page,'.capability-new__tabs');
+        await delay(750);
+        assertSamePage(before,await navigationState(page));
+        observations.push({audience,isolation:await assertHomepageIsolated(page)});
+      }
+      await checkHeaderSearch(page);
+      await page.locator('#header-search').press('Enter');
+      await delay(220); await frames(page);
+      assertSamePage(before,await navigationState(page));
+      const searchActivations=await inertActivation(page,page.locator('#nav-panel-search button[type="submit"]'));
+      await page.locator('#header-search').press('Escape');
+      const form=page.locator('[data-request-form]');
+      const fields={name:'Проверка интерфейса',email:'qa@example.test',phone:'+7 (900) 000-00-00',company:'Тестовая организация'};
+      for(const [name,value] of Object.entries(fields)) await form.locator(`[name="${name}"]`).fill(value);
+      await form.locator('[name="consent"]').check();
+      await form.locator('button[type="submit"]').click();
+      const status=form.locator('.request__status');
+      await until(()=>status.isVisible(),Boolean,'Local request draft did not appear');
+      const draft=await status.innerText();
+      assert.match(draft,/Черновик заявки/);
+      assert.match(draft,/Заявка не отправлена/);
+      for(const value of Object.values(fields)) assert.ok(draft.includes(value),`Local draft lost field: ${value}`);
+      assert.equal(await status.locator('[data-copy-request]').getAttribute('type'),'button','Copy action could submit the form');
+      assert.equal(await form.locator('a[href], [href^="mailto:"]').count(),0,'The local draft has an outgoing handoff');
+      assertSamePage(before,await navigationState(page));
+      const draftIsolation=await assertHomepageIsolated(page);
+      await form.locator('[name="name"]').fill('Обновлённый черновик');
+      assert.equal(await status.isVisible(),false,'Editing the form did not invalidate its stale draft');
+      assert.equal(await status.innerText(),'','Stale draft content remains after editing');
+      assertSamePage(before,await navigationState(page));
+      await assertHomepageIsolated(page);
+      return {observations,searchActivations,draft,draftIsolation,submission:'Local draft only; any network write fails the whole report'};
+    },
+  },
+  {
+    name:'legacy-addresses-render-only-homepage',
+    async run(page) {
+      const observations=[];
+      for(const hash of ['#/buyers','#/sellers/retail','#documents','#search?q=auction','#lot?id=credit','#request?kind=portfolio','#lots?category=individuals&period=previous']) {
+        await open(page,{hash});
+        const state=await navigationState(page),isolation=await assertHomepageIsolated(page);
+        assert.equal(new URL(state.url).hash,hash,'An entered legacy address was rewritten');
+        assert.equal(await page.locator('h1#hero-title').count(),1,'Legacy address opened another screen');
+        observations.push({hash,url:state.url,isolation});
+      }
+      const html=await fs.readFile(path.join(dist,'index.html'),'utf8');
+      const fallback=[...html.matchAll(/<noscript\b[^>]*>([\s\S]*?)<\/noscript>/gi)].map(match=>match[1]);
+      assert.ok(fallback.length>0,'The script-free homepage fallback is missing');
+      assert.ok(fallback.every(markup=>!/<(?:a|area)\b[^>]*\bhref\s*=|<meta\b[^>]*http-equiv\s*=\s*["']?refresh/i.test(markup)),'The script-free fallback exposes navigation');
+      return {observations,noscriptHasDestinations:false};
+    },
+  },
+  {
     name:'footer-ecosystem-logo-and-nonlink-social-icons',
     async run(page,engine) {
       await open(page);
@@ -475,8 +663,8 @@ const cases = [
       assert.equal(await nav.getAttribute('aria-labelledby'),'footer-ecosystem-title');
       const names=await nav.locator('a').evaluateAll(links=>links.map(link=>[...link.childNodes].filter(node=>node.nodeType===Node.TEXT_NODE).map(node=>node.textContent).join('').trim()));
       assert.deepEqual(names,['DEBTPRICE','СМИ «Рынок взыскания»','ПКО-300','Навигатор решений','DEBT TECH','DOLG TALK']);
-      const hrefs=await nav.locator('a').evaluateAll(links=>links.map(link=>link.href));
-      assert.deepEqual(hrefs,['https://my.debtprice.market/site/login','https://rvzrus.ru/','https://pko300.ru/','https://navigator.debt-tech.ru/','https://debt-tech.ru/','https://dolgtalk.ru/'],'Footer ecosystem links differ from the official destinations');
+      const links=await nav.locator('a').evaluateAll(items=>items.map(link=>({href:link.getAttribute('href'),disabled:link.getAttribute('aria-disabled'),tabIndex:link.tabIndex})));
+      assert.deepEqual(links,Array.from({length:6},()=>({href:null,disabled:'true',tabIndex:-1})),'Footer ecosystem destinations are not inert');
       const social=page.locator('.p10-footer__socials');
       assert.equal(await social.locator('a, button, [tabindex]').count(),0,'Social placeholders are unexpectedly interactive');
       assert.deepEqual(await social.locator('[role="img"]').evaluateAll(items=>items.map(el=>el.getAttribute('aria-label'))),['Telegram','MAX','WhatsApp']);
@@ -495,11 +683,11 @@ const cases = [
       const whiteFilter=/brightness\(0\).*invert\(1\)/.test(appearance.filter);
       assert.ok(whiteSource || whiteFilter,'The logo still renders colored letters on its dark plaque');
       if(engine==='chromium') await screenshot(page,engine,'footer','.p10-footer');
-      return {names,hrefs,socialIcons:['Telegram','MAX','WhatsApp'],appearance,svgSha256:digest(svg),visualReview:'Review the saved footer screenshot for final logo appearance.'};
+      return {names,links,socialIcons:['Telegram','MAX','WhatsApp'],appearance,svgSha256:digest(svg),visualReview:'Review the saved footer screenshot for final logo appearance.'};
     },
   },
-  ...[1440,390,320].flatMap(width=>['light','dark'].map(theme=>({
-    name:`responsive-${width}-${theme}`,viewport:{width,height:width===1440?1000:844},theme,
+  ...[1920,1440,1280,390,320].flatMap(width=>['light','dark'].map(theme=>({
+    name:`responsive-${width}-${theme}`,viewport:{width,height:width>=1200?1000:844},theme,
     async run(page,engine) {
       await open(page,{theme});
       await revealPage(page);
@@ -534,13 +722,20 @@ const cases = [
         const reachable=[];
         for(const selector of ['.header__mobile-product:last-child','.header__mobile-actions .button--dark','.header__mobile-register','.header__mobile-contacts a:last-child']) {
           const link=mobile.locator(selector);
-          await link.scrollIntoViewIfNeeded(); await link.focus(); await frames(page);
+          await link.scrollIntoViewIfNeeded(); await frames(page);
           const evidence=await link.evaluate(el=>{
             const menu=el.closest('#mobile-menu'),r=el.getBoundingClientRect(),m=menu.getBoundingClientRect(),top=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
-            return {text:el.textContent.trim(),focused:document.activeElement===el,tabIndex:el.tabIndex,scrollTop:menu.scrollTop,contained:r.x>=0 && r.right<=innerWidth && r.y>=m.top-1 && r.bottom<=Math.min(innerHeight,m.bottom)+1,hit:top===el || el.contains(top),interceptor:top?.className};
+            return {text:el.textContent.trim(),href:el.getAttribute('href'),disabled:el.getAttribute('aria-disabled'),tabIndex:el.tabIndex,scrollTop:menu.scrollTop,contained:r.x>=0 && r.right<=innerWidth && r.y>=m.top-1 && r.bottom<=Math.min(innerHeight,m.bottom)+1,hit:top===el || el.contains(top),interceptor:top?.className,x:r.x+r.width/2,y:r.y+r.height/2};
           });
-          assert.ok(evidence.focused && evidence.tabIndex>=0,`Lower mobile link is not focusable: ${selector}`);
+          assert.equal(evidence.href,null,`Lower mobile link still has a destination: ${selector}`);
+          assert.equal(evidence.disabled,'true',`Lower mobile link is not disabled: ${selector}`);
+          assert.equal(evidence.tabIndex,-1,`Inert mobile text remains in the tab order: ${selector}`);
           assert.ok(evidence.contained && evidence.hit,`Lower mobile link is unreachable or covered: ${JSON.stringify(evidence)}`);
+          assert.ok(evidence.text.length>0,`Lower mobile link has no readable text: ${selector}`);
+          const before=await navigationState(page);
+          await page.touchscreen.tap(evidence.x,evidence.y);
+          await delay(220); await frames(page);
+          assertSamePage(before,await navigationState(page),{scroll:true});
           reachable.push({selector,...evidence});
         }
         assert.ok(reachable.at(-1).scrollTop>0,'Mobile menu did not scroll to its lower contacts');
@@ -548,7 +743,8 @@ const cases = [
         mobileEvidence={themeGeometry,descriptions,menuOverflow,menuClipping,reachable};
         await page.locator('[data-mobile-toggle]').click();
       }
-      return {geometry,clipping,brokenImages:broken,mobileEvidence,visualReview:'Screenshot inspection still required.'};
+      const isolation=await assertHomepageIsolated(page);
+      return {geometry,clipping,brokenImages:broken,mobileEvidence,isolation,visualReview:'Screenshot inspection still required.'};
     },
   }))),
 ];
@@ -564,15 +760,27 @@ try {
         const item={browser:engine,name:test.name,status:'pass',startedAt:new Date().toISOString()};
         const touch=Boolean(test.viewport && test.viewport.width<1200);
         const context=await browser.newContext({viewport:test.viewport || {width:1440,height:1000},colorScheme:test.theme || 'light',locale:'ru-RU',timezoneId:'Europe/Moscow',reducedMotion:'no-preference',hasTouch:touch,...(engine!=='firefox'?{isMobile:touch}:{})});
+        let primaryPage=null;
         await context.route('**/*',route=>{
           const request=route.request();
           if(!['GET','HEAD'].includes(request.method())) { report.networkWrites.push({browser:engine,test:test.name,method:request.method(),url:request.url()}); return route.abort(); }
+          if(request.isNavigationRequest() && !request.url().startsWith(base)) { report.navigationAttempts.push({browser:engine,test:test.name,type:'external-request',url:request.url()}); return route.abort(); }
           return route.continue();
         });
         context.on('page',page=>{
+          if(primaryPage) report.popups.push({browser:engine,test:test.name,url:page.url()});
+          else primaryPage=page;
           page.setDefaultTimeout(8000);
           page.on('pageerror',error=>report.runtimeErrors.push({browser:engine,test:test.name,error:String(error)}));
           page.on('response',response=>{if(response.status()>=400 && response.url().startsWith(base) && !response.url().endsWith('/favicon.ico')) report.assetErrors.push({browser:engine,test:test.name,status:response.status(),url:response.url()});});
+          page.on('framenavigated',frame=>{
+            if(frame===page.mainFrame() && frame.url()!=='about:blank' && !authorizedNavigations.has(page)) report.navigationAttempts.push({browser:engine,test:test.name,type:'main-frame',url:frame.url()});
+          });
+          page.on('download',download=>report.navigationAttempts.push({browser:engine,test:test.name,type:'download',url:download.url()}));
+          page.on('dialog',dialog=>{
+            report.runtimeErrors.push({browser:engine,test:test.name,error:`Unexpected browser dialog (${dialog.type()}): ${dialog.message()}`});
+            void dialog.dismiss().catch(()=>{});
+          });
         });
         const page=await context.newPage();
         // Start before the next real snapshot auction, with time advancing.
@@ -590,12 +798,12 @@ try {
     } finally { await browser.close(); }
   }
 } finally { await new Promise(resolve=>server.close(resolve)); }
-report.sourceUnchanged=JSON.stringify(sourceBefore)===JSON.stringify(await manifest(path.join(project,'src'),name=>/\.(ts|css)$/.test(name)));
+report.sourceUnchanged=JSON.stringify(sourceBefore)===JSON.stringify(await manifest(path.join(project,'src'),name=>/\.(ts|css)$/.test(name))) && sourceHtmlBefore===digest(await fs.readFile(path.join(project,'index.html')));
 report.buildUnchanged=JSON.stringify(buildBefore)===JSON.stringify(await manifest(dist,name=>name==='index.html'||/\.(js|css)$/.test(name)));
 report.passed=report.checks.filter(item=>item.status==='pass').length;
 report.failed=report.checks.filter(item=>item.status==='fail').length;
 report.finishedAt=new Date().toISOString();
-report.status=report.failed || report.runtimeErrors.length || report.networkWrites.length || report.assetErrors.length || !report.sourceUnchanged || !report.buildUnchanged ? 'fail' : 'pass';
+report.status=report.failed || report.runtimeErrors.length || report.networkWrites.length || report.assetErrors.length || report.popups.length || report.navigationAttempts.length || !report.sourceUnchanged || !report.buildUnchanged ? 'fail' : 'pass';
 await save();
-console.log(JSON.stringify({status:report.status,passed:report.passed,failed:report.failed,output:out,runtimeErrors:report.runtimeErrors,networkWrites:report.networkWrites,assetErrors:report.assetErrors,sourceUnchanged:report.sourceUnchanged,buildUnchanged:report.buildUnchanged}));
+console.log(JSON.stringify({status:report.status,passed:report.passed,failed:report.failed,output:out,runtimeErrors:report.runtimeErrors,networkWrites:report.networkWrites,assetErrors:report.assetErrors,popups:report.popups,navigationAttempts:report.navigationAttempts,sourceUnchanged:report.sourceUnchanged,buildUnchanged:report.buildUnchanged}));
 process.exitCode=report.status==='pass' ? 0 : 1;

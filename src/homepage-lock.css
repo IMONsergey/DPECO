@@ -1,0 +1,3 @@
+/* Keep the approved visual states while removing every navigation action. */
+.homepage-static [data-navigation-disabled] { cursor: default; }
+.homepage-static .skip-link { border: 0; font: inherit; }

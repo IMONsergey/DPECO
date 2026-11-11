@@ -1,5 +1,4 @@
 import { renderCapabilities } from './components/capabilities';
-import { renderFormats } from './sections';
 import { accountUrl, asset, icon } from './ui';
 import './page10-sections.css';
 
@@ -14,26 +13,17 @@ const formats = [
 ] as const;
 
 function renderPage10Formats(): string {
-  // The existing format tabs, chart paths and motion hooks are preserved in the
-  // explainer. The primary view follows the four illustrated cards in Page 10.
-  const explainer = renderFormats()
-    .replace('id="formats"', 'id="p10-format-explainer"')
-    .replaceAll('formats-title', 'p10-format-explainer-title');
   return `<section class="p10-section p10-formats" id="formats" aria-labelledby="p10-formats-title" data-node-id="391:1102">
     <div class="container">
       <h2 class="p10-section__title" id="p10-formats-title" data-text-reveal><span>Форматы</span> торгов</h2>
       <p class="p10-section__intro">Четыре формата под разные задачи: от классических торгов до объявления о нестандартном активе.</p>
       <div class="p10-formats__grid" data-stagger>${formats.map((item, index) => `
-        <button class="p10-format p10-format--${item.id}" type="button" data-p10-format-open="${item.id}" aria-haspopup="dialog" aria-controls="p10-format-dialog" aria-label="${item.title.replace('<br>', ' ')}: посмотреть механику торгов">
+        <button class="p10-format p10-format--${item.id}" type="button" data-navigation-disabled aria-disabled="true" tabindex="-1" aria-label="${item.title.replace('<br>', ' ')}">
           <span class="p10-format__visual" aria-hidden="true"><img src="${image('391-1102', item.image)}" alt="" loading="lazy" decoding="async"></span>
           <span class="p10-format__number" aria-hidden="true">0${index + 1}</span>
           <span class="p10-format__copy"><span class="p10-format__title">${item.title}</span><span class="p10-format__text">${item.text}</span></span>
         </button>`).join('')}</div>
     </div>
-    <dialog class="p10-format-dialog" id="p10-format-dialog" aria-labelledby="p10-format-explainer-title">
-      <button type="button" class="p10-format-dialog__close icon-button" data-p10-format-close aria-label="Закрыть описание форматов">${icon('close')}</button>
-      ${explainer}
-    </dialog>
   </section>`;
 }
 

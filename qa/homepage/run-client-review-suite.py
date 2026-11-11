@@ -10,20 +10,21 @@ import sys
 project = Path(__file__).resolve().parents[2]
 os.chdir(project)
 digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
-sources = lambda: {str(p.relative_to(project)): digest(p) for p in sorted((project / 'src').rglob('*')) if p.is_file()}
+source_files = lambda: sorted([p for p in (project / 'src').rglob('*') if p.is_file()] + [project / name for name in ('index.html', 'vite.config.ts', 'package.json', 'package-lock.json')])
+sources = lambda: {str(p.relative_to(project)): digest(p) for p in source_files()}
 build = lambda: {str(p.relative_to(project)): digest(p) for p in sorted((project / 'dist').rglob('*')) if p.is_file() and p.suffix in ('.html', '.js', '.css')}
-assert (project / 'dist/index.html').stat().st_mtime_ns >= max(p.stat().st_mtime_ns for p in (project / 'src').rglob('*') if p.is_file()), 'Build predates source'
+assert (project / 'dist/index.html').stat().st_mtime_ns >= max(p.stat().st_mtime_ns for p in source_files()), 'Build predates source'
 started = datetime.now(timezone.utc)
 results = project / 'qa/homepage/results'
 results.mkdir(parents=True, exist_ok=True)
 receipt = results / ('client-review-suite-' + started.strftime('%Y%m%dT%H%M%SZ') + '.json')
-report = {'startedAt': started.isoformat(), 'source': sources(), 'build': build(), 'checks': [], 'status': 'running', 'sourceDocument': 'https://docs.google.com/document/d/1hH3xng6E4rAf-Cfeqz9VMI788a7nFbq_0TAJrdfv444'}
+report = {'startedAt': started.isoformat(), 'source': sources(), 'build': build(), 'checks': [], 'status': 'running', 'sourceDocument': 'https://docs.google.com/document/d/1hH3xng6E4rAf-Cfeqz9VMI788a7nFbq_0TAJrdfv444', 'scopeChange': 'User instruction 2026-11-11: publish one homepage on the server, with no navigation, external destinations or separate screens.', 'supersededChecks': {'check-state-regressions.mjs': 'The user removed addressable overlays, routes and browser-history navigation. Prior raw results remain historical evidence, not a pass for this build.', 'check-homepage.mjs': 'Old navigation, external-link and modal expectations were replaced by the explicit no-navigation contract. Responsive visual checks remain in check-client-review.mjs.'}}
 
 def save():
     receipt.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
 
 save()
-scripts = ['check-client-review.mjs', 'check-state-regressions.mjs', 'check-homepage.mjs']
+scripts = ['check-client-review.mjs']
 for script in scripts:
     before = set(results.glob('*/report.json'))
     task = {'script': script, 'scriptSha256': digest(project / 'qa/homepage' / script), 'startedAt': datetime.now(timezone.utc).isoformat()}

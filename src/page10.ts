@@ -2,6 +2,7 @@ import './page10.css';
 import { archivedLots, filterLots, lots, type Lot, type LotCategory } from './data/lots';
 import { createContentTransition } from './motion';
 import { renderPage10Sections } from './page10-sections';
+import { staticHomepageMarkup } from './homepage-lock';
 import { accountUrl, asset, escapeHtml, icon, registerUrl, rubles } from './ui';
 
 const sourceDate = '10 ноября 2026';
@@ -157,7 +158,7 @@ export function mountHomeAuctions(app: HTMLElement, savedCategory: 'all' | LotCa
     const source = period === 'previous' ? previous : lots.filter(lot => !lot.startsAt || Date.parse(lot.startsAt) > Date.now());
     const visible = filterLots(source, category, '');
     const update = () => {
-      result!.innerHTML = scheduleTable(visible, period === 'previous');
+      result!.innerHTML = staticHomepageMarkup(scheduleTable(visible, period === 'previous'));
       result!.dataset.scheduleCategory = category;
       result!.dataset.schedulePeriod = period;
     };

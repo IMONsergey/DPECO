@@ -5,7 +5,7 @@ const fieldNames: Record<string, string> = {
   interest: 'Направление', inn: 'ИНН организации', kpp: 'КПП', debtorInn: 'ИНН должника', amount: 'Сумма задолженности', message: 'Задача',
 };
 
-/** No network submission: the visitor reviews an email draft and sends it themselves. */
+/** The form only prepares a local draft; it never submits or opens another app. */
 export function mountRequestForms(app: HTMLElement, notify: (text: string) => void): () => void {
   const abort = new AbortController();
   const { signal } = abort;
@@ -49,11 +49,9 @@ export function mountRequestForms(app: HTMLElement, notify: (text: string) => vo
       }
       const body = `${subject}\n\n${lines.join('\n')}\n\nСогласие на обработку персональных данных подтверждено в форме сайта.`;
       drafts.set(form, body);
-      const recipient = form.dataset.kind === 'receivables' ? 'debt@debtprice.market' : form.dataset.kind === 'portfolio' ? 'sales@debtprice.market' : 'v@debtprice.market';
-      const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       const status = form.querySelector<HTMLElement>('.request__status');
       if (!status) return;
-      status.innerHTML = `<h3>Заявка готова к отправке</h3><p>Проверьте данные. Кнопка откроет письмо на <strong>${recipient}</strong> в вашей почтовой программе.</p><pre class="request__draft">${escapeHtml(lines.join('\n'))}</pre><div class="request__review-actions"><a class="button button--dark" href="${escapeHtml(mailto)}">Открыть письмо ${icon('mail')}</a><button class="text-link" type="button" data-copy-request>Скопировать текст ${icon('document')}</button></div><small>Письмо отправляется вами из почты. Если почтовая программа не настроена, скопируйте текст и отправьте его на указанный адрес.</small>`;
+      status.innerHTML = `<h3>Черновик заявки</h3><p>Проверьте данные и скопируйте текст. Заявка не отправлена.</p><pre class="request__draft">${escapeHtml(lines.join('\n'))}</pre><div class="request__review-actions"><button class="text-link" type="button" data-copy-request>Скопировать текст ${icon('document')}</button></div>`;
       status.hidden = false;
       if (!matchMedia('(prefers-reduced-motion: reduce)').matches) status.animate([{ opacity: .5, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 320, easing: 'ease-out' });
       status.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'nearest' });
