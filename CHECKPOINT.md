@@ -1,3 +1,9 @@
+## Согласовано ожидание автокарусели, 12.11 15:37 UTC
+
+Полная матрица Part2 завершилась15:32:09.451Z:29/30PASS, единственныйFAILFirefox390light drift0→0. Все36mediaснимков сохранили [0,1,2] до/после сменытемы; все30footercontrols дали реальныйhover+hit и нужныецвета. Error arrays пусты, source/buildunchanged. SHAсырогоотчета a278cfaf8c00c22d27581a25a6533e2d6e612f4765cc3c49483c93f89c4131c1. Unit t1519 штатно остановлен после полногоPart2; cancellationreceipt сохранен, исходныеотчеты не переписаны.
+
+Код допускает6500msпаузу после взаимодействия, initialmobileMotion ранее ждал только1800ms. Добавлен existinguntil7000 до публичногоrunning перед прежними1800/1200. Самкритерийdrift, reduced/touch/manual и93cases не менялись. Telemetryinitial/ready/polls/elapsed/lastState сохраняется вreturn иFAIL. Конкретныйтриггер старойпаузы не записан. SHA Part2 a67c85930521ce32ca980b20937a767e63d18e5f808ab80736cc2f068f7b9c80. Maincef36eнеизменен; независимыйaudit не нашелдругихподтвержденныхпропусковreadiness. App/dist9b116 не меняются. Далее адресныйFirefox390обеихтем, затем единаяполная93suite. Публикации еще нет.
+
 ## Последний app и согласованная подготовка QA, 12.11 15:12 UTC
 
 Принят подтвержденный исходным сеансом app-fix ab2df8bb633b46d5f8cb5685958bd6c1cf7ea0a0: SVGoffer теперь z-index2 поверх папки. App пересобран, tsc/vitePASS. Preview https://debtprice-lab.imon.world/review-20261111-ffba1b03cb67/ ,107файлов, HTML9b116cd8cef772863dbf2dab46185266622006ce3eded5b08c7ebe7045267b51, CSSstyle-BJHr2j2D.css. В подключенномChrome1280 фактически видно логотип поверх загруженной папки. Предыдущийpreview4af/f868 уже не текущий.

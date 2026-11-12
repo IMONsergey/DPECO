@@ -542,10 +542,26 @@ async function desktopMotion(page) {
 }
 async function mobileMotion(page) {
   const grid = page.locator('.capability-new__grid'); await grid.scrollIntoViewIfNeeded();
+  const readMotionState = () => grid.evaluate(el => {
+    const focused = document.activeElement, rect = el.getBoundingClientRect();
+    return { at: performance.now(), state: el.getAttribute('data-capability-autoscroll'), scrollLeft: el.scrollLeft,
+      hidden: document.hidden, reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+      activeElement: focused ? { tag: focused.tagName.toLowerCase(), id: focused.id || null,
+        insideGrid: el.contains(focused), focusVisible: focused.matches(':focus-visible') } : null,
+      rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+      viewport: { width: innerWidth, height: innerHeight } };
+  });
+  const waitingSince = Date.now(), initial = await readMotionState();
+  let polls = 0;
+  const ready = await until(async () => { polls++; return readMotionState(); }, value => value.state === 'running',
+    `Autoplay did not become running before drift measurement; initial=${JSON.stringify(initial)}`);
+  const readiness = { initial, ready, elapsedMs: Date.now() - waitingSince, polls };
   await wait(1800);
   const start = await grid.evaluate(el => el.scrollLeft); await wait(1200);
   const moved = await grid.evaluate(el => el.scrollLeft);
-  assert.ok(moved > start + 2 && moved - start < 140, `No gentle right-to-left card drift: ${start} -> ${moved}`);
+  const lastState = await readMotionState();
+  assert.ok(moved > start + 2 && moved - start < 140,
+    `No gentle right-to-left card drift: ${start} -> ${moved}; ${JSON.stringify({ readiness, lastState })}`);
   // Change the preference while motion is actually running, before another
   // interaction could pause it and give a false reduced-motion pass.
   await page.emulateMedia({ reducedMotion: 'reduce' }); await wait(200);
@@ -565,7 +581,7 @@ async function mobileMotion(page) {
   const manualStart = await grid.evaluate(el => el.scrollLeft);
   await page.keyboard.press('ArrowRight');
   const manualEnd = await until(() => grid.evaluate(el => el.scrollLeft), value => value > manualStart + 2, 'Native manual keyboard scrolling does not move the carousel');
-  return { start, moved, distance: moved - start, pausedStart, pausedEnd, reducedStart, reducedEnd, manualStart, manualEnd };
+  return { readiness, lastState, start, moved, distance: moved - start, pausedStart, pausedEnd, reducedStart, reducedEnd, manualStart, manualEnd };
 }
 
 try {
