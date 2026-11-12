@@ -3,7 +3,8 @@ import './homepage-lock.css';
 const routeAttributes = ['data-scroll', 'data-open-documents', 'data-open-lot', 'data-p10-format-open', 'data-request-kind', 'data-request-interest', 'data-lots-category', 'data-lots-period'];
 const routeButtons = '[data-open-documents], [data-open-lot], [data-p10-format-open]';
 const availabilitySelector = '[data-availability]';
-const soonSelector = '.p10-hero .hero__actions .button, .p10-choice__actions .button, .p10-materials__all, .p10-footer nav[aria-labelledby="footer-platform-title"] a';
+const soonSelector = '.p10-hero .hero__actions .button, .p10-choice__actions .button, .p10-materials__all';
+const developmentSelector = 'a[href="#/about"], a[href="#/contacts"], .p10-footer nav:is([aria-labelledby="footer-platform-title"], [aria-labelledby="footer-information-title"], [aria-labelledby="footer-contact-title"]) a';
 const approvedDestinations = new Set([
   'https://my.debtprice.market/site/login',
   'https://my.debtprice.market/site/register',
@@ -14,11 +15,11 @@ const approvedDestinations = new Set([
   'tel:+79159724101', 'mailto:v@debtprice.market',
   'mailto:invest@debtprice.market', 'mailto:debt@debtprice.market',
   'mailto:sales@debtprice.market', 'mailto:pr@debtprice.market', 'mailto:info@debtprice.market',
-  '#/', '#/about', '#/contacts', '#/privacy', '#top', '#request',
+  '#/', '#/privacy', '#top', '#request',
 ]);
 const searchSections = new Set(['#lots', '#sell-buy', '#capabilities', '#formats', '#process', '#request', '#ecosystem', '#materials']);
 export function approvedNavigation(element: Element): boolean {
-  if (!(element instanceof HTMLAnchorElement) || element.matches(availabilitySelector) || element.matches(soonSelector)) return false;
+  if (!(element instanceof HTMLAnchorElement) || element.matches(availabilitySelector) || element.matches(developmentSelector) || element.matches(soonSelector)) return false;
   const href = element.getAttribute('href') ?? '';
   return approvedDestinations.has(href) || (element.matches('[data-live-search-result]') && searchSections.has(href));
 }
@@ -27,7 +28,8 @@ const availabilityText = { development: 'В разработке', soon: 'Ско
 type Availability = keyof typeof availabilityText;
 
 function annotateAvailability(element: HTMLElement): void {
-  if (element.matches(soonSelector)) element.dataset.availability = 'soon';
+  if (element.matches(developmentSelector)) element.dataset.availability = 'development';
+  else if (element.matches(soonSelector)) element.dataset.availability = 'soon';
   const kind = element.dataset.availability;
   if (kind !== 'development' && kind !== 'soon') return;
   const description = `homepage-availability-${kind}`;
@@ -68,7 +70,7 @@ function lockForm(form: HTMLFormElement): void {
 }
 
 function lockWithin(context: ParentNode): void {
-  const availabilityTargets = `${availabilitySelector}, ${soonSelector}`;
+  const availabilityTargets = `${availabilitySelector}, ${developmentSelector}, ${soonSelector}`;
   if (context instanceof HTMLElement && context.matches(availabilityTargets)) annotateAvailability(context);
   context.querySelectorAll<HTMLElement>(availabilityTargets).forEach(annotateAvailability);
   if (context instanceof HTMLElement && context.matches(`a, ${routeButtons}`)) disableNavigation(context);

@@ -19,11 +19,15 @@ let cleanups: (() => void)[] = [];
 let currentPage: ClientPage | undefined;
 let mounted = false;
 let toastTimeout = 0;
-const routes = new Set<ClientPage>(['about', 'contacts', 'privacy']);
+const routes = new Set<ClientPage>(['privacy']);
 const homeSections = new Set(['top', 'lots', 'sell-buy', 'capabilities', 'formats', 'process', 'request', 'ecosystem', 'materials']);
 
 function selectedPage(): ClientPage | undefined {
   const path = location.hash.replace(/^#\//u, '').replace(/\/$/u, '') as ClientPage;
+  if (path === 'about' || path === 'contacts') {
+    history.replaceState(history.state, '', location.pathname + location.search);
+    return undefined;
+  }
   return location.hash.startsWith('#/') && routes.has(path) ? path : undefined;
 }
 function notify(text: string): void {

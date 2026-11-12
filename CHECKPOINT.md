@@ -1,3 +1,17 @@
+## Срочная правка доступности опубликована, 12.11.2026 20:36 МСК
+
+Прямое указание Сергея со скриншотом в 20:25 МСК и затем «Публикуй»: закрыть «О проекте» и «Контакты», поставить им «В разработке»; такая же подсказка нужна всем ссылкам трех показанных колонок футера.
+
+Публичный root https://debtprice-lab.imon.world/ обновлен в 20:36:11 МСК. HTML SHA256 4da0f5e9d21f0e959028b471f449a51bceb79e6fa9d9136fe6c8230bae9f942e; JS index-B_1Lktz4.js; CSS style-BrHVfvyF.css неизменен. Закрыты прямые #/about, #/about/, #/contacts, #/contacts/ с возвратом на главную; эти две страницы удалены из live search. 13 элементов (2 desktop + 2 mobile + 9 footer) имеют прежнюю подсказку «В разработке», клавиатурный фокус и блокировку перехода. Header login/register, телефон/email, сервисы экосистемы и Privacy сохранены.
+
+Проверено: TypeScript/Vite PASS, независимый source diff audit PASS; 16/16 адресных Chromium сценариев 1440 light / 390 dark (реальные hover/touch, Enter/Escape и прямые hash), 0 JS errors / 0 network writes, source/public/dist unchanged. Две ранние ошибки нового теста сохранены: attempt1 неправильно исключал footer «Покупателям» из подсчета 13; attempt2 после Escape не открывал заново mobile menu перед вторым пунктом. Исправлены только подготовка/измерение, приложение не менялось после первого build; все 16 критериев сохранены.
+
+Публикация атомарная, полный backup проверен. Receipt: qa/homepage/results/client-availability-rollouts/20261112T173610Z-6ca35ce4308b/receipt.json. Public HTTP/SHA в 20:37 МСК: 138/138 PASS, 102 файла, 34 forbidden 404. В подключенном Cloud Chrome фактически открыт root с JS index-B_1Lktz4, проверены все 9 footer data-availability=development, нет href, показана подсказка у «О проекте»; screenshot сохранен. Это узкая приемка новой правки; предыдущие CI93/38 не приписываются текущей версии. Native Safari не проверялся.
+
+Twenty задача 03d4253f-41ea-469d-8f4c-69872b46b847 обновлена и прочитана обратно, IN_PROGRESS сохранен по прежним незавершенным интеграциям. Статусы Telegram delivery, live API, MAX/WhatsApp из истории ниже не менялись.
+
+---
+
 ## Финальный выпуск ссылок и адаптива, 12.11.2026 20:11 МСК
 
 Публичный корень обновлен: https://debtprice-lab.imon.world/. HTML SHA256625f6f2ab0e7ba910ecc0be14197480ca8c16aa826c4feab5e3acf08a79f7f4b; JS index-CEY2z7gx.js, CSS style-BrHVfvyF.css. Ссылки были открыты еще в20:00МСК, затем опубликована поправленная мобильная компоновка. Все адреса соответствуют текущему Google Doc; общий прежний запрет навигации отменен прямым уточнением пользователя для этого списка.

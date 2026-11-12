@@ -14,8 +14,6 @@ const sections: readonly SearchEntry[] = [
   { section: 'materials', href: '#materials', title: 'Полезные материалы', text: 'Журнал, аналитика, ЦФА, инвестиции, рейтинг коллекторских агентств', label: 'Раздел главной' },
 ];
 const pages: readonly SearchEntry[] = [
-  { href: '#/about', title: 'О проекте DEBTPRICE', text: 'О компании, команда, история и профессиональные статусы', label: 'Страница' },
-  { href: '#/contacts', title: 'Контакты', text: 'Телефон, электронная почта, адрес и связь с командой', label: 'Страница' },
   { href: '#/privacy', title: 'Политика конфиденциальности', text: 'Обработка и защита персональных данных', label: 'Страница' },
 ];
 const serviceNames = new Set(['DEBTPRICE', 'Рынок Взыскания', 'DEBT TECH', 'DOLG TALK', 'Навигатор решений', 'ПКО-300']);

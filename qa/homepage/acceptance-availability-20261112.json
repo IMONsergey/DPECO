@@ -1,0 +1,36 @@
+{
+  "status": "published-targeted-pass",
+  "publishedAt": "2026-11-12T17:36:11.201629+00:00",
+  "url": "https://debtprice-lab.imon.world/",
+  "baseCommit": "28fa9308ee26f10c5a44ac9acf71351bc46e3dd5",
+  "scope": "Close About/Contacts; development tooltips and inert navigation for13selected elements; preserve other approved destinations",
+  "targeted": {
+    "checks": 16,
+    "report": "qa/homepage/results/client-availability-20261112/report.json",
+    "sha256": "2494a04a58292558a95c382a474501d833242e7cd2f5336646a3aba7f49ecb19",
+    "scriptSha256": "77c9a885dfc5470feb0f18d7faf284456208252f3f33ea742bc5536fdc61c606",
+    "views": [
+      "Chromium1440light",
+      "Chromium390dark"
+    ]
+  },
+  "public": {
+    "passed": 138,
+    "failed": 0,
+    "files": 102,
+    "forbiddenPaths": 34,
+    "receipt": "qa/homepage/results/client-availability-rollouts/20261112T173610Z-6ca35ce4308b/receipt.json",
+    "receiptSha256": "eb006f358db37873a1333c374a3937294bad15251a35f5f507eff93ecb91ad28",
+    "proof": "qa/homepage/results/client-availability-rollouts/20261112T173610Z-6ca35ce4308b/public-http-verification.json",
+    "proofSha256": "0ae29da9a85926630e2083742817aa2ffc8a9d3acce2a7ebbd90b6b2e24af743",
+    "backupVerified": true
+  },
+  "htmlSha256": "4da0f5e9d21f0e959028b471f449a51bceb79e6fa9d9136fe6c8230bae9f942e",
+  "changedSourceSha256": {
+    "src/main.ts": "778085846dc5cdc3df539840b09e77f07b00acffcfe3ce4cb5ee7a5597ad8550",
+    "src/homepage-lock.ts": "70e1093299134f18f3e1db467f08f791a8156c728ab3cc6a1b46143dc604336e",
+    "src/live-search.ts": "b73c08ce37c26858e9865812f2fc316a2e6778853dd9dd9e9983cdc790740b44"
+  },
+  "fullRegression": "not-run-for-this-narrow-availability-correction",
+  "nativeSafari": "not-checked"
+}
