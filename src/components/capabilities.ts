@@ -153,7 +153,7 @@ export function renderCapabilities(): string {
           </div>
         </div>
         <div id="capability-new-panel" class="capability-new__panel" role="tabpanel" aria-labelledby="capability-new-seller">
-          <div class="capability-new__grid" data-capability-new-active="factoring">${items.map(card).join('')}</div>
+          <div class="capability-new__grid" data-capability-new-active="factoring" role="region" aria-label="Карточки возможностей платформы">${items.map(card).join('')}</div>
         </div>
         <p class="sr-only" aria-live="polite" aria-atomic="true" data-capability-new-announcement></p>
       </div>
@@ -170,6 +170,7 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   const { signal } = abort;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const compactLayout = matchMedia('(max-width: 1279px)');
+  const mobileCarousel = matchMedia('(max-width: 699px)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const animations = new Map<HTMLElement, Animation>();
   const tabs = [...section.querySelectorAll<HTMLButtonElement>('[data-capability-new-audience]')];
@@ -180,18 +181,91 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   const announcement = section.querySelector<HTMLElement>('[data-capability-new-announcement]');
   let audience: Audience = section.dataset.capabilityNewRole === 'buyer' ? 'buyer' : 'seller';
   let activeCard = grid?.dataset.capabilityNewActive ?? 'factoring';
-  let pendingCard = '';
-  let intentTimer = 0;
   let lastPointerX = -1;
   let lastPointerY = -1;
   let lastGridWidth = 0;
   let measureFrame = 0;
   let disposed = false;
+  let motionFrame = 0;
+  let resumeTimer = 0;
+  let inViewport = false;
+  let pointerDown = false;
+  let pointerHover = false;
+  let resumeAt = 0;
+  let lastMotionTime = 0;
+  let motionStartedAt = 0;
+  let motionPosition = 0;
+  let lastAutoPosition = -1;
+  let motionDirection = 1;
+  let scrollLimit = 0;
 
-  function cancelIntent(): void {
-    window.clearTimeout(intentTimer);
-    intentTimer = 0;
-    pendingCard = '';
+  function stopAutoMotion(): void {
+    cancelAnimationFrame(motionFrame);
+    window.clearTimeout(resumeTimer);
+    motionFrame = 0;
+    resumeTimer = 0;
+    lastMotionTime = 0;
+    if (grid) grid.dataset.capabilityAutoscroll = 'paused';
+  }
+
+  function canAutoMove(): boolean {
+    const focused = document.activeElement;
+    const keyboardFocus = !!focused && !!grid?.contains(focused) && focused.matches(':focus-visible');
+    return !!grid && !disposed && mobileCarousel.matches && !reducedMotion.matches
+      && inViewport && !document.hidden && !pointerDown && !pointerHover
+      && !keyboardFocus && scrollLimit > 1;
+  }
+
+  function tickAutoMotion(now: number): void {
+    motionFrame = 0;
+    if (!grid || !canAutoMove()) { stopAutoMotion(); return; }
+    // Keep a fractional position: Firefox may round scrollLeft on assignment.
+    // Slow browser frames must still advance gently in real elapsed time.
+    // A 120ms ceiling prevents large jumps after background-tab suspension.
+    const elapsed = lastMotionTime ? Math.min(120, now - lastMotionTime) / 1000 : 0;
+    lastMotionTime = now;
+    const edgeDistance = motionDirection > 0 ? scrollLimit - motionPosition : motionPosition;
+    const edgeEase = Math.min(1, Math.max(.18, edgeDistance / 48));
+    const startEase = Math.min(1, Math.max(0, (now - motionStartedAt) / 800));
+    motionPosition = Math.max(0, Math.min(scrollLimit, motionPosition + motionDirection * 24 * edgeEase * startEase * elapsed));
+    lastAutoPosition = motionPosition;
+    grid.scrollLeft = motionPosition;
+    if ((motionDirection > 0 && motionPosition >= scrollLimit) || (motionDirection < 0 && motionPosition <= 0)) {
+      // A soft return preserves the original DOM and avoids clones or a jump.
+      motionDirection *= -1;
+      resumeAt = now + 1200;
+      stopAutoMotion();
+      syncAutoMotion();
+      return;
+    }
+    motionFrame = requestAnimationFrame(tickAutoMotion);
+  }
+
+  function syncAutoMotion(): void {
+    if (!grid || disposed) return;
+    scrollLimit = Math.max(0, grid.scrollWidth - grid.clientWidth);
+    grid.tabIndex = mobileCarousel.matches ? 0 : -1;
+    if (!canAutoMove()) { stopAutoMotion(); return; }
+    window.clearTimeout(resumeTimer);
+    resumeTimer = 0;
+    const delay = resumeAt - performance.now();
+    if (delay > 0) {
+      stopAutoMotion();
+      resumeTimer = window.setTimeout(syncAutoMotion, delay);
+      return;
+    }
+    if (motionFrame) return;
+    motionPosition = Math.max(0, Math.min(scrollLimit, grid.scrollLeft));
+    motionStartedAt = performance.now();
+    lastMotionTime = 0;
+    grid.dataset.capabilityAutoscroll = 'running';
+    motionFrame = requestAnimationFrame(tickAutoMotion);
+  }
+
+  function pauseForInteraction(): void {
+    resumeAt = performance.now() + 6500;
+    stopAutoMotion();
+    syncAutoMotion();
   }
 
   // Keep the expanded copy at its final width while the outside of the card
@@ -225,6 +299,7 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     measureFrame = requestAnimationFrame(() => {
       measureFrame = 0;
       measureExpandedContent();
+      syncAutoMotion();
     });
   }
 
@@ -248,7 +323,6 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   }
 
   function activateCard(id: string): void {
-    cancelIntent();
     if (compactLayout.matches || id === activeCard || !items.some((item) => item.id === id)) return;
     activeCard = id;
     if (grid) grid.dataset.capabilityNewActive = id;
@@ -272,21 +346,12 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     // Pointer-origin focus still lets normal mouse hover select another card.
     const focused = document.activeElement;
     if (focused?.closest('[data-capability-new-card]') && focused.matches(':focus-visible')) return;
-    if (!id || id === activeCard) { cancelIntent(); return; }
-    if (id === pendingCard) return;
-    cancelIntent();
-    pendingCard = id;
-    intentTimer = window.setTimeout(() => {
-      // Recheck the actual hit target after the intent delay. Rapid pointer
-      // movement or an unfinished card transition can invalidate the old hit.
-      const hit = document.elementFromPoint(lastPointerX, lastPointerY)?.closest<HTMLElement>('[data-capability-new-card]');
-      if (hit?.dataset.capabilityNewCard === id) activateCard(id);
-      else cancelIntent();
-    }, 120);
+    // No intent timer: CSS retargets its in-flight transition from the current
+    // rendered size. A stationary pointer cannot retrigger moving boundaries.
+    if (id && id !== activeCard) activateCard(id);
   }, { passive: true, signal });
 
   grid?.addEventListener('pointerleave', () => {
-    cancelIntent();
     lastPointerX = -1;
     lastPointerY = -1;
   }, { signal });
@@ -298,8 +363,44 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     if (card?.dataset.capabilityNewCard) activateCard(card.dataset.capabilityNewCard);
   }, { signal });
 
-  grid?.addEventListener('pointerdown', cancelIntent, { passive: true, signal });
-  window.addEventListener('scroll', cancelIntent, { passive: true, capture: true, signal });
+  grid?.addEventListener('pointerdown', () => {
+    pointerDown = true;
+    pauseForInteraction();
+  }, { passive: true, signal });
+  const releasePointer = () => {
+    if (!pointerDown) return;
+    pointerDown = false;
+    pauseForInteraction();
+  };
+  window.addEventListener('pointerup', releasePointer, { passive: true, signal });
+  window.addEventListener('pointercancel', releasePointer, { passive: true, signal });
+  grid?.addEventListener('pointerenter', (event) => {
+    if (event.pointerType !== 'mouse') return;
+    pointerHover = true;
+    syncAutoMotion();
+  }, { passive: true, signal });
+  grid?.addEventListener('pointerleave', () => {
+    pointerHover = false;
+    syncAutoMotion();
+  }, { passive: true, signal });
+  grid?.addEventListener('wheel', pauseForInteraction, { passive: true, signal });
+  grid?.addEventListener('keydown', pauseForInteraction, { signal });
+  grid?.addEventListener('focusin', syncAutoMotion, { signal });
+  grid?.addEventListener('focusout', () => { queueMicrotask(syncAutoMotion); }, { signal });
+  grid?.addEventListener('scroll', () => {
+    if (!mobileCarousel.matches || !grid) return;
+    if (lastAutoPosition >= 0 && Math.abs(grid.scrollLeft - lastAutoPosition) < 1.5) return;
+    // Momentum, a scrollbar drag or an assistive scroll also owns the track.
+    pauseForInteraction();
+  }, { passive: true, signal });
+  document.addEventListener('visibilitychange', syncAutoMotion, { signal });
+  mobileCarousel.addEventListener('change', syncAutoMotion, { signal });
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    const entry = entries[0];
+    inViewport = !!entry?.isIntersecting && entry.intersectionRatio >= .15;
+    syncAutoMotion();
+  }, { threshold: [0, .15] });
+  if (grid) visibilityObserver.observe(grid);
 
   grid?.addEventListener('keydown', (event) => {
     if (compactLayout.matches || !(event.target instanceof Element)) return;
@@ -327,9 +428,9 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   }, { signal });
 
   compactLayout.addEventListener('change', () => {
-    cancelIntent();
     syncCardAccess();
     measureExpandedContent(true);
+    syncAutoMotion();
   }, { signal });
   syncCardAccess();
   measureExpandedContent(true);
@@ -355,6 +456,7 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
 
   function selectAudience(next: Audience): void {
     if (next === audience) return;
+    pauseForInteraction();
     audience = next;
     section.dataset.capabilityNewRole = next;
     tabs.forEach((tab) => {
@@ -410,18 +512,21 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
   }, { signal, capture: true });
 
   reducedMotion.addEventListener('change', () => {
-    if (!reducedMotion.matches) return;
-    animations.forEach((animation) => animation.cancel());
-    animations.clear();
+    if (reducedMotion.matches) {
+      animations.forEach((animation) => animation.cancel());
+      animations.clear();
+    }
+    syncAutoMotion();
   }, { signal });
 
   const cleanup = () => {
     if (disposed) return;
     disposed = true;
     abort.abort();
-    cancelIntent();
+    stopAutoMotion();
     cancelAnimationFrame(measureFrame);
     resizeObserver.disconnect();
+    visibilityObserver.disconnect();
     animations.forEach((animation) => animation.cancel());
     animations.clear();
     mounts.delete(section);

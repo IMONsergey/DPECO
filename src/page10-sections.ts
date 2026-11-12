@@ -44,7 +44,7 @@ function renderConsultation(): string {
     <div class="p10-consultation__copy">
       <div class="p10-consultation__heading"><p>Индивидуальные условия</p><h2 id="p10-request-title" data-text-reveal>Оставьте заявку<br> на консультацию</h2></div>
       <div class="p10-consultation__benefits">
-        <div><h3><span class="p10-consultation__benefit-icon">${localIcon('391-1130', 'cf83e.svg')}</span>Продавцу</h3><p>Бесплатно оценим портфель, поможем с лотированием и подскажем, какие данные добавить, чтобы цена выросла.</p></div>
+        <div><h3><span class="p10-consultation__benefit-icon">${localIcon('391-1130', 'cf83e.svg')}</span>Продавцу</h3><p>Бесплатно оценим портфель, поможем с лотированием и подскажем,<br class="p10-consultation__desktop-break"> какие данные добавить, чтобы цена выросла.</p></div>
         <div><h3><span class="p10-consultation__benefit-icon p10-consultation__benefit-icon--buyer">${localIcon('391-1130', '0a1f1.svg')}</span>Покупателю</h3><p>Откроем доступ к эксклюзивным лотам, структурированным данным и аналитике по каждому портфелю.</p></div>
       </div>
       <div class="p10-consultation__contact">
@@ -62,7 +62,7 @@ function renderConsultation(): string {
       </div>
       <button class="button p10-consultation__submit" type="submit"><span>Подготовить заявку</span>${localIcon('391-1130', 'ed8c1.svg')}</button>
       <div class="p10-consultation__consents">
-        <label class="p10-request-consent"><input type="checkbox" name="consent" required><span>Согласен на обработку персональных данных в соответствии с <a href="https://my.debtprice.market/Privacy_policy.pdf" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a> и <a href="https://my.debtprice.market/Personal_data_consent.pdf" target="_blank" rel="noopener noreferrer">согласием</a></span></label>
+        <label class="p10-request-consent"><input type="checkbox" name="consent" required><span>Согласен на обработку персональных данных в соответствии с <a href="https://my.debtprice.market/Privacy_policy.pdf" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a></span></label>
         <label class="p10-request-consent"><input type="checkbox" name="Рекламные предложения" value="Согласие дано"><span>Соглашаюсь на рекламные предложения от DEBTPRICE по электронной почте, номеру телефона и в мессенджерах</span></label>
       </div>
       <div class="request__status p10-consultation__status" id="request-status" role="status" aria-live="polite" hidden></div>
@@ -114,7 +114,7 @@ function renderPage10Ecosystem(): string {
         <article class="p10-ecosystem-card p10-ecosystem-card--auction">
           <div class="p10-ecosystem-card__background" aria-hidden="true"><img src="${image('391-1222', '574b7.webp')}" alt="" loading="eager" fetchpriority="low" decoding="async"></div>
           <div class="p10-ecosystem-card__inner">
-            <div class="p10-ecosystem-card__brand"><img src="${asset('page10/logos/debtprice.svg')}" alt="DEBTPRICE Аукцион" loading="lazy" decoding="async"></div>
+            <div class="p10-ecosystem-card__brand"><img src="${asset('brand/debtprice-logo-20261112.svg')}" width="200" alt="DEBTPRICE Аукцион" loading="lazy" decoding="async"></div>
             <h3>Аукцион<br> долговых активов</h3><p>Инструменты для рынка<br> долговых активов</p>
             <div class="p10-ecosystem-card__actions">${ecosystemButton('Войти на площадку', accountUrl)}</div>
           </div>

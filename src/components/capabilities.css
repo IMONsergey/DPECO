@@ -1,7 +1,7 @@
 
 .p10-capabilities {
   --capability-surface: color-mix(in srgb, var(--page, #fff) 92%, #35c9b5);
-  --capability-layout: 560ms;
+  --capability-layout: 400ms;
   --capability-ease: cubic-bezier(.22, 1, .36, 1);
   --capability-expanded-padding: 28px;
   --capability-expanded-height: 536px;
@@ -31,11 +31,11 @@
 .p10-capabilities [data-capability-new-active='receivables'] { grid-template-columns: 1fr 1fr 1.517241fr 1fr 1fr; }
 .p10-capabilities [data-capability-new-active='claims'] { grid-template-columns: 1fr 1fr 1fr 1.517241fr 1fr; }
 .p10-capabilities [data-capability-new-active='other'] { grid-template-columns: 1fr 1fr 1fr 1fr 1.517241fr; }
-.p10-capabilities .capability-new__card { display: grid; grid-template-rows: 230px minmax(0, 1fr); min-width: 0; height: 386px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--capability-surface); color: var(--ink); cursor: pointer; isolation: isolate; transition: height var(--capability-layout) var(--capability-ease), grid-template-rows var(--capability-layout) var(--capability-ease), border-color 320ms, box-shadow 660ms; }
+.p10-capabilities .capability-new__card { display: grid; grid-template-rows: 230px minmax(0, 1fr); min-width: 0; height: 386px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--capability-surface); color: var(--ink); cursor: pointer; isolation: isolate; transition: height var(--capability-layout) var(--capability-ease), grid-template-rows var(--capability-layout) var(--capability-ease), border-color 240ms, box-shadow 400ms; }
 .p10-capabilities .capability-new__card.is-active { z-index: 1; grid-template-rows: 252px minmax(0, 1fr); height: var(--capability-expanded-height); box-shadow: 0 12px 32px color-mix(in srgb, var(--shadow-color, #172526) 3%, transparent); }
 .p10-capabilities .capability-new__media { position: relative; min-width: 0; overflow: hidden; }
 .p10-capabilities .capability-new__media::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(transparent 60%, var(--capability-surface)); }
-.p10-capabilities .capability-new__image { position: absolute; left: 0; top: -12px; width: 100%; height: 270px; max-width: none; object-fit: cover; object-position: center; pointer-events: none; transform: scale(1); transition: transform 900ms var(--capability-ease); }
+.p10-capabilities .capability-new__image { position: absolute; left: 0; top: -12px; width: 100%; height: 270px; max-width: none; object-fit: cover; object-position: center; pointer-events: none; transform: scale(1); transition: transform 500ms var(--capability-ease); }
 .p10-capabilities [data-capability-new-card='credit'] .capability-new__image { top: -50px; height: 303px; }
 .p10-capabilities [data-capability-new-card='factoring'] .capability-new__image { top: -28px; height: 350px; object-fit: fill; object-position: bottom; }
 .p10-capabilities [data-capability-new-card='claims'] .capability-new__image { top: -20px; left: 50%; width: 270px; height: 270px; object-fit: contain; transform: translateX(-50%); }
@@ -60,18 +60,18 @@
 .p10-capabilities .capability-new__description-frame > * { grid-area: 1 / 1; min-width: 0; margin: 0; font: inherit; color: inherit; }
 .p10-capabilities .capability-new__measure { visibility: hidden; pointer-events: none; user-select: none; }
 .p10-capabilities .capability-new__cta { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; flex: 0 0 auto; gap: 12px; width: 100%; min-height: 52px; margin-top: 18px; padding: 14px 20px; border-radius: 6px; background: var(--action, #007c77); color: var(--on-action, #fff); font-size: 16px; font-weight: 500; line-height: 22px; white-space: normal; }
-.p10-capabilities .capability-new__cta > .icon { display: block; width: 18px; height: 18px; flex: 0 0 auto; transition: transform 280ms var(--capability-ease); }
+.p10-capabilities .capability-new__cta > .icon { display: block; width: 18px; height: 18px; flex: 0 0 auto; transition: transform 200ms var(--capability-ease); }
 .p10-capabilities .capability-new__description-frame { opacity: 0; transform: translateY(7px); transition: opacity 120ms, transform 200ms var(--capability-ease); }
 .p10-capabilities .capability-new__cta { opacity: 0; transform: translateY(7px); transition: opacity 120ms, transform 200ms var(--capability-ease), background-color 220ms, color 220ms, box-shadow 220ms; }
-.p10-capabilities .capability-new__card.is-active .capability-new__description-frame { opacity: 1; transform: none; transition: opacity 280ms 140ms, transform 360ms var(--capability-ease) 140ms; }
-.p10-capabilities .capability-new__card.is-active .capability-new__cta { opacity: 1; transform: none; transition: opacity 280ms 180ms, transform 360ms var(--capability-ease) 180ms, background-color 220ms, color 220ms, box-shadow 220ms; }
+.p10-capabilities .capability-new__card.is-active .capability-new__description-frame { opacity: 1; transform: none; transition: opacity 240ms, transform 320ms var(--capability-ease); }
+.p10-capabilities .capability-new__card.is-active .capability-new__cta { opacity: 1; transform: none; transition: opacity 240ms, transform 320ms var(--capability-ease), background-color 220ms, color 220ms, box-shadow 220ms; }
 .p10-capabilities .capability-new__card .capability-new__cta:focus-visible { outline: 2px solid var(--on-action, #fff); outline-offset: -4px; background: var(--action-hover, #006c67); }
 .p10-capabilities .capability-new__card .capability-new__cta:focus-visible > .icon { transform: translateX(3px); }
-.p10-capabilities .capability-new__card .capability-new__cta:active { transform: translateY(1px); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--on-action, #fff) 24%, transparent); transition-delay: 0s; }
+.p10-capabilities .capability-new__card .capability-new__cta:active { background: var(--action-active); transform: none; box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--on-action, #fff) 24%, transparent); transition-delay: 0s; }
 @media (hover: hover) and (pointer: fine) {
   .p10-capabilities .capability-new__tab:not([aria-selected='true']):hover { background: var(--surface-hover); }
-  .p10-capabilities .capability-new__card .capability-new__cta:hover { background: var(--action-hover, #006c67); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--on-action, #fff) 16%, transparent); }
-  .p10-capabilities .capability-new__card .capability-new__cta:hover > .icon { transform: translateX(4px); }
+  .p10-capabilities .capability-new__card .capability-new__cta:hover:not(:active) { background: var(--action-hover); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--on-action, #fff) 16%, transparent); }
+  .p10-capabilities .capability-new__card .capability-new__cta:hover > .icon { transform: translateX(3px); }
 }
 @media (min-width: 1280px) and (max-width: 1399px) {
   .p10-capabilities { --capability-expanded-padding: 24px; }
@@ -106,7 +106,8 @@
   .p10-capabilities .capability-new__toolbar > p { font-size: 18px; line-height: 26px; }
   .p10-capabilities .capability-new__tabs { width: 100%; }
   .p10-capabilities .capability-new__tab { flex: 1; min-width: 0; padding-inline: 12px; }
-  .p10-capabilities .capability-new__grid, .p10-capabilities .capability-new__grid[data-capability-new-active] { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(86vw, 390px); gap: 16px; margin-inline: calc(-1 * var(--gutter, 24px)); padding: 4px var(--gutter, 24px) 18px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter, 24px); scrollbar-width: thin; scrollbar-color: var(--line-strong, #b8d0ca) transparent; }
+  .p10-capabilities .capability-new__grid, .p10-capabilities .capability-new__grid[data-capability-new-active] { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(86vw, 390px); gap: 16px; margin-inline: calc(-1 * var(--gutter, 24px)); padding: 4px var(--gutter, 24px) 18px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: none; scroll-behavior: auto; scroll-padding-inline: var(--gutter, 24px); scrollbar-width: thin; scrollbar-color: var(--line-strong, #b8d0ca) transparent; }
+  .p10-capabilities .capability-new__grid:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: -2px; }
   .p10-capabilities .capability-new__card { scroll-snap-align: start; }
   .p10-capabilities .capability-new__card:last-child { grid-column: auto; max-width: none; }
 }

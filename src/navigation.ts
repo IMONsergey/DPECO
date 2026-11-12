@@ -49,11 +49,21 @@ export function mountNavigation(app: HTMLElement, currentPath: string): { close:
       hoveredEcosystemItem = item;
       showEcosystemTooltip(item);
     }, { signal });
+    item.addEventListener('pointerleave', (event) => {
+      if (event.pointerType === 'touch') return;
+      if (hoveredEcosystemItem === item) hoveredEcosystemItem = undefined;
+      const focusedItem = ecosystemItems.find((entry) => entry.contains(document.activeElement));
+      showEcosystemTooltip(focusedItem ?? hoveredEcosystemItem);
+    }, { signal });
     item.addEventListener('focusin', () => showEcosystemTooltip(item), { signal });
     item.addEventListener('focusout', (event) => {
       const next = event.relatedTarget instanceof Node ? event.relatedTarget : null;
       const focusedItem = next ? ecosystemItems.find((entry) => entry.contains(next)) : undefined;
-      showEcosystemTooltip(focusedItem ?? hoveredEcosystemItem);
+      // A pointer can leave before focus changes, or a browser can skip a
+      // pointerleave during layout transitions. Never resurrect stale hover.
+      const actualHover = ecosystemItems.find((entry) => entry.matches(':hover'));
+      hoveredEcosystemItem = actualHover;
+      showEcosystemTooltip(focusedItem ?? actualHover);
     }, { signal });
   });
   ecosystemPanel?.addEventListener('pointerleave', () => {

@@ -103,7 +103,7 @@ function renderSchedule(): string {
     </div>
     <div class="p10-schedule__stage"><div id="p10-schedule-results" role="tabpanel" aria-labelledby="period-upcoming">${scheduleTable(lots, false)}</div></div>
     <p class="sr-only" id="p10-schedule-announcement" role="status" aria-live="polite"></p>
-    <div class="p10-schedule__bottom"><a class="button button--primary" href="${accountUrl}">Перейти ко всем торгам ${icon('arrow-right')}</a><p class="p10-source-note">Данные на <span data-schedule-source-date>${sourceDate}</span>. Актуальные статусы и&nbsp;условия <a href="${accountUrl}">на&nbsp;площадке</a>.</p></div>
+    <div class="p10-schedule__bottom"><a class="button button--primary" href="${accountUrl}">Перейти ко всем торгам ${icon('arrow-right')}</a><p class="p10-source-note">* Данные на <span data-schedule-source-date>${sourceDate}</span>. Актуальные статусы и&nbsp;условия <a href="${accountUrl}">на&nbsp;площадке</a>.</p></div>
   </div></section>`;
 }
 
@@ -128,7 +128,7 @@ function renderPage10Partners(): string {
 function renderOffer(): string {
   return `<section class="offer-section p10-offer" aria-labelledby="offer-title" data-node-id="391:1023"><div class="container"><div class="offer">
     <div class="offer__dots" data-dots data-dots-color="#baffec" data-dots-opacity="0.25" data-dots-end-opacity="0.025" data-dots-spacing="17" data-dots-direction="right-to-left"></div>
-    <div class="p10-offer__art" aria-hidden="true"><img class="offer__image" src="${p10Asset('1023','fb0b6.webp')}" alt="" width="682" height="710" loading="lazy" decoding="async"><img class="p10-offer__logo" src="${p10Asset('1023','34072.svg')}" alt=""></div>
+    <div class="p10-offer__art" aria-hidden="true"><img class="offer__image" src="${p10Asset('1023','fb0b6.webp')}" alt="" width="682" height="710" loading="lazy" decoding="async"><img class="p10-offer__logo" src="${asset('brand/debtprice-logo-20261112.svg')}" alt=""></div>
     <div class="offer__content"><h2 id="offer-title" data-text-reveal>Выберите подходящее<br>предложение</h2><p>Зарегистрируйтесь, чтобы продавать<br class="desktop-break"> и&nbsp;покупать долговые активы на&nbsp;площадке.</p><a class="button button--white" href="${registerUrl}">Зарегистрироваться ${icon('arrow-right')}</a></div>
   </div></div></section>`;
 }

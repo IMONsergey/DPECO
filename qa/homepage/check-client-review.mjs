@@ -74,10 +74,10 @@ async function until(read, accept, message, timeout = 8000) {
 async function frames(page) {
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 }
-async function open(page, { theme='light', hash='' } = {}) {
+async function open(page, { theme='light', hash='', waitUntil='load', navigationTimeout=8000 } = {}) {
   authorizedNavigations.add(page);
   try {
-    await page.goto(`${base}?theme=${theme}${hash}`, { waitUntil:'load' });
+    await page.goto(`${base}?theme=${theme}${hash}`, { waitUntil, timeout:navigationTimeout });
     await page.evaluate(() => document.fonts.ready);
     await until(() => page.locator('html').getAttribute('data-theme'), value => value === theme, 'Theme did not apply');
     await frames(page);
@@ -90,17 +90,24 @@ async function revealPage(page) {
   // Await images while they are in view: filtering only `complete` images at the
   // end silently omitted lazy illustrations from full-page captures.
   const readyImages=async()=>{
-    await until(()=>page.evaluate(()=>[...document.images].filter(img=>{
-      const r=img.getBoundingClientRect();
-      return r.width>0 && r.height>0 && r.bottom>0 && r.top<innerHeight && r.right>0 && r.left<innerWidth;
-    }).filter(img=>!img.complete || !img.naturalWidth).map(img=>({src:img.currentSrc || img.src,complete:img.complete,width:img.naturalWidth}))),pending=>pending.length===0,'Visible images did not finish loading');
-    await page.evaluate(async()=>{
-      const visible=[...document.images].filter(img=>{
+    // Capture each visible node and its source once before awaiting decode.
+    // Moving partner marquees can otherwise insert a new lazy image between
+    // the loaded check and a second query, producing a spurious EncodingError.
+    await until(()=>page.evaluate(async()=>{
+      const isVisible=img=>{
         const r=img.getBoundingClientRect();
         return r.width>0 && r.height>0 && r.bottom>0 && r.top<innerHeight && r.right>0 && r.left<innerWidth;
-      });
-      await Promise.all(visible.map(img=>img.decode()));
-    });
+      };
+      const visible=[...document.images].filter(isVisible);
+      const pending=await Promise.all(visible.map(async img=>{
+        const src=img.currentSrc || img.src;
+        const observation=()=>({src,currentSrc:img.currentSrc || img.src,complete:img.complete,naturalWidth:img.naturalWidth,connected:img.isConnected,visible:isVisible(img)});
+        if(!img.complete || !img.naturalWidth) return observation();
+        try { await img.decode(); } catch(error) { return {...observation(),decodeError:String(error)}; }
+        return img.isConnected && (img.currentSrc || img.src)===src && img.complete && img.naturalWidth ? null : observation();
+      }));
+      return pending.filter(Boolean).filter(item=>item.connected && item.visible);
+    }),pending=>pending.length===0,'Visible images did not load and decode successfully',8000);
   };
   const geometry = await page.evaluate(() => ({ height:document.documentElement.scrollHeight, step:Math.max(200, Math.floor(innerHeight * .7)) }));
   for (let y=0; y<geometry.height; y+=geometry.step) {
@@ -122,6 +129,60 @@ async function screenshot(page, engine, name, selector, fullPage = false) {
   report.screenshots.push({ file, selector:selector || null, fullPage, bytes:bytes.length, sha256:digest(bytes) });
   return file;
 }
+
+// The owner supplied this exact all-white SVG on 12 November. Check the
+// rendered pixels as well as the file identity: a loaded white logo can still
+// disappear on a light surface, and CSS filter strings alone are not evidence.
+const suppliedLogoSha256 = 'ee65f38401aa6fc22d064924094201d83cff1b428edfb899e42f06bb4ad29aec';
+async function checkBrandLogo(page, selector, darkInk) {
+  const logo = page.locator(selector), image = logo.locator('img');
+  await until(() => image.evaluate(img => img.complete && img.naturalWidth > 0), Boolean, `${selector}: logo did not load`);
+  const appearance = await logo.evaluate(el => {
+    const s = getComputedStyle(el), img = el.querySelector('img'), i = getComputedStyle(img), r = img.getBoundingClientRect();
+    return { background: s.backgroundColor, border: s.borderWidth, shadow: s.boxShadow, filter: i.filter,
+      source: img.getAttribute('src'), width: r.width, height: r.height, opacity: Number(i.opacity) };
+  });
+  assert.ok(transparent(appearance.background), `${selector}: logo retains a background plaque`);
+  assert.equal(parseFloat(appearance.border), 0, `${selector}: logo has a border`);
+  assert.equal(appearance.shadow, 'none', `${selector}: logo has a plaque shadow`);
+  assert.ok(appearance.width >= 100 && appearance.height > 0 && Math.abs(appearance.width / appearance.height - 560 / 129) < .05,
+    `${selector}: supplied logo is too small or distorted: ${JSON.stringify(appearance)}`);
+  const logoPath = path.resolve(dist, '.' + new URL(appearance.source, base).pathname);
+  assert.ok(logoPath.startsWith(dist + path.sep), 'Unexpected logo source');
+  const svg = await fs.readFile(logoPath);
+  assert.equal(digest(svg), suppliedLogoSha256, `${selector}: logo differs from the supplied SVG`);
+  const pixels = (await image.screenshot({ animations: 'disabled' })).toString('base64');
+  const rendered = await image.evaluate(async (source, png) => {
+    const capture = new Image(); capture.src = `data:image/png;base64,${png}`; await capture.decode();
+    const canvas = document.createElement('canvas'); canvas.width = capture.naturalWidth; canvas.height = capture.naturalHeight;
+    const context = canvas.getContext('2d');
+    // Source alpha identifies the actual lettering; screenshot pixels include
+    // its computed filter, opacity, clipping and real surface behind it.
+    context.drawImage(source, 0, 0, canvas.width, canvas.height);
+    const mask = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    context.clearRect(0, 0, canvas.width, canvas.height); context.drawImage(capture, 0, 0);
+    const rgba = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    const luminance = (offset) => [0, 1, 2].map(k => rgba[offset + k] / 255)
+      .map(v => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4)
+      .reduce((sum, v, i) => sum + v * [.2126, .7152, .0722][i], 0);
+    const foreground = [], background = [];
+    for (let offset = 0; offset < mask.length; offset += 4) {
+      if (mask[offset + 3] >= 250) foreground.push(luminance(offset));
+      else if (mask[offset + 3] <= 2) background.push(luminance(offset));
+    }
+    const mean = values => values.reduce((sum, v) => sum + v, 0) / values.length;
+    background.sort((a, b) => a - b);
+    const fg = mean(foreground), bg = background[Math.floor(background.length / 2)];
+    return { foregroundPixels: foreground.length, backgroundPixels: background.length, foregroundLuminance: fg,
+      backgroundLuminance: bg, contrast: (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05) };
+  }, pixels);
+  assert.ok(rendered.foregroundPixels >= 40 && rendered.backgroundPixels >= 40, `${selector}: logo has no measurable artwork`);
+  assert.ok(darkInk ? rendered.foregroundLuminance < .22 : rendered.foregroundLuminance > .65,
+    `${selector}: logo ink has the wrong polarity: ${JSON.stringify(rendered)}`);
+  assert.ok(rendered.contrast >= 3, `${selector}: logo is not distinguishable from its actual surface: ${JSON.stringify(rendered)}`);
+  return { ...appearance, ...rendered, darkInk, svgSha256: digest(svg) };
+}
+
 async function inViewport(locator) {
   return locator.evaluate(el => {
     const r=el.getBoundingClientRect();
@@ -165,6 +226,20 @@ async function settledTabEvidence(page,selector) {
     stable=aligned && still ? stable+1 : 0; previous=value;
     return stable>=2;
   },`Tab indicator did not settle against its selected tab: ${selector}`);
+}
+async function settledScheduleEvidence(page) {
+  let previous=null, stable=0;
+  return until(()=>page.locator('.p10-schedule__stage').evaluate(stage=>{
+    const rect=stage.getBoundingClientRect();
+    return {height:rect.height,documentTop:rect.top+scrollY,inlineHeight:stage.style.height,
+      clipPath:stage.style.clipPath,
+      animating:stage.getAnimations().some(animation=>animation.playState==='running' || animation.pending)};
+  }),value=>{
+    const restored=!value.animating && value.inlineHeight==='' && value.clipPath==='';
+    const still=previous && ['height','documentTop'].every(key=>Math.abs(value[key]-previous[key])<.25);
+    stable=restored && still ? stable+1 : 0; previous=value;
+    return stable>=2;
+  },'Schedule height transition did not finish before interacting with the following section');
 }
 const transparent = value => !value || value === 'transparent' || /rgba\([^)]*,\s*0(?:\.0*)?\)$/.test(value);
 function colorAlpha(value) {
@@ -214,7 +289,10 @@ async function checkHeaderSearch(page) {
     const rgb=color.match(/[\d.]+/g).slice(0,3).map(Number);
     if(colorAlpha(color)>0) assert.ok(Math.max(...rgb)-Math.min(...rgb)<60,`Search has a colored shadow/ring: ${color}`);
   }
-  assert.ok(parseFloat(search.form.outlineWidth)>0,'Keyboard focus has no replacement indicator');
+  // Part 2 explicitly removes the old external ring. The inset underline now
+  // supplies visible focus without surrounding the compact search field.
+  assert.equal(parseFloat(search.form.outlineWidth),0,'Part 2: search still has an external outline');
+  assert.ok(search.form.shadow.includes('inset') && search.form.shadow!=='none','Keyboard focus has no inset replacement indicator');
   const bounds=await inViewport(page.locator('#nav-panel-search')); assert.equal(bounds.contained,true);
   return {search,bounds};
 }
@@ -233,8 +311,24 @@ async function checkEcosystemDescriptions(page) {
     assert.ok(tipId,'Ecosystem link has no accessible description');
     const tip=page.locator(`[id="${tipId}"]`);
     await trigger.focus(); await page.mouse.move(1,1);
-    await until(()=>visibleTooltips(page),x=>x.length===0,'Tooltip remains visible after focus and pointer leave');
-    await link.hover();
+    try { await until(()=>visibleTooltips(page),x=>x.length===0,'Tooltip remains visible after focus and pointer leave'); }
+    catch (error) {
+      const state=await page.evaluate(()=>({
+        active:document.activeElement?.outerHTML.slice(0,180),
+        pointerTarget:document.elementFromPoint(1,1)?.tagName,
+        hovered:[...document.querySelectorAll('[data-ecosystem-item]:hover')].map(el=>el.querySelector('[role="tooltip"]')?.id),
+        visibleClass:[...document.querySelectorAll('[data-ecosystem-item].is-tooltip-visible')].map(el=>el.querySelector('[role="tooltip"]')?.id),
+      }));
+      throw new Error(`${error.message}; state=${JSON.stringify(state)}`);
+    }
+    // The dropdown can move while its header transitions; use a real mouse
+    // position without Playwright's unrelated "stable for two frames" gate.
+    // The pointer and tooltip assertions below still verify the interaction.
+    const hoverBox=await link.boundingBox();
+    assert.ok(hoverBox?.width>0 && hoverBox?.height>0,`Ecosystem link has no hoverable geometry: ${name}`);
+    const hoverX=hoverBox.x+hoverBox.width/2, hoverY=hoverBox.y+hoverBox.height/2;
+    await page.mouse.move(hoverX,hoverY);
+    assert.equal(await link.evaluate((el,{x,y})=>el.contains(document.elementFromPoint(x,y)),{x:hoverX,y:hoverY}),true,`Ecosystem link is covered at pointer center: ${name}`);
     assert.equal(await link.evaluate(el=>el===document.activeElement),false,'Hover check accidentally focused its link');
     await tip.waitFor({state:'visible'});
     await until(()=>visibleTooltips(page),x=>x.length===1 && x[0]===tipId,`Hover tooltip missing or overlapping for ${name}`);
@@ -321,7 +415,7 @@ async function assertHomepageIsolated(page) {
     return {
       forbidden:[...document.querySelectorAll('#app a[href], #app area[href], #app [target], #app [download], #app form[action], #app [formaction], #app [formtarget]')].map(describe),
       links:links.length,
-      incorrectLinks:links.filter(el=>el.getAttribute('aria-disabled')!=='true' || el.getAttribute('role')!=='link' || el.tabIndex!==(el.closest('[data-ecosystem-item]') ? 0 : -1)).map(describe),
+      incorrectLinks:links.filter(el=>el.getAttribute('aria-disabled')!=='true' || el.getAttribute('role')!=='link' || el.tabIndex!==(el.closest('[data-ecosystem-item]') || el.matches('[data-availability]') ? 0 : -1)).map(describe),
       routeButtons:routeButtons.length,
       activeRouteButtons:routeButtons.filter(el=>el.getAttribute('aria-disabled')!=='true' || el.tabIndex!==-1).map(describe),
       oldRouteTriggers:document.querySelectorAll('[data-open-documents], [data-open-lot], [data-p10-format-open]').length,
@@ -470,7 +564,9 @@ const cases = [
   {
     name:'ecosystem-descriptions-and-compact-search',
     async run(page,engine) {
-      await open(page);
+      // The scenario measures header interaction and copy; lazy image loading
+      // elsewhere on the page must not block its initial navigation.
+      await open(page,{waitUntil:'domcontentloaded',navigationTimeout:20000});
       const menu=await openDesktopMenu(page,'ecosystem');
       const observations=await checkEcosystemDescriptions(page);
       if(engine==='chromium') await screenshot(page,engine,'header-ecosystem-tooltip');
@@ -485,7 +581,10 @@ const cases = [
     async run(page,engine) {
       const observations=[];
       for(const state of [{theme:'dark',scrolled:false},{theme:'light',scrolled:true},{theme:'dark',scrolled:true}]) {
-        await open(page,{theme:state.theme});
+        // This scenario inspects header state, not image-loading performance.
+        // Initial DOM and fonts are sufficient; loading every full-page image
+        // on each of three reloads can time out under a shared GPU workload.
+        await open(page,{theme:state.theme,waitUntil:'domcontentloaded',navigationTimeout:20000});
         if(state.scrolled) await page.evaluate(()=>{
           const hero=document.querySelector('.intro, .market-hero');
           if(!hero) throw new Error('Header background section is missing');
@@ -615,6 +714,10 @@ const cases = [
         assertSamePage(before,await navigationState(page));
         observations.push({selector,isolation:await assertHomepageIsolated(page)});
       }
+      // Schedule attributes update synchronously, but its height eases for 420ms.
+      // Wait for natural layout before the real click in the following section;
+      // retain every filter click, audience assertion and navigation check.
+      observations.push({scheduleSettlement:await settledScheduleEvidence(page)});
       for(const audience of ['buyer','seller']) {
         const tab=page.locator(`[data-capability-new-audience="${audience}"]`);
         await tab.click();
@@ -686,21 +789,19 @@ const cases = [
       assert.equal(await social.locator('a, button, [tabindex]').count(),0,'Social placeholders are unexpectedly interactive');
       assert.deepEqual(await social.locator('[role="img"]').evaluateAll(items=>items.map(el=>el.getAttribute('aria-label'))),['Telegram','MAX','WhatsApp']);
       assert.equal(await social.locator('svg').count(),3,'Missing social vector icon');
-      const logo=page.locator('.p10-footer__brand-link');
-      const appearance=await logo.evaluate(el=>{const s=getComputedStyle(el),img=el.querySelector('img');return {background:s.backgroundColor,border:s.borderWidth,shadow:s.boxShadow,filter:getComputedStyle(img).filter,source:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0};});
-      assert.equal(appearance.loaded,true,'Footer logo did not load');
-      assert.equal(parseFloat(appearance.border),0,'Footer logo has a CSS border');
-      assert.ok(!transparent(appearance.background),'Footer logo lacks its solid plaque');
-      const logoPath=path.resolve(dist,'.'+new URL(appearance.source,base).pathname);
-      assert.ok(logoPath.startsWith(dist+path.sep),'Unexpected logo source');
-      const svg=await fs.readFile(logoPath,'utf8');
-      assert.ok(!/<rect\b/i.test(svg) && !/\bstroke\s*=\s*['"](?!none)/i.test(svg),'Footer SVG includes a rectangular frame or stroke needing visual review');
-      const fills=[...svg.matchAll(/\bfill\s*=\s*['"]([^'"]+)['"]/gi)].map(match=>match[1]).filter(fill=>fill!=='none');
-      const whiteSource=fills.length>0 && fills.every(fill=>/^(#fff(?:fff)?|white)$/i.test(fill));
-      const whiteFilter=/brightness\(0\).*invert\(1\)/.test(appearance.filter);
-      assert.ok(whiteSource || whiteFilter,'The logo still renders colored letters on its dark plaque');
-      if(engine==='chromium') await screenshot(page,engine,'footer','.p10-footer');
-      return {names,links,socialIcons:['Telegram','MAX','WhatsApp'],appearance,svgSha256:digest(svg),visualReview:'Review the saved footer screenshot for final logo appearance.'};
+      const logos=[];
+      for (const theme of ['light','dark']) {
+        await open(page,{theme});
+        await until(()=>page.locator('.site-header').evaluate(el=>!el.classList.contains('is-light')),Boolean,'Header did not return to the hero surface');
+        const top=await checkBrandLogo(page,'.p10-brand-mark',false);
+        await page.locator('.p10-footer').scrollIntoViewIfNeeded();
+        await until(()=>page.locator('.site-header').evaluate(el=>el.classList.contains('is-light')),Boolean,'Scrolled header did not reach its page surface');
+        const scrolled=await checkBrandLogo(page,'.p10-brand-mark',theme==='light');
+        const footer=await checkBrandLogo(page,'.p10-footer__brand-link',theme==='light');
+        logos.push({theme,top,scrolled,footer});
+        if(engine==='chromium') await screenshot(page,engine,theme==='light'?'footer':'footer-dark','.p10-footer');
+      }
+      return {names,links,socialIcons:['Telegram','MAX','WhatsApp'],logos,visualReview:'Review the saved footer screenshots and header/logo appearance in both themes.'};
     },
   },
   ...[1920,1440,1280,390,320].flatMap(width=>['light','dark'].map(theme=>({
@@ -717,6 +818,13 @@ const cases = [
       assert.deepEqual(broken,[],'Broken images');
       let mobileEvidence=null;
       if(width<1200) {
+        // Part 2 moves the theme control inside the menu to avoid burger taps
+        // also toggling the theme. Check the same geometry after opening it.
+        assert.equal(await page.locator('.header__top [data-theme-toggle]').count(),0,'Theme control still crowds the hamburger');
+        await page.locator('[data-mobile-toggle]').click();
+        const mobile=page.locator('#mobile-menu');
+        await until(()=>mobile.getAttribute('aria-hidden'),x=>x==='false','Mobile menu did not open');
+        await until(()=>mobile.evaluate(el=>getComputedStyle(el).opacity),x=>Number(x)===1,'Mobile menu did not become visible');
         const themeGeometry=await page.locator('.p10-mobile-theme').evaluate(button=>{
           const b=button.getBoundingClientRect(), icon=[...button.querySelectorAll('svg')].find(svg=>getComputedStyle(svg).display!=='none' && Number(getComputedStyle(svg).opacity)>.99);
           if(!icon) throw new Error('Mobile theme button has no visible icon');
@@ -724,10 +832,6 @@ const cases = [
           return {width:b.width,height:b.height,x:Math.abs(i.x+i.width/2-b.x-b.width/2),y:Math.abs(i.y+i.height/2-b.y-b.height/2)};
         });
         assert.ok(themeGeometry.width>0 && themeGeometry.height>0 && themeGeometry.x<=2 && themeGeometry.y<=2,'Mobile theme icon is not centered');
-        await page.locator('[data-mobile-toggle]').click();
-        const mobile=page.locator('#mobile-menu');
-        await until(()=>mobile.getAttribute('aria-hidden'),x=>x==='false','Mobile menu did not open');
-        await until(()=>mobile.evaluate(el=>getComputedStyle(el).opacity),x=>Number(x)===1,'Mobile menu did not become visible');
         if(engine==='chromium') await screenshot(page,engine,`mobile-menu-${width}-${theme}-top`);
         const descriptions=await mobile.locator('.header__mobile-product').evaluateAll(items=>items.map(item=>({name:item.querySelector('strong')?.textContent.trim(),text:item.querySelector('small')?.textContent.trim(),descriptionId:item.getAttribute('aria-describedby')})));
         assert.equal(descriptions.length,6,'Mobile ecosystem lost a service');
@@ -822,13 +926,13 @@ try {
         const page=await context.newPage();
         // Keep a stable snapshot date while preserving native rAF, performance
         // and CSS animation timing. A paired WebKit diagnostic found that the
-        // full fake clock interfered with grid interpolation measurements.
+        // Playwright setFixedTime installs a full fake timer/rAF clock too.
+        // Animation, scroll and pointer cases must use the real browser clock.
         // Only the live-clock case needs an advancing mocked Date.
         // https://playwright.dev/docs/clock#test-with-predefined-time
         const clockTime=new Date('2026-11-11T06:30:00Z');
-        item.clockMode=test.name==='live-moscow-clock-and-auction-countdown'?'advancing-clock':'fixed-date-native-timers';
+        item.clockMode=test.name==='live-moscow-clock-and-auction-countdown'?'advancing-clock':'native-clock';
         if(item.clockMode==='advancing-clock') await page.clock.install({time:clockTime});
-        else await page.clock.setFixedTime(clockTime);
         try {
           item.input=await inputEvidence(page);
           assert.equal(item.input.media[touch?'(pointer: coarse)':'(pointer: fine)'],true,`${item.inputProfile}: browser has the wrong pointer capability`);
@@ -845,13 +949,18 @@ try {
       }
     } finally { await mobileBrowser?.close(); await browser.close(); }
   }
+} catch(error) {
+  // Infrastructure failure is not a test pass. Preserve finished cases and a
+  // machine-readable failure even when the disposable browser crashes before
+  // a case reaches its own error handler.
+  report.infrastructureError=String(error.stack || error);
 } finally { await new Promise(resolve=>server.close(resolve)); }
 report.sourceUnchanged=JSON.stringify(sourceBefore)===JSON.stringify(await manifest(path.join(project,'src'),name=>/\.(ts|css)$/.test(name))) && sourceHtmlBefore===digest(await fs.readFile(path.join(project,'index.html')));
 report.buildUnchanged=JSON.stringify(buildBefore)===JSON.stringify(await manifest(dist,name=>name==='index.html'||/\.(js|css)$/.test(name)));
 report.passed=report.checks.filter(item=>item.status==='pass').length;
 report.failed=report.checks.filter(item=>item.status==='fail').length;
 report.finishedAt=new Date().toISOString();
-report.status=report.failed || report.runtimeErrors.length || report.networkWrites.length || report.assetErrors.length || report.popups.length || report.navigationAttempts.length || !report.sourceUnchanged || !report.buildUnchanged ? 'fail' : 'pass';
+report.status=report.infrastructureError || report.failed || report.runtimeErrors.length || report.networkWrites.length || report.assetErrors.length || report.popups.length || report.navigationAttempts.length || !report.sourceUnchanged || !report.buildUnchanged ? 'fail' : 'pass';
 await save();
 console.log(JSON.stringify({status:report.status,passed:report.passed,failed:report.failed,output:out,runtimeErrors:report.runtimeErrors,networkWrites:report.networkWrites,assetErrors:report.assetErrors,popups:report.popups,navigationAttempts:report.navigationAttempts,sourceUnchanged:report.sourceUnchanged,buildUnchanged:report.buildUnchanged}));
 process.exitCode=report.status==='pass' ? 0 : 1;

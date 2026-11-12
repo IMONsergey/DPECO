@@ -1,14 +1,19 @@
 /* Semantic colors are shared by the current pages and the Page 10 composition. */
 :root {
   --surface-raised: #fff;
-  --surface-hover: #edf1f0;
+  --surface-hover: #f0f3f4;
   --line-strong: #bcc9c7;
-  --action: #007c77;
-  --action-hover: #006c67;
+  --action: #007f87;
+  --action-hover: #006d75;
+  --action-active: #005b64;
   --on-action: #fff;
-  --control-bg: #172526;
+  --control-bg: #17252b;
   --control-text: #fff;
-  --control-hover: #2e393a;
+  --control-hover: #2c3c44;
+  --control-active: #101a20;
+  --neutral-bg: #fff;
+  --neutral-hover: #f2f5f6;
+  --neutral-text: #14252a;
   --accent-soft: #e5f5f1;
   --on-accent: #123d35;
   --shadow-color: #1725261f;
@@ -22,7 +27,7 @@
   --page: #0d191a;
   --surface: #162729;
   --surface-raised: #1d3032;
-  --surface-hover: #263d3f;
+  --surface-hover: #29373c;
   --ink: #eaf4f1;
   --muted: #a9bdb9;
   --line: #30494a;
@@ -30,12 +35,17 @@
   --accent: #65d6c8;
   --accent-dark: #72dfd0;
   --hero: #064c4c;
-  --action: #65d6c8;
-  --action-hover: #85e6d9;
-  --on-action: #082923;
-  --control-bg: #d9eae4;
-  --control-text: #102b25;
-  --control-hover: #eff9f5;
+  --action: #4cd9d0;
+  --action-hover: #78e9e1;
+  --action-active: #35c7c1;
+  --on-action: #102126;
+  --control-bg: #e6eef0;
+  --control-text: #14252a;
+  --control-hover: #fff;
+  --control-active: #cddcdf;
+  --neutral-bg: #25343b;
+  --neutral-hover: #35464f;
+  --neutral-text: #f5f8f9;
   --accent-soft: #173b36;
   --on-accent: #b3f0e1;
   --shadow-color: #0006;
@@ -90,9 +100,10 @@
 :root[data-theme='dark'] .button--primary:hover { background: var(--action-hover); }
 :root[data-theme='dark'] .button--dark { color: var(--control-text); background: var(--control-bg); }
 :root[data-theme='dark'] .button--dark:hover { background: var(--control-hover); }
-:root[data-theme='dark'] .button--white { color: var(--ink); background: var(--surface-raised); }
-:root[data-theme='dark'] .button--white:hover { background: var(--surface-hover); }
-:root[data-theme='dark'] .button--white::before { background: #b8e5d90c; }
+:root[data-theme='dark'] .button--white { color: var(--neutral-text); background: var(--neutral-bg); }
+:root[data-theme='dark'] .button--white:hover { background: var(--neutral-hover); }
+:root[data-theme='dark'] .p10-home .button--primary:active { background: var(--action-active); }
+:root[data-theme='dark'] .p10-home .button--dark:active { background: var(--control-active); }
 :root[data-theme='dark'] .icon-button { color: var(--ink); background: var(--surface-raised); }
 :root[data-theme='dark'] .icon-button:hover { color: var(--accent-dark); background: var(--surface-hover); }
 :root[data-theme='dark'] .skip-link { color: var(--ink); background: var(--surface-raised); }
@@ -109,8 +120,8 @@
 :root[data-theme='dark'] .site-header.menu-open {
   --nav-border: #45605d;
   --nav-surface: #1d3032e6;
-  --nav-hover: #294342;
-  --nav-active: #35564f;
+  --nav-hover: #29373c;
+  --nav-active: #35464f;
   color: var(--ink);
 }
 :root[data-theme='dark'] .site-header.is-light .header__brand img,

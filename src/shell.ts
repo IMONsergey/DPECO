@@ -39,7 +39,7 @@ function navigationPanel(entries: readonly NavigationEntry[]): string {
 }
 
 function dropdown(id: string, label: string, content: string, extraClass = '', prefixIcon?: IconName): string {
-  return `<div class="nav-dropdown ${extraClass}" data-nav-id="${id}"><button class="header__nav-control header__nav-toggle" type="button" data-nav-toggle="${id}" aria-expanded="false" aria-controls="nav-panel-${id}">${prefixIcon ? icon(prefixIcon) : ''}<span>${label}</span>${icon('chevron-down', 'header__nav-chevron')}</button><div class="nav-panel${id === 'ecosystem' ? ' nav-panel--ecosystem' : ''}" id="nav-panel-${id}" inert aria-hidden="true">${content}</div></div>`;
+  return `<div class="nav-dropdown ${extraClass}" data-nav-id="${id}"><button class="header__nav-control header__nav-toggle" type="button"${id === 'sellers' || id === 'invest' ? ' data-availability="development"' : ''} data-nav-toggle="${id}" aria-expanded="false" aria-controls="nav-panel-${id}">${prefixIcon ? icon(prefixIcon) : ''}<span>${label}</span>${icon('chevron-down', 'header__nav-chevron')}</button><div class="nav-panel${id === 'ecosystem' ? ' nav-panel--ecosystem' : ''}" id="nav-panel-${id}" inert aria-hidden="true">${content}</div></div>`;
 }
 
 function ecosystemPanel(): string {
@@ -67,6 +67,7 @@ function footerMessengers(): string {
 
 function renderMobileMenu(): string {
   return `<div class="header__mobile-menu" id="mobile-menu" inert aria-hidden="true"><div class="container header__mobile-inner">
+    <div class="header__mobile-appearance"><span>Оформление сайта</span>${themeToggle(true)}</div>
     ${siteSearch('mobile-search', true)}
     <nav class="header__mobile-nav" aria-label="Мобильная навигация">
       <div class="header__mobile-group"><h2>Продавцам</h2>${sellerLinks.map((entry) => `<a class="header__mobile-link" href="${entry.href}"${entry.requestKind ? ` data-request-kind="${entry.requestKind}"` : ''}><span>${entry.title}</span>${chevronRight()}</a>`).join('')}</div>
@@ -82,16 +83,15 @@ export function renderHeader(light: boolean): string {
   return `<header class="site-header p10-header${light ? ' is-light' : ''}" id="site-header">
     <div class="container header__content">
       <div class="header__top">
-        <a class="header__brand" href="#top" data-scroll="top" aria-label="DEBTPRICE: в начало страницы"><span class="p10-brand-mark"><img src="${asset('page10/391-828/7d89e.svg')}" alt="DEBTPRICE"></span><span class="header__brand-description">Аукцион<br>долговых активов</span></a>
+        <a class="header__brand" href="#top" data-scroll="top" aria-label="DEBTPRICE: в начало страницы"><span class="p10-brand-mark"><img class="p10-brand-logo" src="${asset('brand/debtprice-logo-20261112.svg')}" alt="DEBTPRICE" width="560" height="129"></span><span class="header__brand-description">Аукцион<br>долговых активов</span></a>
         <div class="header__contacts"><a class="header__phone" href="tel:+79159724101">${icon('phone')}<span>${phone}</span></a><a class="header__email" href="mailto:${email}">${icon('mail')}<span>${email}</span></a><a class="header__telegram" href="${telegramUrl}" target="_blank" rel="noopener noreferrer">${icon('telegram')}<span>Telegram</span><span class="sr-only">, в новой вкладке</span></a></div>
         <div class="header__actions"><a class="header__nav-control header__account" href="${accountUrl}">Войти на площадку</a><a class="button button--white header__register" href="${registerUrl}">Регистрация на ЭТП ${icon('login')}</a></div>
-        ${themeToggle(true)}
         <button class="header__menu" type="button" data-mobile-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Открыть меню">${icon('menu', 'header__menu-open-icon')}${icon('close', 'header__menu-close-icon')}</button>
       </div>
       <div class="header__bottom">
         <nav class="header__nav" aria-label="Главная навигация">
           ${dropdown('sellers', 'Продавцам', navigationPanel(sellerLinks))}
-          <a class="header__nav-control header__nav-link" href="#lots?category=all&amp;period=upcoming" data-lots-category="all" data-lots-period="upcoming">Покупателям</a>
+          <a class="header__nav-control header__nav-link" data-availability="development" href="#lots?category=all&amp;period=upcoming" data-lots-category="all" data-lots-period="upcoming">Покупателям</a>
           ${dropdown('invest', 'Инвестору', navigationPanel(investorLinks))}
           <a class="header__nav-control header__nav-link" href="#process">О проекте</a>
           <a class="header__nav-control header__nav-link" href="#request">Контакты</a>
@@ -112,7 +112,7 @@ export function renderFooter(): string {
   }).join('');
   return `<footer class="p10-footer" data-node-id="391:1384"><div class="container">
     <div class="p10-footer__main">
-      <div class="p10-footer__brand"><a class="p10-footer__brand-link" href="#top" data-scroll="top" aria-label="DEBTPRICE: в начало страницы"><img src="${asset('page10/391-828/7d89e.svg')}" alt="DEBTPRICE" width="158" height="21"></a><h2>Аукцион долговых активов</h2><p>продавайте и покупайте<br>по цене рынка</p><small>ООО «ДЕБТПРАЙС»<br>Оператор электронной торговой площадки DEBTPRICE</small></div>
+      <div class="p10-footer__brand"><a class="p10-footer__brand-link" href="#top" data-scroll="top" aria-label="DEBTPRICE: в начало страницы"><img class="p10-brand-logo" src="${asset('brand/debtprice-logo-20261112.svg')}" alt="DEBTPRICE" width="560" height="129"></a><h2>Аукцион долговых активов</h2><p>продавайте и покупайте<br>по цене рынка</p><small>ООО «ДЕБТПРАЙС»<br>Оператор электронной торговой площадки DEBTPRICE</small></div>
       <div><div class="p10-footer__navigation">
         <nav aria-labelledby="footer-ecosystem-title"><h2 id="footer-ecosystem-title">Экосистема</h2>${ecosystemLinks}</nav>
         <nav aria-labelledby="footer-platform-title"><h2 id="footer-platform-title">Платформа</h2><a href="#request?kind=portfolio" data-request-kind="portfolio">Продавцам</a><a href="#lots?category=all&amp;period=upcoming" data-lots-category="all" data-lots-period="upcoming">Покупателям</a><a href="#request?kind=buyer" data-request-kind="buyer">Инвестору</a></nav>

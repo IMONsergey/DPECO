@@ -1,0 +1,36 @@
+{
+  "source": "https://docs.google.com/document/d/1hH3xng6E4rAf-Cfeqz9VMI788a7nFbq_0TAJrdfv444/edit?tab=t.0",
+  "section": "Комментарии от 11.11 часть 2",
+  "sourceParagraphRange": [1, 2199],
+  "readAt": "2026-11-11",
+  "classification": "CLIENT_NOTE, execution authorized by the user forwarding these additional corrections",
+  "scope": "One homepage only; preserve both themes and the no-navigation user instruction. No changes to debtprice.market.",
+  "requirements": [
+    {"id":"P2-01","text":"Publish the updated homepage at the clean root https://debtprice-lab.imon.world/.","verification":"Public HTTP/hash readback, browser verification, no secondary HTML screens."},
+    {"id":"P2-02","text":"Retain no navigation to other pages, hashes, services, documents, tel/mailto or new tabs.","verification":"Existing no-navigation suite and new part2 isolation checks; blocked network writes/navigation attempts."},
+    {"id":"P2-03","text":"White-outline CTAs fill white on hover with dark text and icon; colored CTAs gain contrast, not pale out.","verification":"Desktop light/dark computed colors, contrast and icon filter checks plus screenshots."},
+    {"id":"P2-04","text":"Preserve image layout and smooth, responsive microinteractions.","verification":"Existing image/overflow matrix plus visual inspection and motion samples."},
+    {"id":"P2-05","text":"Remove the desktop search exterior gray ring, preserving visible keyboard focus.","verification":"No external outline/shadow; replacement inset/other visible focus treatment with keyboard."},
+    {"id":"P2-06","text":"Use Технологии и встречи under DOLG TALK in the desktop ecosystem menu.","verification":"Exact visible label in dropdown."},
+    {"id":"P2-07","text":"Center the Статус table-column heading.","verification":"Computed text-align:center on desktop."},
+    {"id":"P2-08","text":"Give the schedule status badge a more distinct hover state.","verification":"Badge fill changes, text contrast >=4.5, visual inspection."},
+    {"id":"P2-09","text":"Prefix the schedule source note with *.","verification":"Visible note starts with * Данные на."},
+    {"id":"P2-10","text":"Keep на площадке visually link-styled but inactive under the explicit no-navigation instruction.","verification":"No href, aria-disabled=true, click does not change URL.","conflict":"Client request for a working marketplace link conflicts with the stronger direct user no-navigation instruction; activation is not authorized."},
+    {"id":"P2-11","text":"Desktop capability hover starts immediately and expands smoothly without delay, jerks or stationary-pointer thrashing.","verification":"Synchronous activation timestamp, intermediate layout frames, stable active card, visual motion review."},
+    {"id":"P2-12","text":"In desktop consultation seller copy, put какие on the next line.","verification":"Visual inspection of seller paragraph at desktop widths; no forced break on narrow mobile."},
+    {"id":"P2-13","text":"Consultation submit width matches email in two-column field layout, and organization in single-column layout.","verification":"Actual field/CTA geometry at 320,390,768,1280,1440 in both themes."},
+    {"id":"P2-14","text":"Footer telephone, email and Telegram/MAX/WhatsApp icons become green on hover.","verification":"Computed hover color differs and has green/teal channel dominance; no navigation added."},
+    {"id":"P2-15","text":"Move mobile theme switch inside the menu, away from the burger.","verification":"No visible theme switch in header top, exactly one in mobile menu, functional toggling without URL change."},
+    {"id":"P2-16","text":"Narrow mobile hero Продать долг and Купить долг buttons.","verification":"Both widths <=86% of actions container, adequate target height; visual inspection of screenshot framing."},
+    {"id":"P2-17","text":"Mobile capabilities cards drift gently right-to-left while preserving manual scrolling.","verification":"Observed increasing scrollLeft, pause during contact, native keyboard scrolling, reduced-motion stop; visual review."},
+    {"id":"P2-18","text":"Reduce mobile height and empty space of Выберите подходящее предложение.","verification":"Banner height and content whitespace measured, screenshot checked for preserved artwork/text."},
+    {"id":"P2-19","text":"Point all process arrows down in single-column mobile layout only.","verification":"90deg transforms on all three process arrows at320/390; desktop remains unchanged."},
+    {"id":"P2-20","text":"Reduce mobile vertical gap specifically between consultation phone and email.","verification":"Measured contact-to-contact gap and screenshot; preserve text section hierarchy."}
+  ],
+  "incompleteClientNote": "Desktop header item 3 is only Сдела. No executable instruction or invented change is derived from it.",
+  "coverage": {
+    "automatedVariants": "320,390,768,1280,1440 × light,dark × Chromium,Firefox,WebKit = 30",
+    "motion": "Desktop1440 and mobile390 within the same variant records",
+    "notSubstituted": "Native Safari and visual motion/typography judgment are not established by automated pass."
+  }
+}

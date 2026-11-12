@@ -1,3 +1,36 @@
 /* Keep the approved visual states while removing every navigation action. */
 .homepage-static [data-navigation-disabled] { cursor: default; }
 .homepage-static .skip-link { border: 0; font: inherit; }
+
+.homepage-availability-tooltip {
+  position: fixed;
+  z-index: 1100;
+  max-width: calc(100vw - 24px);
+  padding: 9px 13px;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 7px;
+  background: #122c2f;
+  color: #fff;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 14%);
+  font: 500 13px/1.4 'TikTok Sans', sans-serif;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-3px);
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+.homepage-availability-tooltip.is-visible {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+[data-theme='dark'] .homepage-availability-tooltip {
+  border-color: rgb(255 255 255 / 14%);
+  background: #f2f6f6;
+  color: #102b2e;
+}
+@media (prefers-reduced-motion: reduce) {
+  .homepage-availability-tooltip { transition: none; transform: none; }
+}

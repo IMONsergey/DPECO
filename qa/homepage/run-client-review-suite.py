@@ -24,7 +24,7 @@ def save():
     receipt.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
 
 save()
-scripts = ['check-client-review.mjs']
+scripts = ['check-client-part2.mjs', 'check-client-review.mjs']
 for script in scripts:
     before = set(results.glob('*/report.json'))
     task = {'script': script, 'scriptSha256': digest(project / 'qa/homepage' / script), 'startedAt': datetime.now(timezone.utc).isoformat()}

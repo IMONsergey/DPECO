@@ -20,7 +20,7 @@ import stat
 import sys
 import uuid
 
-PROJECT = Path('/home/sergey/Projects/DPECO-publish-20261111')
+PROJECT = Path(__file__).resolve().parents[2]
 CURRENT = Path('/srv/debtprice/current')
 RELEASE = Path('/srv/debtprice/releases/20261111-K_Fm4vOk')
 RESULTS = 'qa/homepage/results'
@@ -176,8 +176,10 @@ def candidate(project, dist):
     require(suite.get('source') == sources and suite.get('build') == build,
             'Current source/build SHA maps do not match the latest passing suite')
     checks = suite.get('checks')
-    require(isinstance(checks, list) and len(checks) == 1, 'Expected one complete client-review check')
-    check = checks[0]
+    require(isinstance(checks, list) and len(checks) == 2
+            and {item.get('script') for item in checks} == {'check-client-review.mjs', 'check-client-part2.mjs'},
+            'Both original client-review and additional Part 2 matrices are required')
+    check = next(item for item in checks if item.get('script') == 'check-client-review.mjs')
     script_sha = sha(read(project, QA_SCRIPT))
     require(check.get('script') == 'check-client-review.mjs' and check.get('exitCode') == 0
             and check.get('scriptSha256') == script_sha, 'QA script failed or changed after verification')
@@ -204,6 +206,34 @@ def candidate(project, dist):
             'Browser report counters disagree')
     require(all(report.get(key) == [] for key in ('runtimeErrors', 'networkWrites', 'assetErrors', 'popups', 'navigationAttempts')),
             'Browser report has errors or lacks required gates')
+    part2_check = next(item for item in checks if item.get('script') == 'check-client-part2.mjs')
+    part2_script_sha = sha(read(project, 'qa/homepage/check-client-part2.mjs'))
+    require(part2_check.get('exitCode') == 0 and part2_check.get('scriptSha256') == part2_script_sha,
+            'Part 2 QA failed or its script changed after verification')
+    part2_refs = part2_check.get('reports')
+    require(isinstance(part2_refs, list) and len(part2_refs) == 1, 'Expected one Part 2 browser report')
+    part2_ref = part2_refs[0]
+    part2_path = part2_ref['path']
+    require(parts(part2_path)[:3] == ('qa', 'homepage', 'results') and parts(part2_path)[-1] == 'report.json',
+            'Part 2 report is outside QA results')
+    part2, part2_sha = read_json(project, part2_path)
+    require(part2_ref.get('sha256') == part2_sha and part2.get('scriptSha256') == part2_script_sha
+            and part2.get('status') == 'pass' and part2.get('sourceUnchanged') is True
+            and part2.get('buildUnchanged') is True and part2.get('project') == str(PROJECT)
+            and part2.get('phase') == 'client-review'
+            and started <= moment(part2['startedAt']) <= moment(part2['finishedAt']) <= finished,
+            'Part 2 report SHA, source, project, status or interval mismatch')
+    part2_cases = part2.get('checks', [])
+    part2_variants = {(item.get('browser'), item.get('width'), item.get('theme')) for item in part2_cases}
+    required_variants = {(browser, width, theme) for browser in ('chromium', 'firefox', 'webkit')
+                         for width in (320, 390, 768, 1280, 1440) for theme in ('light', 'dark')}
+    require(len(part2_cases) == 30 and part2_variants == required_variants
+            and all(item.get('status') == 'pass' for item in part2_cases)
+            and part2.get('passed') == part2_ref.get('passed') == 30
+            and part2.get('failed') == part2_ref.get('failed') == 0,
+            'Complete 30-variant Part 2 matrix is required; restricted runs are rejected')
+    require(all(part2.get(key) == [] for key in ('runtimeErrors', 'networkWrites', 'assetErrors', 'popups', 'navigationAttempts')),
+            'Part 2 browser report has errors or lacks required gates')
     preview_path = RESULTS + '/preview.json'
     preview, preview_sha = read_json(project, preview_path)
     require(moment(preview['createdAt']) <= started and preview.get('build') == files,
@@ -215,6 +245,7 @@ def candidate(project, dist):
     require(any(p.endswith('.js') for p in selected) and any(p.endswith('.css') for p in selected), 'Built JS/CSS missing')
     return {'suite': str(PROJECT / suite_path), 'suiteSha256': suite_sha, 'qaFinishedAt': suite['finishedAt'],
             'browserReport': str(PROJECT / report_path), 'browserReportSha256': report_sha,
+            'part2Report': str(PROJECT / part2_path), 'part2ReportSha256': part2_sha,
             'qaScriptSha256': script_sha, 'previewSha256': preview_sha,
             'sourceSha256': map_sha(sources), 'publicSourceSha256': map_sha(public),
             'buildSha256': map_sha(build), 'fullDistSha256': map_sha(files),

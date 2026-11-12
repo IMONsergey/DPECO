@@ -9,7 +9,7 @@ export const ecosystem = [
   { name: 'DEBTPRICE', label: 'Торговая площадка', text: 'Продажа и покупка долговых активов на открытых торгах.', href: accountUrl, icon: 'coins' as IconName },
   { name: 'Рынок Взыскания', label: 'Медиа', text: 'Новости, аналитика, судебная практика и интервью с участниками рынка.', href: 'https://rvzrus.ru/', icon: 'document' as IconName },
   { name: 'DEBT TECH', label: 'Технологии и встречи', text: 'Конференция о технологиях, которые меняют работу с долгом.', href: 'https://debt-tech.ru/', icon: 'grid' as IconName },
-  { name: 'DOLG TALK', label: 'Профессиональное сообщество', text: 'Форум для банков, МФО, взыскателей, инвесторов и торговых площадок.', href: 'https://dolgtalk.ru/', icon: 'users' as IconName },
+  { name: 'DOLG TALK', label: 'Технологии и встречи', text: 'Форум для банков, МФО, взыскателей, инвесторов и торговых площадок.', href: 'https://dolgtalk.ru/', icon: 'users' as IconName },
   { name: 'Навигатор решений', label: 'Каталог технологий', text: 'Сервисы для работы с долгом: от скоринга до банкротства.', href: 'https://navigator.debt-tech.ru/', icon: 'globe' as IconName },
   { name: 'ПКО-300', label: 'Рейтинг', text: 'Рейтинг коллекторских агентств по данным ФНС.', href: 'https://pko300.ru/', icon: 'chart' as IconName },
 ] as const;
