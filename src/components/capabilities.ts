@@ -132,7 +132,7 @@ function card(item: Capability, index: number): string {
                 ${measuringLines([item.description.seller, item.description.buyer])}
                 <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
               </div>
-              <a class="button button--primary capability-new__cta" href="#request" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span>${icon('arrow-right')}</a>
+              ${item.id === 'receivables' ? `<a class="button button--primary capability-new__cta" href="#request" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span>${icon('arrow-right')}</a>` : ''}
             </div>
           </div>
         </div>

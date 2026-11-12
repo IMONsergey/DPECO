@@ -67,6 +67,8 @@ Privacy содержит официальный PDF embed и прямую ссы
 
 CHECKPOINT.md содержит текущий статус, точные версии, публикации и оставшиеся пункты. Старые отчеты и CI93 относятся к своим исходным версиям; их нельзя выдавать за приемку новой разрешенной навигации.
 
+Правка CTA в блоке «Возможности платформы» опубликована 12.11 в 21:04 МСК. В обеих вкладках кнопка оставлена только в карточке «Дебиторская задолженность»: продавцу «Обсудить продажу», покупателю «Посмотреть лоты». Изолированный Chromium 18/18 на 1440/768/390/320, публичный HTTP/SHA 138/138, 102 файла, полный backup, HTML815f30bc, JS index-4P_n62M9.js. Адресные скрипты: check-client-capability-20261112.mjs, publish-client-capability-20261112.py, verify-client-capability-20261112.py. Receipt в results/client-capability-rollouts/20261112T180420Z-8b64c6b4c415/.
+
 Правка доступности опубликована 12.11 в 20:36 МСК. check-client-availability-20261112.mjs: 16/16 PASS, 1440 light / 390 dark, 13 целевых элементов, hover/touch/focus/Enter/Escape, прямые закрытые hash, Privacy и поиск. publish-client-availability-20261112.py закрепляет этот отчет и baseline625f6f2a; verify-client-availability-20261112.py подтвердил 138/138 HTTP/SHA, 102 файла и 34 запрещенных пути. Публичный HTML4da0f5e9, JS index-B_1Lktz4.js. Ведомость: qa/homepage/acceptance-availability-20261112.json.
 
 Историческая приемка новых переходов: qa/homepage/check-client-links-20261112.mjs. Адаптив и переходы на320/390/768/1440: qa/homepage/check-client-mobile-20261112.mjs. Тесты используют изолированные Chromium-контексты, блокируют внешние запросы и сетевые записи, сохраняют исходные отчеты и снимки. Проверка headless Chromium не означает проверку нативного Safari.
