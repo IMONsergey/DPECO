@@ -132,7 +132,7 @@ function card(item: Capability, index: number): string {
                 ${measuringLines([item.description.seller, item.description.buyer])}
                 <p class="capability-new__description" id="${descriptionId}" data-capability-new-description="${item.id}">${escapeHtml(item.description.seller)}</p>
               </div>
-              <a class="button button--primary capability-new__cta" role="link" aria-disabled="true" tabindex="-1" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span>${icon('arrow-right')}</a>
+              <a class="button button--primary capability-new__cta" href="#request" data-capability-new-link="${item.id}" aria-label="${escapeHtml(`${actionLabels.seller}: ${item.title.join(' ')}`)}" aria-describedby="${descriptionId}"><span>${actionLabels.seller}</span>${icon('arrow-right')}</a>
             </div>
           </div>
         </div>
@@ -227,7 +227,7 @@ export function mountCapabilities(host: HTMLElement): Cleanup {
     const edgeDistance = motionDirection > 0 ? scrollLimit - motionPosition : motionPosition;
     const edgeEase = Math.min(1, Math.max(.18, edgeDistance / 48));
     const startEase = Math.min(1, Math.max(0, (now - motionStartedAt) / 800));
-    motionPosition = Math.max(0, Math.min(scrollLimit, motionPosition + motionDirection * 24 * edgeEase * startEase * elapsed));
+    motionPosition = Math.max(0, Math.min(scrollLimit, motionPosition + motionDirection * 28 * edgeEase * startEase * elapsed));
     lastAutoPosition = motionPosition;
     grid.scrollLeft = motionPosition;
     if ((motionDirection > 0 && motionPosition >= scrollLimit) || (motionDirection < 0 && motionPosition <= 0)) {

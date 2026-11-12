@@ -1,0 +1,55 @@
+{
+  "url": "https://debtprice-lab.imon.world/",
+  "publishedAt": "2026-11-12T17:11:09.534183+00:00",
+  "htmlSha256": "625f6f2ab0e7ba910ecc0be14197480ca8c16aa826c4feab5e3acf08a79f7f4b",
+  "sourceSha256": "7a0af7f5dc0c95ebf718c8a69f83d3390efc93bbb5d048b513d091218f526bee",
+  "fullDistSha256": "6bfab0ad341af7497fcee7c36bf7daabc59cb3577db692dc29a1f348d49411cd",
+  "liveFilesSha256": "bdd76a67dc355cded69e026a10dc4e1da24ac6e82d3554b5b05efcf7f767061a",
+  "authorization": "User explicitly requested publication, only links in client edits, and red-marked corrections.",
+  "clientDocument": "https://docs.google.com/document/d/1hH3xng6E4rAf-Cfeqz9VMI788a7nFbq_0TAJrdfv444/edit?tab=t.0",
+  "allowedPages": [
+    "/",
+    "#/about",
+    "#/contacts",
+    "#/privacy"
+  ],
+  "acceptance": {
+    "build": "pass",
+    "navigationChecks": 18,
+    "finalMobileAndNavigationChecks": 38,
+    "publicFormChecks": 12,
+    "publicHttpPassed": 138,
+    "publicHttpFailed": 0,
+    "backupVerified": true,
+    "nativeSafari": "not-tested",
+    "full93": "historical-baseline-only"
+  },
+  "evidence": {
+    "navigation": {
+      "path": "qa/homepage/results/client-links-20261112/report.json",
+      "sha256": "f3f13785c446a8db8861b1a35a228f13d664c3b90ae446dd606123ba353b6b69"
+    },
+    "mobile": {
+      "path": "qa/homepage/results/client-mobile-20261112/report.json",
+      "sha256": "1e526a69a94ee8093da4e330d7c2799305119fa1cdef3ce8c740669f46a19e77"
+    },
+    "forms": {
+      "path": "qa/homepage/results/forms-public-2026-11-12T17-05-10-112Z.json",
+      "sha256": "324a7140e7e06df47f0fab857a5978771a7af643380f47ec1dbbff2c0cd0013d"
+    },
+    "receipt": {
+      "path": "qa/homepage/results/client-mobile-rollouts/20261112T171109Z-8ffa053954d0/receipt.json",
+      "sha256": "2877b2a0fff2dc492d346bc17c7e829705dc16b0f5b3b35175c29b095f629c5b"
+    },
+    "http": {
+      "path": "qa/homepage/results/client-mobile-rollouts/20261112T171109Z-8ffa053954d0/public-http-verification.json",
+      "sha256": "7f8713936849c626724272332d86a086754825f69883fce1570e989ce5ed7e56"
+    }
+  },
+  "pending": [
+    "Telegram submission endpoint, bot and recipient; form remains an explicit local draft.",
+    "MAX and WhatsApp destination URLs are absent from client edits.",
+    "Privacy page embeds official PDF; no separate HTML transcription.",
+    "Live trading API is not connected."
+  ]
+}

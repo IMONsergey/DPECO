@@ -42,4 +42,4 @@ export const asset = (path: string): string => `${import.meta.env.BASE_URL}asset
 export const accountUrl = 'https://my.debtprice.market/site/login';
 export const registerUrl = 'https://my.debtprice.market/site/register';
 
-export const telegramUrl = 'https://t.me/+H7LCyetXYRozYjA6';
+export const telegramUrl = 'https://t.me/+0NVxCNB9xCozYmFi';

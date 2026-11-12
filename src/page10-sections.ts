@@ -1,5 +1,5 @@
 import { renderCapabilities } from './components/capabilities';
-import { accountUrl, asset, icon } from './ui';
+import { registerUrl, asset, icon } from './ui';
 import './page10-sections.css';
 
 const image = (section: string, file: string) => asset(`page10/${section}/${file}`);
@@ -63,7 +63,7 @@ function renderConsultation(): string {
       <button class="button p10-consultation__submit" type="submit"><span>Подготовить заявку</span>${localIcon('391-1130', 'ed8c1.svg')}</button>
       <div class="p10-consultation__consents">
         <label class="p10-request-consent"><input type="checkbox" name="consent" required><span>Согласен на обработку персональных данных в соответствии с <a href="https://my.debtprice.market/Privacy_policy.pdf" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a></span></label>
-        <label class="p10-request-consent"><input type="checkbox" name="Рекламные предложения" value="Согласие дано"><span>Соглашаюсь на рекламные предложения от DEBTPRICE по электронной почте, номеру телефона и в мессенджерах</span></label>
+        <label class="p10-request-consent"><input type="checkbox" name="Рекламные предложения" value="Согласие дано"><span>Соглашаюсь на рекламные предложения от DEBTPRICE по электронной почте, номеру телефона и в мессенджерах в соответствии с <a href="https://my.debtprice.market/Privacy_policy.pdf" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a></span></label>
       </div>
       <div class="request__status p10-consultation__status" id="request-status" role="status" aria-live="polite" hidden></div>
     </form>
@@ -108,7 +108,7 @@ function renderPage10Ecosystem(): string {
           <div class="p10-ecosystem-card__inner">
             <div class="p10-ecosystem-card__brand"><span class="p10-ecosystem-card__forums-logo" data-p10-brand-fit><img src="${asset('page10/logos/debttech-dolgtalk.svg')}" alt="DEBT TECH / DOLG TALK" loading="lazy" decoding="async"></span></div>
             <h3>Форумы DEBT TECH<br> и DOLG TALK</h3><p>Находите партнеров и клиентов на наших офлайн-мероприятиях. Здесь встречаются лидеры рынка: банки, МФО, ПКО, вендоры, инвесторы и электронные торговые площадки.</p>
-            <div class="p10-ecosystem-card__actions">${ecosystemButton('DEBT TECH', 'https://debt-tech.ru/')}${ecosystemButton('DOLG TALK', 'https://dolgtalk.ru/')}</div>
+            <div class="p10-ecosystem-card__actions">${ecosystemButton('DEBT TECH', 'https://www.debt-tech.ru/')}${ecosystemButton('DOLG TALK', 'https://dolgtalk.ru/')}</div>
           </div>
         </article>
         <article class="p10-ecosystem-card p10-ecosystem-card--auction">
@@ -116,7 +116,7 @@ function renderPage10Ecosystem(): string {
           <div class="p10-ecosystem-card__inner">
             <div class="p10-ecosystem-card__brand"><img src="${asset('brand/debtprice-logo-20261112.svg')}" width="200" alt="DEBTPRICE Аукцион" loading="lazy" decoding="async"></div>
             <h3>Аукцион<br> долговых активов</h3><p>Инструменты для рынка<br> долговых активов</p>
-            <div class="p10-ecosystem-card__actions">${ecosystemButton('Войти на площадку', accountUrl)}</div>
+            <div class="p10-ecosystem-card__actions">${ecosystemButton('Войти на площадку', registerUrl)}</div>
           </div>
         </article>
         <article class="p10-ecosystem-card p10-ecosystem-card--navigator">

@@ -103,7 +103,7 @@ function renderSchedule(): string {
     </div>
     <div class="p10-schedule__stage"><div id="p10-schedule-results" role="tabpanel" aria-labelledby="period-upcoming">${scheduleTable(lots, false)}</div></div>
     <p class="sr-only" id="p10-schedule-announcement" role="status" aria-live="polite"></p>
-    <div class="p10-schedule__bottom"><a class="button button--primary" href="${accountUrl}">Перейти ко всем торгам ${icon('arrow-right')}</a><p class="p10-source-note">* Данные на <span data-schedule-source-date>${sourceDate}</span>. Актуальные статусы и&nbsp;условия <a href="${accountUrl}">на&nbsp;площадке</a>.</p></div>
+    <div class="p10-schedule__bottom"><a class="button button--primary" href="${accountUrl}">Перейти ко всем торгам ${icon('arrow-right')}</a><p class="p10-source-note">* Сегодня <span data-schedule-current-date>${longDate.format(Date.now()).replace(' г.', '')}</span> (МСК). Снимок данных: <span data-schedule-source-date>${sourceDate}</span>. Актуальные статусы и&nbsp;условия <a href="${accountUrl}">на&nbsp;площадке</a>.</p></div>
   </div></section>`;
 }
 
@@ -194,6 +194,10 @@ export function mountHomeAuctions(app: HTMLElement, savedCategory: 'all' | LotCa
     const now = Date.now();
     const clock = app.querySelector<HTMLTimeElement>('[data-moscow-clock]');
     if (clock) { clock.textContent = liveTime.format(now); clock.dateTime = new Date(now).toISOString(); }
+    // The viewing date follows Moscow midnight; the source snapshot stays explicit.
+    const currentDate = app.querySelector<HTMLElement>('[data-schedule-current-date]');
+    const today = longDate.format(now).replace(' г.', '');
+    if (currentDate && currentDate.textContent !== today) currentDate.textContent = today;
     const next = lots.find(lot => lot.startsAt && Date.parse(lot.startsAt) > now);
     const write = (selector: string, text: string) => { const node=app.querySelector(selector); if(node)node.textContent=text; };
     if (next?.startsAt) {

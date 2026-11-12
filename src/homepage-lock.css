@@ -1,4 +1,4 @@
-/* Keep the approved visual states while removing every navigation action. */
+/* Keep the approved visual states while enabling only the requested navigation. */
 .homepage-static [data-navigation-disabled] { cursor: default; }
 .homepage-static .skip-link { border: 0; font: inherit; }
 

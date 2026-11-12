@@ -4,6 +4,25 @@ const routeAttributes = ['data-scroll', 'data-open-documents', 'data-open-lot', 
 const routeButtons = '[data-open-documents], [data-open-lot], [data-p10-format-open]';
 const availabilitySelector = '[data-availability]';
 const soonSelector = '.p10-hero .hero__actions .button, .p10-choice__actions .button, .p10-materials__all, .p10-footer nav[aria-labelledby="footer-platform-title"] a';
+const approvedDestinations = new Set([
+  'https://my.debtprice.market/site/login',
+  'https://my.debtprice.market/site/register',
+  'https://my.debtprice.market/Privacy_policy.pdf',
+  'https://t.me/+0NVxCNB9xCozYmFi',
+  'https://rvzrus.ru/', 'https://www.debt-tech.ru/',
+  'https://dolgtalk.ru/', 'https://navigator.debt-tech.ru/', 'https://pko300.ru/',
+  'tel:+79159724101', 'mailto:v@debtprice.market',
+  'mailto:invest@debtprice.market', 'mailto:debt@debtprice.market',
+  'mailto:sales@debtprice.market', 'mailto:pr@debtprice.market', 'mailto:info@debtprice.market',
+  '#/', '#/about', '#/contacts', '#/privacy', '#top', '#request',
+]);
+const searchSections = new Set(['#lots', '#sell-buy', '#capabilities', '#formats', '#process', '#request', '#ecosystem', '#materials']);
+export function approvedNavigation(element: Element): boolean {
+  if (!(element instanceof HTMLAnchorElement) || element.matches(availabilitySelector) || element.matches(soonSelector)) return false;
+  const href = element.getAttribute('href') ?? '';
+  return approvedDestinations.has(href) || (element.matches('[data-live-search-result]') && searchSections.has(href));
+}
+
 const availabilityText = { development: 'В разработке', soon: 'Скоро доступно' } as const;
 type Availability = keyof typeof availabilityText;
 
@@ -19,6 +38,13 @@ function annotateAvailability(element: HTMLElement): void {
 }
 
 function disableNavigation(element: HTMLElement): void {
+  if (approvedNavigation(element)) {
+    element.removeAttribute('data-navigation-disabled');
+    element.removeAttribute('aria-disabled');
+    element.removeAttribute('tabindex');
+    element.removeAttribute('role');
+    return;
+  }
   element.setAttribute('data-navigation-disabled', '');
   element.setAttribute('aria-disabled', 'true');
   element.removeAttribute('aria-haspopup');
@@ -38,7 +64,7 @@ function disableNavigation(element: HTMLElement): void {
 function lockForm(form: HTMLFormElement): void {
   form.removeAttribute('action');
   form.removeAttribute('target');
-  if (form.matches('[data-site-search]')) form.querySelectorAll<HTMLElement>('button[type="submit"]').forEach(disableNavigation);
+
 }
 
 function lockWithin(context: ParentNode): void {
@@ -57,7 +83,7 @@ function lockWithin(context: ParentNode): void {
   });
 }
 
-/** Remove destinations before initial or refreshed HTML reaches the document. */
+/** Keep only the destinations explicitly requested in the current client edits. */
 export function staticHomepageMarkup(markup: string): string {
   const template = document.createElement('template');
   template.innerHTML = markup;
@@ -65,7 +91,7 @@ export function staticHomepageMarkup(markup: string): string {
   return template.innerHTML;
 }
 
-/** This published review contains one screen, with only local UI interactions. */
+/** Preserve unavailable controls while allowing the reviewed destinations. */
 export function mountHomepageLock(app: HTMLElement): () => void {
   const abort = new AbortController();
   const { signal } = abort;
@@ -163,7 +189,7 @@ export function mountHomepageLock(app: HTMLElement): () => void {
 
   const preventNavigation = (event: Event): void => {
     const target = event.target instanceof Element ? event.target.closest('a, [data-navigation-disabled]') : null;
-    if (!target || !app.contains(target)) return;
+    if (!target || !app.contains(target) || approvedNavigation(target)) return;
     if (event instanceof KeyboardEvent && !['Enter', ' ', 'Spacebar'].includes(event.key)) return;
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -174,7 +200,7 @@ export function mountHomepageLock(app: HTMLElement): () => void {
   app.addEventListener('submit', (event) => {
     // Even Enter in the search field cannot perform a native GET navigation.
     event.preventDefault();
-    if (!(event.target instanceof HTMLFormElement) || !event.target.matches('[data-request-form]')) event.stopImmediatePropagation();
+    if (!(event.target instanceof HTMLFormElement) || !event.target.matches('[data-request-form], [data-site-search]')) event.stopImmediatePropagation();
   }, { capture: true, signal });
   app.addEventListener('click', (event) => {
     if (!(event.target instanceof Element) || !event.target.closest('[data-skip-content]')) return;

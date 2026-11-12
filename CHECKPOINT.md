@@ -1,3 +1,29 @@
+## Финальный выпуск ссылок и адаптива, 12.11.2026 20:11 МСК
+
+Публичный корень обновлен: https://debtprice-lab.imon.world/. HTML SHA256625f6f2ab0e7ba910ecc0be14197480ca8c16aa826c4feab5e3acf08a79f7f4b; JS index-CEY2z7gx.js, CSS style-BrHVfvyF.css. Ссылки были открыты еще в20:00МСК, затем опубликована поправленная мобильная компоновка. Все адреса соответствуют текущему Google Doc; общий прежний запрет навигации отменен прямым уточнением пользователя для этого списка.
+
+Мобильный hero: CTA на ширину контейнера, равные metric cards, badges2×2; исправлены body min-width при320px и размер заголовка. Первый мобильный PASS сохранен в results/client-mobile-20261112/attempt-1 вместе с визуальным замечанием; после исправления повторены строгие проверки по clientWidth и границам контейнера.
+
+Проверено на конечном кандидате: npm build/TypeScript PASS;38/38 Chromium scenarios на320light/390dark/768light/1440light, все3страницы, search, click/Enter/auxclick, отключенные непредусмотренные переходы, geometry,0JSerrors и неизменность source/public/dist. Root просмотрел реальные320light/390dark PNG. Финальный public HTTP/SHA:138/138 PASS,102files,34forbidden404,полныйbackupverified. Receipt/HTTP proof: qa/homepage/results/client-mobile-rollouts/20261112T171109Z-8ffa053954d0/. Backup: /home/sergey/Projects/DPECO-Design-Gallery/.gallery-before-user-directed-20261112T171109Z-8ffa053954d0.
+
+Форма на публичной предыдущейHTMLверсии f7b6 с тем же JS index-CEY2z7gx проверена отдельно:12/12 PASS,390dark ru-RU/Moscow, ввод/Backspace/редактирование/международныйкод/invalidfields/consent/честныйdraft,70GET,0writes/offorigin/popups/errors. Report: qa/homepage/results/forms-public-2026-11-12T17-05-10-112Z.json. Form source не менялся после проверки.
+
+Оставшийся конкретный блокер красных пунктов: реальная доставка Telegram и связанный success-screen требуют серверного endpoint, бота и получателя; в проекте они не настроены. Не выдавать локальный черновик за отправку. В документе нет URLs MAX/WhatsApp. Privacy является отдельной страницей с официальным PDF embed+link, неHTMLкопией. Live API торгов и nativeSafari остаются непроверенными/неподключенными. Старый CI93 SUCCESS подтверждает только старый9b baseline; не приписывать его текущей версии. Итоговая task остаетсяIN_PROGRESS из-за этих пунктов.
+
+---
+
+## Ссылки из правок опубликованы, 12.11.2026 20:00 МСК
+
+Текущий контракт изменен прямой командой Сергея: открыть только переходы из правок 12.11 и максимально быстро опубликовать. Предыдущий общий запрет навигации ниже является историей и больше не действует для явно указанных адресов и трех информационных страниц. Красные пункты подтверждены нативными стилями актуального Google Doc (#f4cccc).
+
+Опубликован https://debtprice-lab.imon.world/ в 17:00:55.756Z, HTML f7b6ce8567f48067f443ed20db7c06f8afdcc64393bb9b2b24e3ea663f5c73b3. Разрешены login/register, шесть сервисов, Telegram +0NVxCNB9xCozYmFi, phone/email, capabilities → #request, policy PDF в обоих согласиях, #/about #/contacts #/privacy. Навигация учитывает exact whitelist до вставки markup, при capture событий и MutationObserver. Остальные stub-кнопки сохраняют подсказки. Реализованы live search, текущая дата Europe/Moscow отдельно от snapshot, региональная маска/валидация, скорость carousel 28 px/s.
+
+Проверки: npm build/tsc PASS; 18/18 focused Chromium 1440 light + 390 dark, реальные click/Enter/auxclick, возврат домой, поиск и страницы, source/build неизменны, ошибок JS нет. Public HTTP/SHA 138/138 PASS (102 файла, 34 лишних пути 404). Receipt и proof: qa/homepage/results/client-links-rollouts/20261112T170055Z-bd99ce4ca30d/. Полный backup: /home/sergey/Projects/DPECO-Design-Gallery/.gallery-before-user-directed-20261112T170055Z-bd99ce4ca30d. Исходные 6 gate/QA файлов не менялись. Новый отдельный reviewed driver прозрачно отмечает targeted-pass. Старый CI93 SUCCESS относится только к baseline9b116.
+
+Остается: mobile hero composition проверяется отдельно; Telegram delivery заблокирована отсутствующим endpoint и настройками бота/получателя, не делать fake success. MAX/WhatsApp адресов нет. Privacy — собственная страница с официальным PDF embed и ссылкой; HTML-текст пока не извлечен. Native Safari новой версии не проверен. Боевой debtprice.market не менять. Прежняя одноразовая automation выключена.
+
+---
+
 ## Согласовано ожидание автокарусели, 12.11 15:37 UTC
 
 Полная матрица Part2 завершилась15:32:09.451Z:29/30PASS, единственныйFAILFirefox390light drift0→0. Все36mediaснимков сохранили [0,1,2] до/после сменытемы; все30footercontrols дали реальныйhover+hit и нужныецвета. Error arrays пусты, source/buildunchanged. SHAсырогоотчета a278cfaf8c00c22d27581a25a6533e2d6e612f4765cc3c49483c93f89c4131c1. Unit t1519 штатно остановлен после полногоPart2; cancellationreceipt сохранен, исходныеотчеты не переписаны.

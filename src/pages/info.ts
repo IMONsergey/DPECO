@@ -1,10 +1,13 @@
-import { renderEcosystem, renderRequestForm, renderTrustBadges } from '../sections';
+import { renderEcosystem, renderTrustBadges } from '../sections';
 import { accountUrl, asset, icon, registerUrl } from '../ui';
 import './info.css';
 
-export type InfoRoute = 'about' | 'docs' | 'contacts';
+export type InfoRoute = 'about' | 'docs' | 'contacts' | 'privacy';
+
+const privacyPolicyUrl = 'https://my.debtprice.market/Privacy_policy.pdf';
 
 const team = [
+  ['Константин Виноградов', 'Сооснователь и управляющий партнёр электронной торговой площадки DEBTPRICE'],
   ['Владимир Вербицкий', 'Сооснователь DEBTPRICE. Учредитель, председатель правления АНО «Центр поддержки цивилизованного рынка взыскания»'],
   ['Елизета Козусь', 'Советник правления'],
   ['Любовь Залевская', 'Президент СМИ «Рынок Взыскания»'],
@@ -34,10 +37,10 @@ const documents = [
 ] as const;
 
 const directions = [
-  { name: 'Инвестиции', text: 'Поиск, привлечение и размещение инвестиций. Финансирование компаний.', email: 'invest@debtprice.market' },
-  { name: 'Дебиторская задолженность', text: 'Компаниям, которые продают долги юридических лиц, и покупателям таких лотов.', email: 'debt@debtprice.market' },
-  { name: 'Портфели физических лиц', text: 'Продажа и покупка портфелей банков, МФО, КПК и других кредиторов.', email: 'sales@debtprice.market' },
-  { name: 'PR и СМИ', text: 'Комментарии экспертов, интервью и данные о рынке долгов.', email: 'pr@debtprice.market' },
+  { name: 'Инвестиции', text: 'Инвесторам и компаниям, которым нужно финансирование. По вопросам поиска и привлечения инвестиций и инвестирования.', email: 'invest@debtprice.market' },
+  { name: 'Дебиторская задолженность', text: 'Компаниям, которые продают долги юридических лиц, и покупателям таких лотов. По вопросам продажи и покупки дебиторской задолженности.', email: 'debt@debtprice.market' },
+  { name: 'Портфели физических лиц', text: 'Банкам, МФО, КПК и другим кредиторам, коллекторским агентствам и юридическим фирмам. По вопросам продажи и покупки портфелей долгов физических лиц.', email: 'sales@debtprice.market' },
+  { name: 'PR и СМИ', text: 'Журналистам и редакциям. Комментарии экспертов, интервью и данные о рынке долгов.', email: 'pr@debtprice.market' },
   { name: 'Общие вопросы', text: 'Вопросы о сервисах DEBTPRICE и работе площадки.', email: 'info@debtprice.market' },
 ] as const;
 
@@ -53,7 +56,7 @@ function breadcrumb(current: string): string {
 }
 
 function nextStep(): string {
-  return `<section class="info-next" aria-labelledby="info-next-title"><div class="container info-next__inner"><div><h2 id="info-next-title" data-text-reveal>Обсудим<br>вашу задачу</h2><p>Продайте или купите долг на открытых торгах — среди 2 100+ проверенных участников рынка.</p></div><div class="info-next__actions"><a class="button button--primary" href="#/request">Оставить заявку ${icon('arrow-right')}</a><a class="info-text-link" href="${registerUrl}">Зарегистрироваться ${icon('arrow-up-right')}</a></div></div></section>`;
+  return `<section class="info-next" aria-labelledby="info-next-title"><div class="container info-next__inner"><div><h2 id="info-next-title" data-text-reveal>Обсудим<br>вашу задачу</h2><p>Продайте или купите долг на открытых торгах — среди 2 100+ проверенных участников рынка.</p></div><div class="info-next__actions"><a class="button button--primary" href="#request">Оставить заявку ${icon('arrow-right')}</a><a class="info-text-link" href="${registerUrl}">Зарегистрироваться ${icon('arrow-up-right')}</a></div></div></section>`;
 }
 
 function aboutPage(): string {
@@ -62,18 +65,18 @@ function aboutPage(): string {
       <div class="container">
         ${breadcrumb('О проекте')}
         <div class="info-hero__layout">
-          <div class="info-hero__content"><h1 id="info-about-title" data-text-reveal>Торги и сервисы<br><span>для рынка долгов</span></h1><p class="info-hero__description">С 2017 года помогаем банкам, МФО и компаниям продавать долговые активы, а взыскателям и инвесторам — находить предложения. Развиваем торги, отраслевые медиа и события.</p><div class="info-hero__actions" data-reveal><a class="button button--primary" href="#/request">Обсудить задачу ${icon('arrow-right')}</a><a class="info-text-link" href="${accountUrl}">Перейти к торгам ${icon('arrow-up-right')}</a></div></div>
+          <div class="info-hero__content"><h1 id="info-about-title" data-text-reveal>Торги и сервисы<br><span>для рынка долгов</span></h1><p class="info-hero__description">С 2017 года помогаем банкам, МФО и компаниям продавать долговые активы, а взыскателям и инвесторам — находить предложения. Развиваем торги, отраслевые медиа и события.</p><div class="info-hero__actions" data-reveal><a class="button button--primary" href="#request">Обсудить задачу ${icon('arrow-right')}</a><a class="info-text-link" href="${accountUrl}">Перейти к торгам ${icon('arrow-up-right')}</a></div></div>
           <div class="info-hero__art" aria-hidden="true" data-reveal><img src="${asset('images/offer-panels.webp')}" alt="" width="1023" height="597" decoding="async"></div>
         </div>
         <div class="info-trust">${renderTrustBadges()}</div>
       </div>
     </section>
 
-    <section class="info-section" aria-labelledby="info-sides-title"><div class="container"><div class="info-section-heading"><h2 class="section-title" id="info-sides-title" data-text-reveal>Как работает<br><span>площадка</span></h2><p>На DEBTPRICE размещают лоты, проводят торги и заключают договоры уступки. Цену формируют предложения участников; условия сделки закрепляются в документах.</p></div><div class="info-sides" data-stagger><article class="info-side"><h3>Продавцу</h3><p>Покажите портфель участникам рынка, выберите формат торгов и условия продажи. Для корпоративной задолженности готовим аналитические заключения.</p><a class="info-text-link" href="#/sellers/portfeli">Возможности для продавца ${icon('arrow-right')}</a></article><article class="info-side"><h3>Покупателю</h3><p>Изучите состав портфеля и документы до торгов. Сравните предложения и выберите актив с подходящими условиями приобретения.</p><a class="info-text-link" href="#/buyers">Возможности для покупателя ${icon('arrow-right')}</a></article></div></div></section>
+    <section class="info-section" aria-labelledby="info-sides-title"><div class="container"><div class="info-section-heading"><h2 class="section-title" id="info-sides-title" data-text-reveal>Как работает<br><span>площадка</span></h2><p>На DEBTPRICE размещают лоты, проводят торги и заключают договоры уступки. Цену формируют предложения участников; условия сделки закрепляются в документах.</p></div><div class="info-sides" data-stagger><article class="info-side"><h3>Продавцу</h3><p>Покажите портфель участникам рынка, выберите формат торгов и условия продажи. Для корпоративной задолженности готовим аналитические заключения.</p><a class="info-text-link" href="#request">Возможности для продавца ${icon('arrow-right')}</a></article><article class="info-side"><h3>Покупателю</h3><p>Изучите состав портфеля и документы до торгов. Сравните предложения и выберите актив с подходящими условиями приобретения.</p><a class="info-text-link" href="#request">Возможности для покупателя ${icon('arrow-right')}</a></article></div></div></section>
 
     <section class="info-practice" aria-labelledby="info-practice-title"><div class="container"><div class="info-practice__inner"><div class="info-practice__heading"><h2 id="info-practice-title" data-text-reveal>Судебная практика</h2><p>В 2024–2025 годах десять оспоренных сделок на DEBTPRICE не были признаны недействительными.</p></div><div class="info-practice__numbers" data-stagger><div><strong>10<span>из 10</span></strong><p>оспоренных сделок<br>сохранили силу</p></div><div><strong>2,5<span>млрд ₽+</span></strong><p>сумма этих сделок</p></div></div><div class="info-practice__details" data-stagger><article><h3>Участвуем в спорах</h3><p>Как третье лицо предоставляем суду сведения о ходе торгов и цене сделки.</p></article><article><h3>Сохраняем историю торгов</h3><p>Протоколы позволяют восстановить ход торгов и условия продажи для ФНС, прокуратуры и МВД.</p></article></div></div></div></section>
 
-    <section class="info-section" aria-labelledby="info-team-title"><div class="container"><div class="info-section-heading"><h2 class="section-title" id="info-team-title" data-text-reveal>Команда<br><span>DEBTPRICE</span></h2><p>Команда площадки, медиа, мероприятий и цифровых продуктов.</p></div><article class="info-founder" data-reveal><div class="info-founder__photo"><img src="${asset('team/konstantin-vinogradov.webp')}" alt="Константин Виноградов" width="485" height="560" loading="lazy" decoding="async"></div><div class="info-founder__content"><h3>Константин<br>Виноградов</h3><p>Сооснователь и управляющий партнёр электронной торговой площадки DEBTPRICE</p><a class="info-text-link" href="mailto:v@debtprice.market">v@debtprice.market ${icon('arrow-up-right')}</a></div></article><div class="info-team-grid" data-stagger>${team.map(([name, role]) => `<article class="info-person"><h3>${name}</h3><p>${role}</p></article>`).join('')}</div></div></section>
+    <section class="info-section" aria-labelledby="info-team-title"><div class="container"><div class="info-section-heading"><h2 class="section-title" id="info-team-title" data-text-reveal>Команда<br><span>DEBTPRICE</span></h2><p>Команда площадки, медиа, мероприятий и цифровых продуктов.</p></div><div class="info-team-grid" data-stagger>${team.map(([name, role]) => `<article class="info-person"><div class="info-person__portrait" aria-hidden="true"><span class="info-person__silhouette"></span></div><h3>${name}</h3><p>${role}</p></article>`).join('')}</div></div></section>
 
     <section class="info-section info-history" aria-labelledby="info-history-title"><div class="container"><div class="info-section-heading"><h2 class="section-title" id="info-history-title" data-text-reveal>С 2017 года</h2><p>Начали с торгов долговыми портфелями. Затем запустили отраслевые события, корпоративное и инвестиционное направления.</p></div><div class="info-metrics" data-stagger><div><strong>9<span>лет</span></strong><p>на рынке</p></div><div><strong>400<span>+</span></strong><p>компаний ежегодно<br>на наших мероприятиях</p></div><div><strong>2 100<span>+</span></strong><p>участников торгов</p></div><div><strong>94<span>%</span></strong><p>лотов продаются</p></div></div><ol class="info-timeline" data-stagger>${history.map(([year, title, text]) => `<li><time datetime="${year}">${year}</time><h3>${title}</h3><p>${text}</p></li>`).join('')}</ol></div></section>
 
@@ -93,14 +96,32 @@ function docsPage(): string {
 }
 
 function contactsPage(): string {
-  return `<div class="info-page info-page--contacts"><section class="info-hero info-hero--compact" aria-labelledby="info-contacts-title"><div class="container">${breadcrumb('Контакты')}<div class="info-contact-hero"><div><h1 id="info-contacts-title" data-text-reveal>Контакты</h1><p class="info-hero__description">Напишите специалисту по вашему направлению или оставьте контакты — мы свяжемся с вами.</p></div><div class="info-direct-contact"><span>Общий телефон</span><a href="tel:+79159724101">+7 915 972-41-01</a><a class="info-text-link" href="#request" data-scroll="request">Оставить контакты ${icon('arrow-down')}</a></div></div></div></section>
-    <section class="info-contact-section" aria-label="Контакты по направлениям"><div class="container"><div class="info-contact-grid" data-stagger>${directions.map((direction) => `<article class="info-contact-card"><h2>${direction.name}</h2><p>${direction.text}</p><a class="info-contact-card__email" href="mailto:${direction.email}"><span>${direction.email}</span>${icon('arrow-up-right')}</a></article>`).join('')}<a class="info-contact-card info-contact-card--telegram" href="https://t.me/+H7LCyetXYRozYjA6" target="_blank" rel="noopener noreferrer"><h2>Telegram</h2><p>Присоединяйтесь к Telegram-каналу DEBTPRICE.</p><span class="info-contact-card__email">Открыть канал ${icon('arrow-up-right')}</span></a></div></div></section>
-    ${renderRequestForm('general', 'request')}
-    <section class="info-contact-legal" aria-label="Сведения об операторе"><div class="container"><p>ООО «ДЕБТПРАЙС» — оператор электронной торговой площадки</p><div><span>ИНН 7608021127</span><span>ОГРН 1147608001221</span><a class="info-text-link" href="#/docs">Реквизиты и документы ${icon('arrow-right')}</a></div></div></section>
+  return `<div class="info-page info-page--contacts"><section class="info-hero info-hero--compact" aria-labelledby="info-contacts-title"><div class="container">${breadcrumb('Контакты')}<div class="info-contact-hero"><div><h1 id="info-contacts-title" data-text-reveal>Контакты</h1><p class="info-hero__description">Напишите специалисту по вашему направлению или оставьте контакты — мы свяжемся с вами.</p></div><div class="info-direct-contact"><span>Общий телефон</span><a href="tel:+79159724101">+7 915 972-41-01</a><a class="info-text-link" href="#request">Оставить контакты ${icon('arrow-down')}</a></div></div></div></section>
+    <section class="info-contact-section" aria-label="Контакты по направлениям"><div class="container"><div class="info-contact-grid" data-stagger>${directions.map((direction) => `<article class="info-contact-card"><h2>${direction.name}</h2><p>${direction.text}</p><a class="info-contact-card__email" href="mailto:${direction.email}"><span>${direction.email}</span>${icon('arrow-up-right')}</a></article>`).join('')}</div></div></section>
+    <section class="info-help info-contact-request" aria-labelledby="info-contact-request-title"><div class="container info-help__inner"><div><h2 id="info-contact-request-title" data-text-reveal>Написать нам</h2><p>Оставьте контакты — специалист свяжется с вами.</p></div><a class="button button--primary" href="#request">Оставить контакты ${icon('arrow-right')}</a></div></section>
+    <section class="info-contact-legal" aria-label="Сведения об операторе"><div class="container"><p>ООО «ДЕБТПРАЙС» — оператор электронной торговой площадки</p><div><span>ИНН 7608021127</span><span>ОГРН 1147608001221</span><a class="info-text-link" href="#/privacy">Политика обработки персональных данных ${icon('arrow-right')}</a></div></div></section>
+  </div>`;
+}
+
+
+function privacyPage(): string {
+  return `<div class="info-page info-page--privacy">
+    <section class="info-hero info-hero--compact" aria-labelledby="info-privacy-title"><div class="container">
+      ${breadcrumb('Политика обработки персональных данных')}
+      <h1 id="info-privacy-title" data-text-reveal>Политика обработки<br>персональных данных</h1>
+      <p class="info-hero__description">Официальный документ ООО «ДЕБТПРАЙС». Прочитайте PDF ниже или откройте его в отдельной вкладке.</p>
+      <div class="info-policy-actions"><a class="button button--primary" href="${privacyPolicyUrl}" target="_blank" rel="noopener noreferrer">Открыть официальный PDF ${icon('arrow-up-right')}</a><span>PDF · 9 страниц</span></div>
+    </div></section>
+    <section class="info-policy" aria-label="Официальный документ политики"><div class="container">
+      <object class="info-policy-document" data="${privacyPolicyUrl}" type="application/pdf" aria-label="Политика ООО «ДЕБТПРАЙС» в отношении обработки персональных данных">
+        <p>Если PDF не отображается, <a class="info-text-link" href="${privacyPolicyUrl}" target="_blank" rel="noopener noreferrer">откройте официальный документ</a>.</p>
+      </object>
+    </div></section>
   </div>`;
 }
 
 export function renderInfoPage(route: InfoRoute): string {
+  if (route === 'privacy') return privacyPage();
   if (route === 'docs') return docsPage();
   if (route === 'contacts') return contactsPage();
   return aboutPage();

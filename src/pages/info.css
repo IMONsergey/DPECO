@@ -277,3 +277,25 @@
 @media (prefers-reduced-motion: reduce) {
   .info-page a, .info-page .icon { transition: none; }
 }
+
+
+/* November 12: equal team placeholders and the official privacy document. */
+.info-person { border-top: 0; padding-top: 0; }
+.info-person__portrait { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 22px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
+.info-person__silhouette { position: absolute; inset: 0; color: var(--muted); opacity: .28; }
+.info-person__silhouette::before { content: ''; position: absolute; width: 25%; aspect-ratio: 1; left: 37.5%; top: 22%; border-radius: 50%; background: currentColor; }
+.info-person__silhouette::after { content: ''; position: absolute; width: 58%; height: 46%; left: 21%; bottom: -8%; border-radius: 50% 50% 0 0; background: currentColor; }
+.info-contact-request { margin-top: 40px; margin-bottom: 48px; }
+.info-contact-request .button { flex: 0 0 auto; }
+.info-policy-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 24px; margin-top: 32px; }
+.info-policy-actions > span { color: var(--muted); font-size: 14px; }
+.info-policy { padding-bottom: 72px; }
+.info-policy-document { display: block; width: 100%; height: clamp(560px, 78vh, 1040px); border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
+.info-policy-document > p { padding: 28px; color: var(--ink); line-height: 1.6; }
+@media (max-width: 599px) {
+  .info-person__portrait { margin-bottom: 18px; }
+  .info-contact-request .button, .info-policy-actions .button { width: 100%; }
+  .info-policy-actions { margin-top: 24px; }
+  .info-policy-document { height: 70vh; min-height: 480px; }
+  .info-policy { padding-bottom: 40px; }
+}
